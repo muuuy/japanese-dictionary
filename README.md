@@ -1,1 +1,3 @@
 # japanese-dictionary
+
+typescript + MERN
