@@ -1,3 +1,3 @@
 # japanese-dictionary
 
-typescript + MERN
+typescript + MERN + shadcn + tailwin + Redux
