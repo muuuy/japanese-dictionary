@@ -1,5 +1,7 @@
 import { useState } from "react";
-import "./App.css";
+import "./index.css";
+
+import { Avatar, AvatarBadge, AvatarGroup } from "@chakra-ui/react";
 
 import Home from "./components/Home";
 
@@ -18,6 +20,8 @@ function App() {
     <>
       <Home />
       <p>{user.name}</p>
+
+      <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
     </>
   );
 }
