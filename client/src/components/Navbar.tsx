@@ -2,6 +2,8 @@ import { useRef } from "react";
 
 import Logo from "../assets/yu_kana.png";
 
+import { Button, ButtonGroup } from "@chakra-ui/react";
+
 import { HamburgerIcon } from "@chakra-ui/icons";
 
 const Navbar = () => {
@@ -25,11 +27,12 @@ const Navbar = () => {
         ref={sidebar}
       >
         <img src={Logo} className="scale-50 h-16 select-none" />
-        <p>test</p>
-        <p>test</p>
-        <p>test</p>
-        <p>test</p>
-        <p>test</p>
+        <ButtonGroup orientation="vertical" spacing={8}>
+          <Button>HOME</Button>
+          <Button>PLACEHOLDER</Button>
+          <Button>PLACEHOLDER</Button>
+          <Button>PLACEHOLDER</Button>
+        </ButtonGroup>
       </div>
     </div>
   );
