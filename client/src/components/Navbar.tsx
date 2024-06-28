@@ -1,14 +1,15 @@
-import { Select } from "@chakra-ui/react";
+import Logo from "../assets/yu_kana.png";
 
 const Navbar = () => {
   return (
-    <>
-      <Select placeContent="test">
-        <option>option 1</option>
-        <option>option 2</option>
-        <option>option 3</option>
-      </Select>
-    </>
+    <div className="flex flex-col h-screen w-fit bg-light-gray gap-4">
+      <img src={Logo} className="scale-50 h-16"  />
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+    </div>
   );
 };
 
