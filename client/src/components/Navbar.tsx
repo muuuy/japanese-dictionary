@@ -16,7 +16,7 @@ const Navbar = () => {
   };
 
   return (
-    <div>
+    <div className="sticky top-0">
       <HamburgerIcon
         boxSize="32px"
         className="ml-2 mt-4 cursor-pointer absolute"
@@ -41,6 +41,9 @@ const Navbar = () => {
             <span className="sidebar--button-text">temp</span>
           </Button>
         </ButtonGroup>
+        <Button colorScheme="teal" variant="ghost" className="w-48">
+          <span className="sidebar--button-text">temp</span>
+        </Button>
       </div>
     </div>
   );
