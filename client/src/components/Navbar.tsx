@@ -23,15 +23,23 @@ const Navbar = () => {
         onClick={handleClick}
       />
       <div
-        className="flex flex-col h-screen w-fit bg-light-gray gap-4"
+        className="hidden flex-col h-screen w-fit bg-light-gray gap-4 items-center"
         ref={sidebar}
       >
         <img src={Logo} className="scale-50 h-16 select-none" />
         <ButtonGroup orientation="vertical" spacing={8}>
-          <Button>HOME</Button>
-          <Button>PLACEHOLDER</Button>
-          <Button>PLACEHOLDER</Button>
-          <Button>PLACEHOLDER</Button>
+          <Button colorScheme="teal" variant="ghost" className="w-48">
+            <span className="sidebar--button-text">home</span>
+          </Button>
+          <Button colorScheme="teal" variant="ghost" className="w-48">
+            <span className="sidebar--button-text">temp</span>
+          </Button>
+          <Button colorScheme="teal" variant="ghost" className="w-48">
+            <span className="sidebar--button-text">temp</span>
+          </Button>
+          <Button colorScheme="teal" variant="ghost" className="w-48">
+            <span className="sidebar--button-text">temp</span>
+          </Button>
         </ButtonGroup>
       </div>
     </div>
