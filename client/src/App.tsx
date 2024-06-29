@@ -4,6 +4,7 @@ import { createBrowserRouter } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 
+import Home from "./pages/Home";
 import WhiteboardForm from "./components/WhiteboardForm";
 
 const router = createBrowserRouter([
@@ -25,18 +26,17 @@ function App() {
   };
 
   return (
-    <>
+    <Router>
       <div className="flex">
         <Navbar />
         <div className="flex-1">
-          <Router>
-            <Routes>
-              <Route path="/create-whiteboard/" element={<WhiteboardForm />} />
-            </Routes>
-          </Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/create-whiteboard/" element={<WhiteboardForm />} />
+          </Routes>
         </div>
-      </div>
-    </>
+      </div>{" "}
+    </Router>
   );
 }
 

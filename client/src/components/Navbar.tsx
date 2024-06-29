@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { BrowserRouter as Routes, Route, Link } from "react-router-dom";
 
 import Logo from "../assets/yu_kana.png";
 
@@ -28,12 +29,18 @@ const Navbar = () => {
       >
         <img src={Logo} className="scale-50 h-16 select-none" />
         <ButtonGroup orientation="vertical" spacing={8}>
-          <Button colorScheme="teal" variant="ghost" className="w-48">
-            <span className="sidebar--button-text">home</span>
-          </Button>
-          <Button colorScheme="teal" variant="ghost" className="w-48">
-            <span className="sidebar--button-text">temp</span>
-          </Button>
+          <Link to={"/"}>
+            <Button colorScheme="teal" variant="ghost" className="w-48">
+              <span className="sidebar--button-text">home</span>
+            </Button>
+          </Link>
+          <Link to={"/create-whiteboard"}>
+          
+            <Button colorScheme="teal" variant="ghost" className="w-48">
+              <span className="sidebar--button-text">temp</span>
+            </Button>
+          </Link>
+
           <Button colorScheme="teal" variant="ghost" className="w-48">
             <span className="sidebar--button-text">temp</span>
           </Button>

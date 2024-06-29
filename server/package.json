@@ -1,10 +1,11 @@
 {
   "name": "server",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
+  "main": "server.js",
   "scripts": {
-    "start": "node ./bin/www",
-    "devstart": "nodemon ./bin/www",
+    "start": "node server.js",
+    "devstart": "nodemon server.js",
     "serverstart": "SET DEBUG=backend:* & npm run devstart"
   },
   "dependencies": {
@@ -15,5 +16,6 @@
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
     "socket.io": "^4.7.5"
-  }
+  },
+  "author": "Matthew Yu"
 }
