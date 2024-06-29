@@ -1,15 +1,17 @@
 import "./index.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 
-import {
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-  AccordionIcon,
-} from "@chakra-ui/react";
-import { Box } from "@chakra-ui/react";
+import WhiteboardForm from "./components/WhiteboardForm";
+
+const router = createBrowserRouter([
+  {
+    path: "/create-whiteboard/",
+    element: <WhiteboardForm />,
+  },
+]);
 
 function App() {
   interface User {
@@ -27,24 +29,11 @@ function App() {
       <div className="flex">
         <Navbar />
         <div className="flex-1">
-          <Accordion>
-            <AccordionItem>
-              <h2>
-                <AccordionButton>
-                  <Box as="span" flex="1" textAlign="left">
-                    Section 1 title
-                  </Box>
-                  <AccordionIcon />
-                </AccordionButton>
-              </h2>
-              <AccordionPanel pb={4}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
-              </AccordionPanel>
-            </AccordionItem>
-          </Accordion>
+          <Router>
+            <Routes>
+              <Route path="/create-whiteboard/" element={<WhiteboardForm />} />
+            </Routes>
+          </Router>
         </div>
       </div>
     </>
