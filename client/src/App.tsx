@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 
 import Home from "./pages/Home";
 import WhiteboardForm from "./pages/WhiteboardForm";
+import Whiteboard from "./pages/Whiteboard";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/create-whiteboard/" element={<WhiteboardForm />} />
+            <Route path="/whiteboard/" element={<Whiteboard />} />
           </Routes>
         </div>
       </div>{" "}

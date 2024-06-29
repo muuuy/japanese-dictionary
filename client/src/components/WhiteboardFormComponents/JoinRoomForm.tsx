@@ -37,6 +37,7 @@ const JoinRoomForm = () => {
           mb={4}
           autoComplete="true"
           onChange={handleChange}
+          focusBorderColor="black"
         />
       </FormControl>
       <FormControl maxW="60%" isRequired>
@@ -46,6 +47,7 @@ const JoinRoomForm = () => {
           placeholder="Enter room code"
           type="text"
           onChange={handleChange}
+          focusBorderColor="black"
         />
         <Button minW="100%" colorScheme="teal" mt={8}>
           <span className="font-black">GENERATE ROOM</span>

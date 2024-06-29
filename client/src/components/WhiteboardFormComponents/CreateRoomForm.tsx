@@ -41,6 +41,7 @@ const CreateRoomForm = () => {
           autoComplete="true"
           mb={4}
           onChange={handleChange}
+          focusBorderColor="black"
         />
         <FormErrorMessage></FormErrorMessage>
       </FormControl>
@@ -52,6 +53,7 @@ const CreateRoomForm = () => {
             placeholder="Generate room code"
             type="text"
             onChange={handleChange}
+            focusBorderColor="black"
           />
           <ButtonGroup spacing={0}>
             <Button colorScheme="teal" rounded="none">
