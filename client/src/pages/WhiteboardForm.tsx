@@ -4,7 +4,7 @@ import CreateRoomForm from "../components/WhiteboardFormComponents/CreateRoomFor
 const WhiteboardForm = () => {
   return (
     <>
-      <div className="absolute inset-0 top-8 flex flex-col items-center">
+      <div className="absolute inset-0 top-60 flex flex-col items-center">
         <h1 className="text-5xl font-black">WHITEBOARD</h1>
         <h2 className="text-2xl font-semibold italic">
           Practice writing characters by yourself or with others!
