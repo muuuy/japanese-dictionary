@@ -1,22 +1,19 @@
 import { useState, useRef, useEffect } from "react";
 
 import { Button } from "@chakra-ui/react";
-import { color } from "framer-motion";
-
 interface WhiteboardBoardProps {
   colorValue: string;
   penSize: number;
+}
+interface Mouse {
+  mouseX: number;
+  mouseY: number;
 }
 
 const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
   colorValue,
   penSize,
 }) => {
-  interface Mouse {
-    mouseX: number;
-    mouseY: number;
-  }
-
   const whiteboard = useRef<HTMLDivElement | null>(null);
   const canvas = useRef<HTMLCanvasElement | null>(null);
   const [isDrawing, setIsDrawing] = useState(false);
