@@ -53,16 +53,24 @@ const WhiteboardBoard = () => {
           context.lineJoin = "round";
 
           context.beginPath();
+          context.moveTo(mouseLocation.mouseX, mouseLocation.mouseY);
           context.lineTo(mouseX, mouseY);
-          context.moveTo(mouseX, mouseY);
           context.stroke();
           context.closePath();
+
+          setMouseLocation({ mouseX, mouseY });
         }
       }
     }
   };
 
-  const handleMouseDown = () => {
+  const handleMouseDown = (event: React.MouseEvent<HTMLCanvasElement>) => {
+    const rect = canvas.current?.getBoundingClientRect();
+    if (rect) {
+      const mouseX = event.clientX - rect.left;
+      const mouseY = event.clientY - rect.top;
+      setMouseLocation({ mouseX, mouseY });
+    }
     setIsDrawing(true);
   };
 
