@@ -50,7 +50,7 @@ const JoinRoomForm = () => {
           focusBorderColor="black"
         />
         <Button minW="100%" colorScheme="teal" mt={8}>
-          <span className="font-black">GENERATE ROOM</span>
+          <span className="font-black">JOIN ROOM</span>
         </Button>
       </FormControl>
     </>

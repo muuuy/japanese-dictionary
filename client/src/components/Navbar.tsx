@@ -35,9 +35,8 @@ const Navbar = () => {
             </Button>
           </Link>
           <Link to={"/create-whiteboard"}>
-          
             <Button colorScheme="teal" variant="ghost" className="w-48">
-              <span className="sidebar--button-text">temp</span>
+              <span className="sidebar--button-text">whiteboard</span>
             </Button>
           </Link>
 
