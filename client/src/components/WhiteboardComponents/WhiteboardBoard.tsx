@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 
+import { Button } from "@chakra-ui/react";
+
 const WhiteboardBoard = () => {
   interface Mouse {
     mouseX: number;
@@ -9,7 +11,6 @@ const WhiteboardBoard = () => {
   const whiteboard = useRef<HTMLDivElement | null>(null);
   const canvas = useRef<HTMLCanvasElement | null>(null);
   const [isDrawing, setIsDrawing] = useState(false);
-  const [color, setColor] = useState<string>("black");
 
   const [mouseLocation, setMouseLocation] = useState<Mouse>({
     mouseX: 0,
@@ -78,20 +79,37 @@ const WhiteboardBoard = () => {
     setIsDrawing(false);
   };
 
+  const clearCanvas = () => {
+    const context = canvas.current?.getContext("2d");
+    if (context) {
+      context.clearRect(0, 0, canvas.current!.width, canvas.current!.height);
+    }
+  };
+
   return (
-    <div
-      className="w-11/12 my-8 flex-grow border-2 border-black"
-      ref={whiteboard}
-    >
-      <canvas
-        width="100%"
-        height="100%"
-        ref={canvas}
-        onMouseMove={handleMouseMove}
-        onMouseDown={handleMouseDown}
-        onMouseUp={handleMouseUp}
-      ></canvas>
-    </div>
+    <>
+      <Button
+        colorScheme="teal"
+        variant="outline"
+        className="mt-4"
+        onClick={clearCanvas}
+      >
+        CLEAR BOARD
+      </Button>
+      <div
+        className="w-11/12 my-8 flex-grow border-2 border-black"
+        ref={whiteboard}
+      >
+        <canvas
+          width="100%"
+          height="100%"
+          ref={canvas}
+          onMouseMove={handleMouseMove}
+          onMouseDown={handleMouseDown}
+          onMouseUp={handleMouseUp}
+        ></canvas>
+      </div>
+    </>
   );
 };
 

@@ -28,9 +28,6 @@ const Whiteboard = () => {
           icon={<FaEraser />}
         ></IconButton>
       </div>
-      <Button colorScheme="teal" variant="outline" className="mt-4">
-        CLEAR BOARD
-      </Button>
       <WhiteboardBoard />
     </div>
   );
