@@ -39,10 +39,12 @@ const Navbar = () => {
               <span className="sidebar--button-text">whiteboard</span>
             </Button>
           </Link>
+          <Link to={"/flashcards"}>
+            <Button colorScheme="teal" variant="ghost" className="w-48">
+              <span className="sidebar--button-text">flashcards</span>
+            </Button>
+          </Link>
 
-          <Button colorScheme="teal" variant="ghost" className="w-48">
-            <span className="sidebar--button-text">temp</span>
-          </Button>
           <Button colorScheme="teal" variant="ghost" className="w-48">
             <span className="sidebar--button-text">temp</span>
           </Button>
