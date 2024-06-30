@@ -1,11 +1,13 @@
 import { useState } from "react";
 
+import WhiteboardBoard from "../components/WhiteboardComponents/WhiteboardBoard";
+
 import { FaPencilAlt, FaEraser } from "react-icons/fa";
 import { IconButton } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 
 const Whiteboard = () => {
-  const [colorValue, setColorValue] = useState();
+  // const [colorValue, setColorValue] = useState();
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
@@ -29,7 +31,7 @@ const Whiteboard = () => {
       <Button colorScheme="teal" variant="outline" className="mt-4">
         CLEAR BOARD
       </Button>
-      <div className="w-11/12 my-8 border-2 border-black flex-grow"></div>
+      <WhiteboardBoard />
     </div>
   );
 };
