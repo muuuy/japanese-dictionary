@@ -1,8 +1,17 @@
 import { useState, useRef, useEffect } from "react";
 
 import { Button } from "@chakra-ui/react";
+import { color } from "framer-motion";
 
-const WhiteboardBoard = () => {
+interface WhiteboardBoardProps {
+  colorValue: string;
+  penSize: number;
+}
+
+const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
+  colorValue,
+  penSize,
+}) => {
   interface Mouse {
     mouseX: number;
     mouseY: number;
@@ -38,6 +47,10 @@ const WhiteboardBoard = () => {
     };
   }, []);
 
+  useEffect(() => {
+    console.log(colorValue);
+  }, [colorValue]);
+
   const handleMouseMove = (event: React.MouseEvent<HTMLCanvasElement>) => {
     if (isDrawing) {
       const rect = canvas.current?.getBoundingClientRect();
@@ -48,8 +61,8 @@ const WhiteboardBoard = () => {
 
         const context = canvas.current?.getContext("2d");
         if (context) {
-          context.fillStyle = "black";
-          context.lineWidth = 8;
+          context.strokeStyle = colorValue;
+          context.lineWidth = penSize;
           context.lineCap = "round";
           context.lineJoin = "round";
 

@@ -4,10 +4,21 @@ import WhiteboardBoard from "../components/WhiteboardComponents/WhiteboardBoard"
 
 import { FaPencilAlt, FaEraser } from "react-icons/fa";
 import { IconButton } from "@chakra-ui/react";
-import { Button } from "@chakra-ui/react";
 
 const Whiteboard = () => {
-  // const [colorValue, setColorValue] = useState();
+  interface PenSettings {
+    colorValue: string;
+    penSize: number;
+  }
+
+  const [penSettings, setPenSettings] = useState<PenSettings>({
+    colorValue: "black",
+    penSize: 8,
+  });
+
+  const changeColor = (color: string, size: number) => {
+    setPenSettings({ colorValue: color, penSize: size });
+  };
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
@@ -19,6 +30,7 @@ const Whiteboard = () => {
           colorScheme="teal"
           isRound={true}
           icon={<FaPencilAlt />}
+          onClick={() => changeColor("black", 8)}
         ></IconButton>
         <IconButton
           aria-label="Eraser"
@@ -26,9 +38,13 @@ const Whiteboard = () => {
           colorScheme="teal"
           isRound={true}
           icon={<FaEraser />}
+          onClick={() => changeColor("white", 32)}
         ></IconButton>
       </div>
-      <WhiteboardBoard />
+      <WhiteboardBoard
+        colorValue={penSettings.colorValue}
+        penSize={penSettings.penSize}
+      />
     </div>
   );
 };
