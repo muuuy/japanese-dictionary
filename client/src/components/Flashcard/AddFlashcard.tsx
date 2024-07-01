@@ -35,15 +35,15 @@ const AddFlashcard: React.FC<AddFLashcardProp> = ({ addFlashcard }) => {
 
   return (
     <div className="bg-white border-2 border-teal p-8 rounded-xl">
-      <FormControl>
+      <FormControl isRequired>
         <FormLabel>CHARACTER / PHRASE</FormLabel>
         <Input name="character" onChange={handleChange} />
       </FormControl>
-      <FormControl>
+      <FormControl isRequired>
         <FormLabel>DESCRIPTION / DEFINITION</FormLabel>
         <Input name="definition" onChange={handleChange} />
       </FormControl>
-      <Button
+      <Button className="mt-8 w-96"
         onClick={() => addFlashcard(formData.character, formData.definition)}
       >
         CREATE

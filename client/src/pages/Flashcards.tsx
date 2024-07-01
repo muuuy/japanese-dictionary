@@ -32,6 +32,10 @@ const Flashcards = () => {
   //JUST FOR TESTING PURPOSES
   //GOING TO ADD BACKEND + DB INSTEAD OF STORING IN OBJECT
   const addFlashcard = (character: string, definition: string) => {
+    if (character === "" && definition === "") {
+      return;
+    }
+
     setFlashcards([
       ...flashcards,
       { id: currentID, character: character, definition: definition },
@@ -67,6 +71,7 @@ const Flashcards = () => {
           id={flashcard.id}
           character={flashcard.character}
           definition={flashcard.definition}
+          key={`flashcard-${flashcard.id}`}
         />
       ));
     } else {
@@ -77,6 +82,7 @@ const Flashcards = () => {
             id={flashcard.id}
             character={flashcard.character}
             definition={flashcard.definition}
+            key={`flashcard-${flashcard.id}`}
           />
         ));
     }
@@ -88,7 +94,7 @@ const Flashcards = () => {
 
   useEffect(() => {
     console.log(flashcards);
-  }, [flashcards])
+  }, [flashcards]);
 
   return (
     <div className="flex flex-col flex-1 justify-center items-center">
