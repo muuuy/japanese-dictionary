@@ -15,27 +15,35 @@ const Flashcards = () => {
     { id: 3, character: "え", definition: "e" },
     { id: 4, character: "お", definition: "o" },
     { id: 5, character: "う", definition: "u" },
-    { id: 1, character: "ありがとう", definition: "thank you" },
-    { id: 1, character: "あまり", definition: "not much" },
-    { id: 1, character: "あなた", definition: "you" },
-    { id: 1, character: "いや", definition: "no" },
-    { id: 1, character: "お手洗い", definition: "toilet" },
+    { id: 6, character: "ありがとう", definition: "thank you" },
+    { id: 7, character: "あまり", definition: "not much" },
+    { id: 8, character: "あなた", definition: "you" },
+    { id: 9, character: "いや", definition: "no" },
+    { id: 10, character: "お手洗い", definition: "toilet" },
   ]);
 
   const currentID = useState<number>(6);
   const [input, setInput] = useState<string>("");
-  const [displayCards, setDisplayCards] = useState<Element[]>([]);
+  const [displayCards, setDisplayCards] = useState<JSX.Element[]>([]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     setInput(event.target.value);
-    setDisplayCards(populateDisplayCards(input));
   };
 
-  const populateDisplayCards = useCallback(
-    (inputVal: string) => {
-      if (input === "") {
-        return flashcards.map((flashcard) => (
+  const populateDisplayCards = useCallback(() => {
+    if (input === "") {
+      return flashcards.map((flashcard) => (
+        <div className="flex flex-row gap-4" key={`flashcard-${flashcard.id}`}>
+          <p>ID: {flashcard.id}</p>
+          <p>CHARACTER: {flashcard.character}</p>
+          <p>DEFINITION: {flashcard.definition}</p>
+        </div>
+      ));
+    } else {
+      return flashcards
+        .filter((flashcard) => flashcard.character.includes(input))
+        .map((flashcard) => (
           <div
             className="flex flex-row gap-4"
             key={`flashcard-${flashcard.id}`}
@@ -45,23 +53,12 @@ const Flashcards = () => {
             <p>DEFINITION: {flashcard.definition}</p>
           </div>
         ));
-      } else {
-        return flashcards
-          .filter((flashcard) => flashcard.character.includes(input))
-          .map((flashcard) => (
-            <div
-              className="flex flex-row gap-4"
-              key={`flashcard-${flashcard.id}`}
-            >
-              <p>ID: {flashcard.id}</p>
-              <p>CHARACTER: {flashcard.character}</p>
-              <p>DEFINITION: {flashcard.definition}</p>
-            </div>
-          ));
-      }
-    },
-    [flashcards, input]
-  );
+    }
+  }, [flashcards, input]);
+
+  useEffect(() => {
+    setDisplayCards(populateDisplayCards());
+  }, [populateDisplayCards]);
 
   const createFlashcard = () => {};
 
@@ -78,7 +75,7 @@ const Flashcards = () => {
         </Button>
       </div>
       <div>
-        {input === ""
+        {/* {input === ""
           ? flashcards.map((flashcard) => (
               <div
                 className="flex flex-row gap-4"
@@ -100,7 +97,8 @@ const Flashcards = () => {
                   <p>CHARACTER: {filteredCard.character}</p>
                   <p>DEFINITION: {filteredCard.definition}</p>
                 </div>
-              ))}
+              ))} */}
+        {displayCards}
       </div>
     </div>
   );
