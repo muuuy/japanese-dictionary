@@ -25,13 +25,29 @@ const Flashcards = () => {
   const [input, setInput] = useState<string>("");
   const [displayCards, setDisplayCards] = useState<JSX.Element[]>([]);
 
-  const [displayPopup, setDisplayPopup] = useState<boolean>(false);
-  const addFlashcardPopup = useRef(null);
+  const [displayPopup, setDisplayPopup] = useState<boolean>(true);
+  const addFlashcardPopup = useRef<HTMLDivElement>(null);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     setInput(event.target.value);
   };
+
+  useEffect(() => {
+    const handleClick = (event: MouseEvent) => {
+      if (
+        displayPopup &&
+        addFlashcardPopup.current &&
+        !addFlashcardPopup.current.contains(event.target as Node)
+      ) {
+        setDisplayPopup(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClick);
+
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [displayPopup]);
 
   const populateDisplayCards = useCallback(() => {
     if (input === "") {
