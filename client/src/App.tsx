@@ -11,7 +11,7 @@ import Flashcards from "./pages/Flashcards";
 function App() {
   return (
     <Router>
-      <div className="flex">
+      <div className="flex min-h-screen">
         <Navbar />
         <div className="flex flex-1">
           <Routes>

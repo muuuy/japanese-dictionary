@@ -24,7 +24,7 @@ const Navbar = () => {
         onClick={handleClick}
       />
       <div
-        className="hidden flex-col h-screen w-fit bg-light-gray gap-4 items-center"
+        className="hidden flex-col h-screen w-fit bg-light-gray gap-4 items-center border-r-2 border-black"
         ref={sidebar}
       >
         <img src={Logo} className="scale-50 h-16 select-none" />
@@ -44,14 +44,13 @@ const Navbar = () => {
               <span className="sidebar--button-text">flashcards</span>
             </Button>
           </Link>
-
           <Button colorScheme="teal" variant="ghost" className="w-48">
             <span className="sidebar--button-text">temp</span>
           </Button>
+          <Button colorScheme="teal" variant="ghost" className="w-48">
+            <span className="sidebar--button-text">login</span>
+          </Button>
         </ButtonGroup>
-        <Button colorScheme="teal" variant="ghost" className="w-48">
-          <span className="sidebar--button-text">temp</span>
-        </Button>
       </div>
     </div>
   );
