@@ -21,7 +21,7 @@ function App() {
             <Route path="/flashcards/" element={<Flashcards />} />
           </Routes>
         </div>
-      </div>{" "}
+      </div>
     </Router>
   );
 }

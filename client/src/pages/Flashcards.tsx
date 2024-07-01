@@ -1,8 +1,10 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 
 import { Input, Button } from "@chakra-ui/react";
 
-import FlashcardComponent from "../components/FlashcardComponent";
+import FlashcardComponent from "../components/Flashcard/FlashcardComponent";
+import AddFlashcard from "../components/Flashcard/AddFlashcard";
+
 import Flashcard from "../interfaces";
 
 const Flashcards = () => {
@@ -22,6 +24,9 @@ const Flashcards = () => {
   const currentID = useState<number>(6);
   const [input, setInput] = useState<string>("");
   const [displayCards, setDisplayCards] = useState<JSX.Element[]>([]);
+
+  const [displayPopup, setDisplayPopup] = useState<boolean>(false);
+  const addFlashcardPopup = useRef(null);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -62,7 +67,7 @@ const Flashcards = () => {
       <h2 className="page--header-description">
         Create, study, update, and delete flashcards.
       </h2>
-      <div className="flex flex-row">
+      <div className="flex flex-col gap-2 mt-4">
         <Input onChange={handleChange} name="add_flashcard" />
         <Button onClick={createFlashcard} colorScheme="teal">
           ADD
@@ -70,6 +75,12 @@ const Flashcards = () => {
       </div>
       <div className="flex flex-row flex-wrap justify-center items-center gap-8 mx-1 mt-8">
         {displayCards}
+      </div>
+      <div
+        className={`absolute ${displayPopup ? "block" : "hidden"}`}
+        ref={addFlashcardPopup}
+      >
+        <AddFlashcard />
       </div>
     </div>
   );
