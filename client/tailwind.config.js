@@ -22,7 +22,7 @@ module.exports = {
         "light-green": "#e7f1ea",
         "light-blue": "#e7e9f1",
         "light-pink": "#f1e7ee",
-        "teal": "#319795",
+        teal: "#319795",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

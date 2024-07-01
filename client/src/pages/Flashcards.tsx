@@ -68,7 +68,9 @@ const Flashcards = () => {
           ADD
         </Button>
       </div>
-      <div>{displayCards}</div>
+      <div className="flex flex-row flex-wrap justify-center items-center gap-8 mx-1 mt-8">
+        {displayCards}
+      </div>
     </div>
   );
 };
