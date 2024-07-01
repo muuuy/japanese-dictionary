@@ -2,11 +2,8 @@ import React, { useEffect, useState, useCallback } from "react";
 
 import { Input, Button } from "@chakra-ui/react";
 
-interface Flashcard {
-  id: number;
-  character: string;
-  definition: string;
-}
+import FlashcardComponent from "../components/FlashcardComponent";
+import Flashcard from "../interfaces";
 
 const Flashcards = () => {
   const [flashcards, setFlashcards] = useState<Flashcard[]>([
@@ -34,24 +31,21 @@ const Flashcards = () => {
   const populateDisplayCards = useCallback(() => {
     if (input === "") {
       return flashcards.map((flashcard) => (
-        <div className="flex flex-row gap-4" key={`flashcard-${flashcard.id}`}>
-          <p>ID: {flashcard.id}</p>
-          <p>CHARACTER: {flashcard.character}</p>
-          <p>DEFINITION: {flashcard.definition}</p>
-        </div>
+        <FlashcardComponent
+          id={flashcard.id}
+          character={flashcard.character}
+          definition={flashcard.definition}
+        />
       ));
     } else {
       return flashcards
         .filter((flashcard) => flashcard.character.includes(input))
         .map((flashcard) => (
-          <div
-            className="flex flex-row gap-4"
-            key={`flashcard-${flashcard.id}`}
-          >
-            <p>ID: {flashcard.id}</p>
-            <p>CHARACTER: {flashcard.character}</p>
-            <p>DEFINITION: {flashcard.definition}</p>
-          </div>
+          <FlashcardComponent
+            id={flashcard.id}
+            character={flashcard.character}
+            definition={flashcard.definition}
+          />
         ));
     }
   }, [flashcards, input]);
@@ -74,32 +68,7 @@ const Flashcards = () => {
           ADD
         </Button>
       </div>
-      <div>
-        {/* {input === ""
-          ? flashcards.map((flashcard) => (
-              <div
-                className="flex flex-row gap-4"
-                key={`flashcard-${flashcard.id}`}
-              >
-                <p>ID: {flashcard.id}</p>
-                <p>CHARACTER: {flashcard.character}</p>
-                <p>DEFINITION: {flashcard.definition}</p>
-              </div>
-            ))
-          : flashcards
-              .filter((flashcard) => flashcard.character.includes(input))
-              .map((filteredCard) => (
-                <div
-                  className="flex flex-row gap-4"
-                  key={`flashcard-${filteredCard.id}`}
-                >
-                  <p>ID: {filteredCard.id}</p>
-                  <p>CHARACTER: {filteredCard.character}</p>
-                  <p>DEFINITION: {filteredCard.definition}</p>
-                </div>
-              ))} */}
-        {displayCards}
-      </div>
+      <div>{displayCards}</div>
     </div>
   );
 };
