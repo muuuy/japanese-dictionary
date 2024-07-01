@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 import { Input, Button } from "@chakra-ui/react";
 
@@ -24,12 +24,44 @@ const Flashcards = () => {
 
   const currentID = useState<number>(6);
   const [input, setInput] = useState<string>("");
+  const [displayCards, setDisplayCards] = useState<Element[]>([]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     setInput(event.target.value);
-    console.log(input);
+    setDisplayCards(populateDisplayCards(input));
   };
+
+  const populateDisplayCards = useCallback(
+    (inputVal: string) => {
+      if (input === "") {
+        return flashcards.map((flashcard) => (
+          <div
+            className="flex flex-row gap-4"
+            key={`flashcard-${flashcard.id}`}
+          >
+            <p>ID: {flashcard.id}</p>
+            <p>CHARACTER: {flashcard.character}</p>
+            <p>DEFINITION: {flashcard.definition}</p>
+          </div>
+        ));
+      } else {
+        return flashcards
+          .filter((flashcard) => flashcard.character.includes(input))
+          .map((flashcard) => (
+            <div
+              className="flex flex-row gap-4"
+              key={`flashcard-${flashcard.id}`}
+            >
+              <p>ID: {flashcard.id}</p>
+              <p>CHARACTER: {flashcard.character}</p>
+              <p>DEFINITION: {flashcard.definition}</p>
+            </div>
+          ));
+      }
+    },
+    [flashcards, input]
+  );
 
   const createFlashcard = () => {};
 
