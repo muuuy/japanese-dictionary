@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import {
   FormControl,
   FormLabel,
@@ -6,18 +8,46 @@ import {
 } from "@chakra-ui/react";
 import { Input, Button } from "@chakra-ui/react";
 
-const AddFlashcard = () => {
+type AddFLashcardProp = {
+  addFlashcard: (character: string, definition: string) => void;
+};
+
+type FormData = {
+  character: string;
+  definition: string;
+};
+
+const AddFlashcard: React.FC<AddFLashcardProp> = ({ addFlashcard }) => {
+  const [formData, setFormData] = useState<FormData>({
+    character: "",
+    definition: "",
+  });
+
+  const handleChange = (event) => {
+    event.preventDefault();
+
+    setFormData({ ...formData, [event.target.name]: event.target.value });
+  };
+
+  useEffect(() => {
+    console.log(formData);
+  }, [formData]);
+
   return (
     <div className="bg-white border-2 border-teal p-8 rounded-xl">
       <FormControl>
         <FormLabel>CHARACTER / PHRASE</FormLabel>
-        <Input />
+        <Input name="character" onChange={handleChange} />
       </FormControl>
       <FormControl>
         <FormLabel>DESCRIPTION / DEFINITION</FormLabel>
-        <Input />
+        <Input name="definition" onChange={handleChange} />
       </FormControl>
-      <Button>CREATE</Button>
+      <Button
+        onClick={() => addFlashcard(formData.character, formData.definition)}
+      >
+        CREATE
+      </Button>
     </div>
   );
 };

@@ -21,12 +21,23 @@ const Flashcards = () => {
     { id: 10, character: "お手洗い", definition: "toilet" },
   ]);
 
-  const currentID = useState<number>(6);
+  const [currentID, setCurrentID] = useState<number>(11);
   const [input, setInput] = useState<string>("");
   const [displayCards, setDisplayCards] = useState<JSX.Element[]>([]);
 
-  const [displayPopup, setDisplayPopup] = useState<boolean>(true);
+  const [displayPopup, setDisplayPopup] = useState<boolean>(false);
   const addFlashcardPopup = useRef<HTMLDivElement>(null);
+
+  //DELETE THE FUNCTION BELOW (JUST THE ONE)
+  //JUST FOR TESTING PURPOSES
+  //GOING TO ADD BACKEND + DB INSTEAD OF STORING IN OBJECT
+  const addFlashcard = (character: string, definition: string) => {
+    setFlashcards([
+      ...flashcards,
+      { id: currentID, character: character, definition: definition },
+    ]);
+    setCurrentID((prev) => prev + 1);
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -75,7 +86,9 @@ const Flashcards = () => {
     setDisplayCards(populateDisplayCards());
   }, [populateDisplayCards]);
 
-  const createFlashcard = () => {};
+  useEffect(() => {
+    console.log(flashcards);
+  }, [flashcards])
 
   return (
     <div className="flex flex-col flex-1 justify-center items-center">
@@ -85,7 +98,7 @@ const Flashcards = () => {
       </h2>
       <div className="flex flex-col gap-2 mt-4">
         <Input onChange={handleChange} name="add_flashcard" />
-        <Button onClick={createFlashcard} colorScheme="teal">
+        <Button onClick={() => setDisplayPopup(true)} colorScheme="teal">
           ADD
         </Button>
       </div>
@@ -96,7 +109,7 @@ const Flashcards = () => {
         className={`absolute ${displayPopup ? "block" : "hidden"}`}
         ref={addFlashcardPopup}
       >
-        <AddFlashcard />
+        <AddFlashcard addFlashcard={addFlashcard} />
       </div>
     </div>
   );
