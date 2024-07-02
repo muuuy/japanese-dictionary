@@ -107,7 +107,7 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
         CLEAR BOARD
       </Button>
       <div
-        className="w-11/12 my-8 flex-grow border-2 border-black"
+        className="w-11/12 my-8 flex-1 border-2 border-black"
         ref={whiteboard}
       >
         <canvas

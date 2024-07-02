@@ -92,10 +92,6 @@ const Flashcards = () => {
     setDisplayCards(populateDisplayCards());
   }, [populateDisplayCards]);
 
-  useEffect(() => {
-    console.log(flashcards);
-  }, [flashcards]);
-
   return (
     <div className="flex flex-col flex-1 justify-center items-center">
       <h1 className="page--header">FLASHCARDS</h1>

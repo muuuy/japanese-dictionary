@@ -22,7 +22,7 @@ const Whiteboard = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
+    <div className="flex flex-col flex-1 items-center justify-center h-screen">
       <h1 className="text-5xl font-black mt-12 text-center">WHITEBOARD</h1>
       <div className="flex gap-4 mt-4">
         <IconButton

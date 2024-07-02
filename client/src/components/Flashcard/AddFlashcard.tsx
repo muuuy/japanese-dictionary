@@ -29,10 +29,6 @@ const AddFlashcard: React.FC<AddFLashcardProp> = ({ addFlashcard }) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
-
   return (
     <div className="bg-white border-2 border-teal p-8 rounded-xl">
       <FormControl isRequired>
