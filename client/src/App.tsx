@@ -8,6 +8,9 @@ import WhiteboardForm from "./pages/WhiteboardForm";
 import Whiteboard from "./pages/Whiteboard";
 import Flashcards from "./pages/Flashcards";
 
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+
 function App() {
   return (
     <Router>
@@ -19,6 +22,9 @@ function App() {
             <Route path="/create-whiteboard/" element={<WhiteboardForm />} />
             <Route path="/whiteboard/" element={<Whiteboard />} />
             <Route path="/flashcards/" element={<Flashcards />} />
+
+            <Route path="/login/" element={<Login />} />
+            <Route path="/signup/" element={<Signup />} />
           </Routes>
         </div>
       </div>

@@ -17,7 +17,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="sticky top-0">
+    <div className="sticky top-0 z-50">
       <HamburgerIcon
         boxSize="32px"
         className="ml-2 mt-4 cursor-pointer absolute"

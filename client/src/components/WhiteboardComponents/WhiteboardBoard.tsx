@@ -1,6 +1,12 @@
 import { useState, useRef, useEffect } from "react";
+import io from "socket.io-client";
+
+import { DrawingData } from "../../interfaces";
 
 import { Button } from "@chakra-ui/react";
+
+const SERVER_URL = "http://localhost:5173/";
+const socket = io(SERVER_URL);
 interface WhiteboardBoardProps {
   colorValue: string;
   penSize: number;
@@ -14,6 +20,8 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
   colorValue,
   penSize,
 }) => {
+  useEffect(() => {}, []);
+
   const whiteboard = useRef<HTMLDivElement | null>(null);
   const canvas = useRef<HTMLCanvasElement | null>(null);
   const [isDrawing, setIsDrawing] = useState(false);
@@ -36,8 +44,11 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
     };
 
     resizeCanvas();
-
     window.addEventListener("resize", resizeCanvas);
+
+    socket.on("draw", (data: DrawingData) => {
+      console.log("recieved data", data);
+    });
 
     return () => {
       window.removeEventListener("resize", resizeCanvas);
@@ -69,7 +80,7 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
           context.stroke();
           context.closePath();
 
-          setMouseLocation({ mouseX, mouseY });
+          setMouseLocation((prev) => ({ mouseX, mouseY }));
         }
       }
     }
@@ -107,7 +118,7 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
         CLEAR BOARD
       </Button>
       <div
-        className="w-11/12 my-8 flex-1 border-2 border-black"
+        className="w-11/12 my-8 flex-1 border-2 border-black cursor-crosshair"
         ref={whiteboard}
       >
         <canvas

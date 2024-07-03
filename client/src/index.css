@@ -14,6 +14,10 @@
   .page--header-description {
     @apply text-2xl font-semibold italic;
   }
+
+  .user-form--header {
+    @apply font-black text-3xl;
+  }
 }
 
 @layer base {
