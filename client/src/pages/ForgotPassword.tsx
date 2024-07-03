@@ -3,15 +3,13 @@ import { BrowserRouter as Routes, Route, Link } from "react-router-dom";
 
 import { FormControl, FormLabel, Button, Input } from "@chakra-ui/react";
 
-interface LoginData {
+interface ForgotPasswordData {
   email: string;
-  password: string;
 }
 
-const Login = () => {
-  const [formData, setFormData] = useState<LoginData>({
+const ForgotPassword = () => {
+  const [formData, setFormData] = useState<ForgotPasswordData>({
     email: "",
-    password: "",
   });
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,11 +20,11 @@ const Login = () => {
   return (
     <div className="flex flex-1 justify-center items-center text-center">
       <div className="flex flex-col w-96">
-        <h1 className="user-form--header my-4">LOGIN</h1>
+        <h1 className="user-form--header my-4">FORGOT PASSWORD</h1>
         <FormControl className="text-center" isRequired>
-          <FormLabel htmlFor="login--email">EMAIL</FormLabel>
+          <FormLabel htmlFor="forgot--email">EMAIL</FormLabel>
           <Input
-            id="login--email"
+            id="forgot--email"
             name="email"
             type="email"
             placeholder="Email"
@@ -34,29 +32,13 @@ const Login = () => {
             onChange={handleInput}
             className="mb-4"
           />
-          <FormLabel htmlFor="login--password">PASSWORD</FormLabel>
-          <Input
-            id="login--password"
-            name="password"
-            type="password"
-            placeholder="Password"
-            onChange={handleInput}
-          />
-          <p className="text-right">
-            <Link
-              to={"/forgot-password/"}
-              className="text-violet-500 font-black italic font-bold text-xs"
-            >
-              Forgot password?
-            </Link>
-          </p>
           <Button colorScheme="teal" className="mt-4 mb-2">
             <span className="font-black">SUBMIT</span>
           </Button>
           <p className="italic font-semibold">
-            Don't have an account?{" "}
-            <Link to={"/signup/"} className="text-violet-500 font-black">
-              SIGN UP
+            Return to{" "}
+            <Link to={"/login/"} className="text-violet-500 font-black">
+              LOG IN
             </Link>
           </p>
         </FormControl>
@@ -65,4 +47,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ForgotPassword;
