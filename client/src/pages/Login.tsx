@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BrowserRouter as Routes, Route, Link } from "react-router-dom";
 
 import { FormControl, FormLabel, Button, Input } from "@chakra-ui/react";
 
@@ -19,31 +20,42 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col flex-1 justify-center items-center text-center">
-      <h1 className="user-form--header">LOGIN</h1>
-      <FormControl
-        className="flex-col justify-center items-center text-center"
-        isRequired
-      >
-        <FormLabel htmlFor="login--email">EMAIL</FormLabel>
-        <Input
-          id="login--email"
-          name="email"
-          type="email"
-          placeholder="Email"
-          autoComplete="email"
-          onChange={handleInput}
-        />
-        <FormLabel htmlFor="login--password">PASSWORD</FormLabel>
-        <Input
-          id="login--password"
-          name="password"
-          type="password"
-          placeholder="Password"
-          onChange={handleInput}
-        />
-        <Button>SUBMIT</Button>
-      </FormControl>
+    <div className="flex flex-1 justify-center items-center text-center">
+      <div className="flex flex-col w-96">
+        <h1 className="user-form--header my-4">LOGIN</h1>
+        <FormControl
+          className="flex-col justify-center items-center text-center"
+          isRequired
+        >
+          <FormLabel htmlFor="login--email">EMAIL</FormLabel>
+          <Input
+            id="login--email"
+            name="email"
+            type="email"
+            placeholder="Email"
+            autoComplete="email"
+            onChange={handleInput}
+            className="mb-4"
+          />
+          <FormLabel htmlFor="login--password">PASSWORD</FormLabel>
+          <Input
+            id="login--password"
+            name="password"
+            type="password"
+            placeholder="Password"
+            onChange={handleInput}
+          />
+          <p className="italic font-semibold my-4">
+            Don't have an account?{" "}
+            <Link to={"/signup/"} className="text-violet-500 font-black">
+              SIGN UP
+            </Link>
+          </p>
+          <Button colorScheme="teal">
+            <span className="font-black">SUBMIT</span>
+          </Button>
+        </FormControl>
+      </div>
     </div>
   );
 };

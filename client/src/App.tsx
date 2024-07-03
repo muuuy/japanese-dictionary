@@ -14,7 +14,7 @@ import Signup from "./pages/Signup";
 function App() {
   return (
     <Router>
-      <div className="flex min-h-screen">
+      <div className="flex flex-1 min-h-screen">
         <Navbar />
         <div className="flex flex-1">
           <Routes>

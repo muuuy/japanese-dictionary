@@ -47,9 +47,11 @@ const Navbar = () => {
           <Button colorScheme="teal" variant="ghost" className="w-48">
             <span className="sidebar--button-text">temp</span>
           </Button>
-          <Button colorScheme="teal" variant="ghost" className="w-48">
-            <span className="sidebar--button-text">login</span>
-          </Button>
+          <Link to={"/login/"}>
+            <Button colorScheme="teal" variant="ghost" className="w-48">
+              <span className="sidebar--button-text">login</span>
+            </Button>
+          </Link>
         </ButtonGroup>
       </div>
     </div>
