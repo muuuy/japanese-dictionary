@@ -1,11 +1,13 @@
-const { body, validateResult } = require("express-validator");
+const { body, validationResult } = require("express-validator");
 const User = require("../models/User");
 
 const handleErrors = (req, res, next) => {
-  const errors = validateResult(req);
+  const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(401).json({ errors: errors.array() });
   }
+
+  next();
 };
 
 const validateEmail = [
@@ -39,6 +41,7 @@ const validateVerifyPassword = [
 ];
 
 module.exports = {
+  handleErrors,
   validateEmail,
   validatePassword,
   validateVerifyPassword,

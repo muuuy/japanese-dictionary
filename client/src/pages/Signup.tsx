@@ -29,7 +29,7 @@ const Signup = () => {
       { withCredentials: true }
     );
     if (res.status === 200) {
-      console.log("success");
+      setFormData({ email: "", password: "", verifyPassword: "" });
     } else {
       console.log("failure");
     }
@@ -50,8 +50,11 @@ const Signup = () => {
             type="email"
             placeholder="Email"
             autoComplete="email"
+            minLength={2}
+            maxLength={254}
             onChange={handleInput}
             className="mb-4"
+            value={formData.email}
           />
           <FormLabel htmlFor="signup--password">PASSWORD</FormLabel>
           <Input
@@ -59,8 +62,11 @@ const Signup = () => {
             name="password"
             type="password"
             placeholder="Password"
+            minLength={8}
+            maxLength={32}
             onChange={handleInput}
             className="mb-4"
+            value={formData.password}
           />
           <FormLabel htmlFor="signup--verify-password">
             VERIFY PASSWORD
@@ -69,8 +75,11 @@ const Signup = () => {
             id="signup--verify-password"
             name="verifyPassword"
             type="password"
+            minLength={8}
+            maxLength={32}
             placeholder="Password"
             onChange={handleInput}
+            value={formData.verifyPassword}
           />
           <p className="italic font-semibold my-4">
             Already have an account?{" "}

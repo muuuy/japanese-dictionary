@@ -37,6 +37,11 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/users", usersRouter);
 
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).send("Internal Server Error");
+});
+
 io.on("connection", (socket) => {
   console.log("User connected.");
   socket.on("disconnect", () => {
