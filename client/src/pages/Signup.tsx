@@ -7,12 +7,14 @@ import { FormControl, FormLabel, Button, Input } from "@chakra-ui/react";
 interface SignupData {
   email: string;
   password: string;
+  verifyPassword: string;
 }
 
 const Signup = () => {
   const [formData, setFormData] = useState<SignupData>({
     email: "",
     password: "",
+    verifyPassword: "",
   });
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,7 +23,11 @@ const Signup = () => {
   };
 
   const handleSubmit = async () => {
-    const res = await axios.get("http://localhost:3000/");
+    const res = await axios.post(
+      "http://localhost:3000/users/signup",
+      formData,
+      { withCredentials: true }
+    );
     if (res.status === 200) {
       console.log("success");
     } else {
@@ -61,7 +67,7 @@ const Signup = () => {
           </FormLabel>
           <Input
             id="signup--verify-password"
-            name="verify-password"
+            name="verifyPassword"
             type="password"
             placeholder="Password"
             onChange={handleInput}
