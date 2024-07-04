@@ -2,7 +2,6 @@ const express = require("express");
 const path = require("path");
 const cors = require("cors");
 var logger = require("morgan");
-const session = require("express-session");
 var createError = require("http-errors");
 
 const usersRouter = require("./routes/user");
@@ -17,9 +16,9 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server);
 
-const MongoStore = require("connect-mongo");
-
 require("./config/db")();
+const session = require("./config/session.js");
+app.use(session);
 
 const corsOptions = {
   origin: "http://localhost:5173",

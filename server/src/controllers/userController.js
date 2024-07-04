@@ -35,15 +35,17 @@ exports.user_login = [
   validatePassword,
   handleErrors,
   asyncHandler(async (req, res, next) => {
+    if (req.session.authenticated) return res.status(200).json({});
+
     const user = await User.findOne({ email: req.body.email });
 
     const match = await bcrypt.compare(req.body.password, user.password);
 
     if (!match) {
       return res.status(401).json({ errors: "Invalid password." });
-    } else {
-      console.log("success");
     }
+
+    req.session.authenticated = true;
 
     return res.status(200).json({});
   }),
