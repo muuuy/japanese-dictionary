@@ -5,6 +5,8 @@ var logger = require("morgan");
 const session = require("express-session");
 var createError = require("http-errors");
 
+const usersRouter = require("./routes/user");
+
 const { createServer } = require("node:http");
 const { join } = require("node:path");
 const { Server } = require("socket.io");
@@ -33,10 +35,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.get("/", (req, res, next) => {
-  console.log("yo");
-  return res.status(200).send("OK");
-});
+app.use("/users", usersRouter);
 
 io.on("connection", (socket) => {
   console.log("User connected.");
