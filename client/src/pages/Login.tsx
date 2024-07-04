@@ -19,6 +19,10 @@ const Login = () => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
+  const handleSubmit = async () => {
+    console.log("yo");
+  };
+
   return (
     <div className="flex flex-1 justify-center items-center text-center">
       <div className="flex flex-col w-96">
@@ -50,7 +54,12 @@ const Login = () => {
               Forgot password?
             </Link>
           </p>
-          <Button colorScheme="teal" className="mt-4 mb-2">
+          <Button
+            colorScheme="teal"
+            className="mt-4 mb-2"
+            type="submit"
+            onClick={handleSubmit}
+          >
             <span className="font-black">SUBMIT</span>
           </Button>
           <p className="italic font-semibold">

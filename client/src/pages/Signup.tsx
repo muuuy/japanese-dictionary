@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { BrowserRouter as Routes, Route, Link } from "react-router-dom";
+import axios from "axios";
 
 import { FormControl, FormLabel, Button, Input } from "@chakra-ui/react";
 
@@ -17,6 +18,15 @@ const Signup = () => {
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     setFormData({ ...formData, [event.target.name]: event.target.value });
+  };
+
+  const handleSubmit = async () => {
+    const res = await axios.get("http://localhost:3000/");
+    if (res.status === 200) {
+      console.log("success");
+    } else {
+      console.log("failure");
+    }
   };
 
   return (
@@ -62,7 +72,7 @@ const Signup = () => {
               LOGIN
             </Link>
           </p>
-          <Button colorScheme="teal">
+          <Button colorScheme="teal" onClick={handleSubmit}>
             <span className="font-black">SUBMIT</span>
           </Button>
         </FormControl>
