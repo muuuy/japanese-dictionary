@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { BrowserRouter as Routes, Route, Link } from "react-router-dom";
+import axios from "axios";
 
 import { FormControl, FormLabel, Button, Input } from "@chakra-ui/react";
 
@@ -20,7 +21,17 @@ const Login = () => {
   };
 
   const handleSubmit = async () => {
-    console.log("yo");
+    const res = await axios.post(
+      "http://localhost:3000/users/login",
+      formData,
+      { withCredentials: true }
+    );
+
+    if (res.status === 200) {
+      console.log("success");
+    } else {
+      console.log("oops");
+    }
   };
 
   return (
@@ -35,8 +46,11 @@ const Login = () => {
             type="email"
             placeholder="Email"
             autoComplete="email"
+            minLength={2}
+            maxLength={254}
             onChange={handleInput}
             className="mb-4"
+            value={formData.email}
           />
           <FormLabel htmlFor="login--password">PASSWORD</FormLabel>
           <Input
@@ -44,7 +58,10 @@ const Login = () => {
             name="password"
             type="password"
             placeholder="Password"
+            minLength={8}
+            maxLength={32}
             onChange={handleInput}
+            value={formData.password}
           />
           <p className="text-right">
             <Link

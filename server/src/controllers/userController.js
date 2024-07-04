@@ -29,3 +29,22 @@ exports.user_signup = [
     return res.status(200).json({});
   }),
 ];
+
+exports.user_login = [
+  validateEmail,
+  validatePassword,
+  handleErrors,
+  asyncHandler(async (req, res, next) => {
+    const user = await User.findOne({ email: req.body.email });
+
+    const match = await bcrypt.compare(req.body.password, user.password);
+
+    if (!match) {
+      return res.status(401).json({ errors: "Invalid password." });
+    } else {
+      console.log("success");
+    }
+
+    return res.status(200).json({});
+  }),
+];
