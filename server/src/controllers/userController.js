@@ -35,8 +35,6 @@ exports.user_login = [
   validatePassword,
   handleErrors,
   asyncHandler(async (req, res, next) => {
-    if (req.session.authenticated) return res.status(200).json({});
-
     const user = await User.findOne({ email: req.body.email });
 
     const match = await bcrypt.compare(req.body.password, user.password);
@@ -45,8 +43,25 @@ exports.user_login = [
       return res.status(401).json({ errors: "Invalid password." });
     }
 
+    console.log(req);
+
+    if (req.session.authenticated) return res.status(200).json({});
+
     req.session.authenticated = true;
 
     return res.status(200).json({});
   }),
+];
+
+exports.forgot_password = [asyncHandler((req, res, next) => {})];
+
+exports.reset_password = [asyncHandler((req, res, next) => {})];
+
+exports.authenticate = [
+  function (req, res, next) {
+    if (req.session.authenticated) {
+      return res.status(200).json({});
+    }
+    return res.status(204).json({});
+  },
 ];

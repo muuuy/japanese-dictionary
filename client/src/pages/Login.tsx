@@ -1,8 +1,18 @@
 import { useState } from "react";
 import { BrowserRouter as Routes, Route, Link } from "react-router-dom";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+import { useNavigate } from "react-router-dom";
+import clsx from "clsx";
+
+import { ErrorBanner } from "../interfaces";
 
 import { FormControl, FormLabel, Button, Input } from "@chakra-ui/react";
+import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+} from "@chakra-ui/react";
 
 interface LoginData {
   email: string;
@@ -10,9 +20,15 @@ interface LoginData {
 }
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState<LoginData>({
     email: "",
     password: "",
+  });
+  const [errorBanner, setErrorBanner] = useState<ErrorBanner>({
+    show: false,
+    text: "",
   });
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,16 +37,24 @@ const Login = () => {
   };
 
   const handleSubmit = async () => {
-    const res = await axios.post(
-      "http://localhost:3000/users/login",
-      formData,
-      { withCredentials: true }
-    );
+    try {
+      const res = await axios.post(
+        "http://localhost:3000/users/login",
+        formData,
+        { withCredentials: true }
+      );
 
-    if (res.status === 200) {
-      console.log("success");
-    } else {
-      console.log("oops");
+      if (res.status === 200) {
+        console.log("success");
+        navigate("/");
+      }
+    } catch (err) {
+      if (err instanceof AxiosError && err.response)
+        setErrorBanner({ show: true, text: err.response.data.errors });
+
+      setTimeout(() => {
+        setErrorBanner({ ...errorBanner, show: false });
+      }, 3000);
     }
   };
 
@@ -87,6 +111,21 @@ const Login = () => {
           </p>
         </FormControl>
       </div>
+      {errorBanner.show && (
+        <div
+          className={clsx("absolute bottom-8 right-8", {
+            "opacity-100": errorBanner.show,
+            "opacity-0": errorBanner.show,
+            "animate-fadeOut": errorBanner.show,
+          })}
+        >
+          <Alert status="error">
+            <AlertIcon />
+            <AlertTitle>Error logging in!</AlertTitle>
+            <AlertDescription>{errorBanner.text}</AlertDescription>
+          </Alert>
+        </div>
+      )}
     </div>
   );
 };

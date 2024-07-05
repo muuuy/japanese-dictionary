@@ -14,3 +14,8 @@ export interface DrawingData {
   lineCap: string;
   lineJoin: string;
 }
+
+export interface ErrorBanner {
+  show: boolean;
+  text: string;
+}
