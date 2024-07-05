@@ -26,6 +26,8 @@
     "mongoose": "^8.4.4",
     "morgan": "~1.9.1",
     "nodemailer": "^6.9.14",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
     "socket.io": "^4.7.5"
   },
   "author": "Matthew Yu"
