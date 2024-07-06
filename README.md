@@ -1,6 +1,6 @@
 # japanese-dictionary
 
-typescript + Node/Express + React + chakra + tailwind + Redux + MongoDB
+typescript + Node/Express + React + chakra + tailwind + zustand + MongoDB
 
 ideas:
 dictionary,

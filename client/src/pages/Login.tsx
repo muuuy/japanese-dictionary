@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
 
 import { ErrorBanner } from "../interfaces";
+import useUserStore from "../stores/store";
 
 import { FormControl, FormLabel, Button, Input } from "@chakra-ui/react";
 import {
@@ -20,6 +21,7 @@ interface LoginData {
 }
 
 const Login = () => {
+  const authUser = useUserStore((state) => state.authUser);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState<LoginData>({
@@ -52,6 +54,7 @@ const Login = () => {
 
       if (res.status === 200) {
         console.log("success");
+        authUser();
         navigate("/");
       }
     } catch (err) {

@@ -1,5 +1,9 @@
 import "./index.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { useEffect } from "react";
+import axios from "axios";
+
+import useUserStore from "./stores/store";
 
 import Navbar from "./components/Navbar";
 
@@ -13,6 +17,35 @@ import Signup from "./pages/Signup";
 import ForgotPassword from "./pages/ForgotPassword";
 
 function App() {
+  const authUser = useUserStore((state) => state.authUser);
+  const auth = useUserStore((state) => state.auth);
+
+  useEffect(() => {
+    console.log(auth);
+  }, [auth]);
+
+  useEffect(() => {
+    const authenticateUser = async () => {
+      try {
+        const res = await axios.post(
+          "http://localhost:3000/users/authenticate",
+          null,
+          {
+            withCredentials: true,
+          }
+        );
+
+        if (res.status === 200) {
+          authUser();
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    authenticateUser();
+  }, [authUser]);
+
   return (
     <Router>
       <div className="flex flex-1 min-h-screen">
