@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { BrowserRouter as Routes, Route, Link } from "react-router-dom";
 import axios, { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
@@ -31,12 +31,18 @@ const Login = () => {
     text: "",
   });
 
+  const [loading, setLoading] = useState<boolean>(false);
+
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
   const handleSubmit = async () => {
+    if (loading) return;
+
+    setLoading(true);
+
     try {
       const res = await axios.post(
         "http://localhost:3000/users/login",
@@ -52,9 +58,11 @@ const Login = () => {
       if (err instanceof AxiosError && err.response)
         setErrorBanner({ show: true, text: err.response.data.errors });
 
+      setLoading(false);
+
       setTimeout(() => {
-        setErrorBanner({ ...errorBanner, show: false });
-      }, 3000);
+        setErrorBanner((prev) => ({ ...prev, show: false }));
+      }, 10000);
     }
   };
 
@@ -100,6 +108,7 @@ const Login = () => {
             className="mt-4 mb-2"
             type="submit"
             onClick={handleSubmit}
+            isLoading={loading}
           >
             <span className="font-black">SUBMIT</span>
           </Button>
@@ -112,13 +121,7 @@ const Login = () => {
         </FormControl>
       </div>
       {errorBanner.show && (
-        <div
-          className={clsx("absolute bottom-8 right-8", {
-            "opacity-100": errorBanner.show,
-            "opacity-0": errorBanner.show,
-            "animate-fadeOut": errorBanner.show,
-          })}
-        >
+        <div className={clsx("absolute bottom-8 right-8", "animate-fade-out")}>
           <Alert status="error">
             <AlertIcon />
             <AlertTitle>Error logging in!</AlertTitle>

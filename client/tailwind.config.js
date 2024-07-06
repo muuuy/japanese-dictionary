@@ -73,13 +73,14 @@ module.exports = {
         },
         fadeOut: {
           "0%": { opacity: 1 },
+          "50%": { opacity: 1 },
           "100%": { opacity: 0 },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "fade-out": "fadeOut 2s forwards",
+        "fade-out": "fadeOut 10s ease-out forwards",
       },
       borderWidth: {
         0.5: "0.5px",
