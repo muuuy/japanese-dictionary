@@ -43,8 +43,6 @@ exports.user_login = [
       return res.status(401).json({ errors: "Invalid password." });
     }
 
-    console.log(req);
-
     if (req.session.authenticated) return res.status(200).json({});
 
     req.session.authenticated = true;
@@ -56,6 +54,16 @@ exports.user_login = [
 exports.forgot_password = [asyncHandler((req, res, next) => {})];
 
 exports.reset_password = [asyncHandler((req, res, next) => {})];
+
+exports.logout = [
+  asyncHandler((req, res, next) => {
+    if (!req.session.authenticated) {
+      return res.status(204).json({});
+    }
+    req.session.authenticated = false;
+    return res.status(200).json({});
+  }),
+];
 
 exports.authenticate = [
   function (req, res, next) {

@@ -4,6 +4,7 @@ import { BrowserRouter as Routes, Route, Link } from "react-router-dom";
 import Logo from "../assets/yu_kana.png";
 
 import useUserStore from "../stores/store";
+import { logout } from "../api/logout";
 
 import { Button, ButtonGroup } from "@chakra-ui/react";
 
@@ -11,6 +12,7 @@ import { HamburgerIcon } from "@chakra-ui/icons";
 
 const Navbar = () => {
   const auth = useUserStore((state) => state.auth);
+  const unAuthUser = useUserStore((state) => state.unAuthUser);
 
   const sidebar = useRef<HTMLInputElement>(null);
 
@@ -18,6 +20,13 @@ const Navbar = () => {
     if (sidebar.current)
       sidebar.current.style.display =
         sidebar.current.style.display === "flex" ? "none" : "flex";
+  };
+
+  const handleLogout = async () => {
+    const res = await logout();
+    if (res) {
+      unAuthUser();
+    }
   };
 
   return (
@@ -52,8 +61,13 @@ const Navbar = () => {
             <span className="sidebar--button-text">temp</span>
           </Button>
           {auth ? (
-            <Link to={"/login/"}>
-              <Button colorScheme="teal" variant="ghost" className="w-48">
+            <Link to={"/"}>
+              <Button
+                colorScheme="teal"
+                variant="ghost"
+                className="w-48"
+                onClick={handleLogout}
+              >
                 <span className="sidebar--button-text">logout</span>
               </Button>
             </Link>
