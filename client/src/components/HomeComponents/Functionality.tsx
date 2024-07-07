@@ -7,9 +7,6 @@ import { IoIosFlash } from "react-icons/io";
 import { SectionData } from "../../interfaces";
 
 const Functionality = () => {
-  const desc: string =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-
   const sectionData: SectionData[] = [
     {
       sectionName: "WHITEBOARD",
@@ -41,7 +38,7 @@ const Functionality = () => {
   return (
     <section className="flex flex-row flex-1 border-t-2 border-black flex-1 h-2/5">
       <img src={HomePageImage} />
-      <div className="flex flex-row flex-1 justify-evenly bg-white">
+      <div className="flex flex-row flex-1 justify-evenly bg-white relative">
         {sectionData.map((data) => (
           <FunctionalitySection
             sectionName={data.sectionName}
@@ -52,6 +49,14 @@ const Functionality = () => {
             iconType={data.iconType}
           />
         ))}
+        <p className="absolute font-black text-2xl text-white top-4 right-0 tracking-widest text-right">
+          <span className="bg-red-600 pl-2">ようこそ！</span>
+          <br />
+          <span className="bg-red-600 pl-2">日本語を勉強しよう！</span>
+        </p>
+        <p className="absolute font-black text-2xl text-white bottom-0 right-4 tracking-widest text-right bg-red-600 px-2">
+          が<br />ん<br />ば<br />れ<br />！
+        </p>
       </div>
     </section>
   );
