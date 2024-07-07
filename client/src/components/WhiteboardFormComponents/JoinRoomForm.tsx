@@ -49,7 +49,7 @@ const JoinRoomForm = () => {
           onChange={handleChange}
           focusBorderColor="black"
         />
-        <Button minW="100%" colorScheme="teal" mt={8}>
+        <Button minW="100%" colorScheme="red" mt={8}>
           <span className="font-black">JOIN ROOM</span>
         </Button>
       </FormControl>

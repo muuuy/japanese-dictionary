@@ -56,7 +56,7 @@ const CreateRoomForm = () => {
             focusBorderColor="black"
           />
           <ButtonGroup spacing={0}>
-            <Button colorScheme="teal" rounded="none">
+            <Button colorScheme="red" rounded="none">
               GENERATE
             </Button>
             <Button colorScheme="red" variant="outline" rounded="none">
@@ -64,7 +64,7 @@ const CreateRoomForm = () => {
             </Button>
           </ButtonGroup>
         </div>
-        <Button minW="100%" colorScheme="teal" mt={8}>
+        <Button minW="100%" colorScheme="red" mt={8}>
           <span className="font-black">GENERATE ROOM</span>
         </Button>
       </FormControl>

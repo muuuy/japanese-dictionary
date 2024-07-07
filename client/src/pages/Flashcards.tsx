@@ -100,7 +100,7 @@ const Flashcards = () => {
       </h2>
       <div className="flex flex-col gap-2 mt-4">
         <Input onChange={handleChange} name="add_flashcard" />
-        <Button onClick={() => setDisplayPopup(true)} colorScheme="teal">
+        <Button onClick={() => setDisplayPopup(true)} colorScheme="red">
           ADD
         </Button>
       </div>
