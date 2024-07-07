@@ -37,33 +37,33 @@ const Navbar = () => {
         onClick={handleClick}
       />
       <div
-        className="hidden flex-col h-screen w-fit bg-light-gray gap-4 items-center border-r-2 border-black"
+        className="hidden flex-col h-screen w-fit gap-4 items-center border-r-2 border-black"
         ref={sidebar}
       >
         <img src={Logo} className="scale-50 h-16 select-none" />
         <ButtonGroup orientation="vertical" spacing={8}>
           <Link to={"/"}>
-            <Button colorScheme="teal" variant="ghost" className="w-48">
+            <Button colorScheme="red" variant="ghost" className="w-48">
               <span className="sidebar--button-text">home</span>
             </Button>
           </Link>
           <Link to={"/create-whiteboard"}>
-            <Button colorScheme="teal" variant="ghost" className="w-48">
+            <Button colorScheme="red" variant="ghost" className="w-48">
               <span className="sidebar--button-text">whiteboard</span>
             </Button>
           </Link>
           <Link to={"/flashcards"}>
-            <Button colorScheme="teal" variant="ghost" className="w-48">
+            <Button colorScheme="red" variant="ghost" className="w-48">
               <span className="sidebar--button-text">flashcards</span>
             </Button>
           </Link>
-          <Button colorScheme="teal" variant="ghost" className="w-48">
+          <Button colorScheme="red" variant="ghost" className="w-48">
             <span className="sidebar--button-text">temp</span>
           </Button>
           {auth ? (
             <Link to={"/"}>
               <Button
-                colorScheme="teal"
+                colorScheme="red"
                 variant="ghost"
                 className="w-48"
                 onClick={handleLogout}
@@ -73,7 +73,7 @@ const Navbar = () => {
             </Link>
           ) : (
             <Link to={"/login/"}>
-              <Button colorScheme="teal" variant="ghost" className="w-48">
+              <Button colorScheme="red" variant="ghost" className="w-48">
                 <span className="sidebar--button-text">login</span>
               </Button>
             </Link>
