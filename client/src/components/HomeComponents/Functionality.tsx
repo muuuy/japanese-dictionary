@@ -10,6 +10,7 @@ const Functionality = () => {
   const sectionData: SectionData[] = [
     {
       sectionName: "WHITEBOARD",
+      japaneseName: "ホワイトボード",
       description:
         "Practice writing Japanses characters by yourself or with friends!",
       linkTo: "create-whiteboard",
@@ -19,6 +20,7 @@ const Functionality = () => {
     },
     {
       sectionName: "FLASHCARDS",
+      japaneseName: "フラッシュカード",
       description: "Create and study Japanese characters with flashcards!",
       linkTo: "flashcards",
       variant: "outline",
@@ -27,6 +29,7 @@ const Functionality = () => {
     },
     {
       sectionName: "QUIZ",
+      japaneseName: "クイズ",
       description: "Take a quiz using the flashcards you have created!",
       linkTo: "",
       variant: "solid",
@@ -42,6 +45,7 @@ const Functionality = () => {
         {sectionData.map((data) => (
           <FunctionalitySection
             sectionName={data.sectionName}
+            japaneseName={data.japaneseName}
             description={data.description}
             variant={data.variant}
             isRound={data.isRound}

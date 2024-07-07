@@ -22,6 +22,7 @@ export interface ErrorBanner {
 
 export interface SectionData {
   sectionName: string;
+  japaneseName: string;
   description: string;
   linkTo: string;
   variant: string;
