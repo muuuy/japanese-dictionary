@@ -98,9 +98,13 @@ const Flashcards = () => {
       <h2 className="page--header-description">
         Create, study, update, and delete flashcards.
       </h2>
-      <div className="flex flex-col gap-2 mt-4">
-        <Input onChange={handleChange} name="add_flashcard" />
-        <Button onClick={() => setDisplayPopup(true)} colorScheme="red">
+      <div className="flex flex-col gap-2 mt-4 w-96 items-center">
+        <Input onChange={handleChange} value={input} name="add_flashcard" />
+        <Button
+          onClick={() => setDisplayPopup(true)}
+          colorScheme="red"
+          width={"200px"}
+        >
           ADD
         </Button>
       </div>

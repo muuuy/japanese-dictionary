@@ -107,7 +107,7 @@ const Login = () => {
             </Link>
           </p>
           <Button
-            colorScheme="teal"
+            colorScheme="red"
             className="mt-4 mb-2"
             type="submit"
             onClick={handleSubmit}

@@ -110,7 +110,7 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
   return (
     <>
       <Button
-        colorScheme="teal"
+        colorScheme="red"
         variant="outline"
         className="mt-4"
         onClick={clearCanvas}

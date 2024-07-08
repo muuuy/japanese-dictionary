@@ -87,7 +87,7 @@ const Signup = () => {
               LOGIN
             </Link>
           </p>
-          <Button colorScheme="teal" onClick={handleSubmit}>
+          <Button colorScheme="red" onClick={handleSubmit}>
             <span className="font-black">SUBMIT</span>
           </Button>
         </FormControl>

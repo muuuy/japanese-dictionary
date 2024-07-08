@@ -28,7 +28,7 @@ const Whiteboard = () => {
         <IconButton
           aria-label="Pencil"
           variant="outline"
-          colorScheme="teal"
+          colorScheme="red"
           isRound={true}
           icon={<FaPencilAlt />}
           onClick={() => changeColor("black", 8)}
@@ -37,7 +37,7 @@ const Whiteboard = () => {
         <IconButton
           aria-label="Eraser"
           variant="outline"
-          colorScheme="teal"
+          colorScheme="red"
           isRound={true}
           icon={<FaEraser />}
           onClick={() => changeColor("white", 32)}

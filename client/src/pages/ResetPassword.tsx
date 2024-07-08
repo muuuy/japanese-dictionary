@@ -38,7 +38,7 @@ const ResetPassword = () => {
             placeholder="Password"
             onChange={handleInput}
           />
-          <Button colorScheme="teal" className="mt-4 mb-2">
+          <Button colorScheme="red" className="mt-4 mb-2">
             <span className="font-black">SUBMIT</span>
           </Button>
           <p className="italic font-semibold">
