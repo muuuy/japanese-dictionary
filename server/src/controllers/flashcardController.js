@@ -1,7 +1,25 @@
 const asyncHandler = require("express-async-handler");
+const { validationResult, body } = require("express-validator");
 
-exports.create = asyncHandler(async (req, res, next) => {
-  console.log(req.body);
+const {
+  validateCharacter,
+  validateDefinition,
+  handleErrors,
+} = require("../middleware/validate");
 
-  return res.status(200).json({});
-});
+exports.create = [
+  validateCharacter,
+  validateDefinition,
+  handleErrors,
+  body("character").trim(),
+  body("definition").trim(),
+  asyncHandler(async (req, res, next) => {
+    if (req.session.authenticated === true) {
+      console.log("true");
+    }
+
+    console.log(req.body);
+
+    return res.status(200).json({});
+  }),
+];

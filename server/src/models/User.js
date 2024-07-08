@@ -11,6 +11,13 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  flashcards: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Flashcard",
+      default: [],
+    },
+  ],
 });
 
 module.exports = mongoose.model("User", UserSchema);

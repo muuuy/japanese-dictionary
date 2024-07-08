@@ -14,6 +14,8 @@ const validateEmail = [
   body("email")
     .trim()
     .escape()
+    .isEmail()
+    .withMessage("Invalid email.")
     .isLength({ min: 2, max: 254 })
     .withMessage("Invalid email."),
 ];
@@ -40,9 +42,27 @@ const validateVerifyPassword = [
     }),
 ];
 
+const validateCharacter = [
+  body("character")
+    .trim()
+    .escape()
+    .isLength({ min: 1, max: 20 })
+    .withMessage("Invalid character."),
+];
+
+const validateDefinition = [
+  body("definition")
+    .trim()
+    .escape()
+    .isLength({ min: 1, max: 200 })
+    .withMessage("Invalid definition."),
+];
+
 module.exports = {
   handleErrors,
   validateEmail,
   validatePassword,
   validateVerifyPassword,
+  validateCharacter,
+  validateDefinition,
 };

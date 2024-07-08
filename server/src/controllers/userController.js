@@ -23,6 +23,7 @@ exports.user_signup = [
     const user = new User({
       email: req.body.email,
       password: password,
+      flashcards: [],
     });
 
     await user.save();
