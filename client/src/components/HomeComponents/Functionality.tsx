@@ -3,10 +3,15 @@ import FunctionalitySection from "./FunctionalitySection";
 
 import { FaPencilAlt, FaQuestion } from "react-icons/fa";
 import { IoIosFlash } from "react-icons/io";
+import { Skeleton } from "@chakra-ui/react";
 
 import { SectionData } from "../../interfaces";
+import { SkeletonData } from "../../interfaces";
 
-const Functionality = () => {
+const Functionality: React.FC<SkeletonData> = ({
+  imageLoaded,
+  imagesLoaded,
+}) => {
   const sectionData: SectionData[] = [
     {
       sectionName: "WHITEBOARD",
@@ -40,7 +45,13 @@ const Functionality = () => {
 
   return (
     <section className="flex flex-row flex-1 border-t-2 border-black flex-1 h-2/5">
-      <img src={HomePageImage} />
+      <Skeleton className="w-1/5 h-full" isLoaded={imagesLoaded}>
+        <img
+          src={HomePageImage}
+          onLoad={imageLoaded}
+          className="h-full w-full object-cover"
+        />
+      </Skeleton>
       <div className="flex flex-row flex-1 justify-evenly bg-white relative">
         {sectionData.map((data) => (
           <FunctionalitySection

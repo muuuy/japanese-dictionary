@@ -29,3 +29,8 @@ export interface SectionData {
   isRound: boolean;
   iconType: React.ReactElement;
 }
+
+export interface SkeletonData {
+  imageLoaded: () => void;
+  imagesLoaded: boolean;
+}
