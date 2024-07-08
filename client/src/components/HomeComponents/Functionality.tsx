@@ -3,7 +3,6 @@ import FunctionalitySection from "./FunctionalitySection";
 
 import { FaPencilAlt, FaQuestion } from "react-icons/fa";
 import { IoIosFlash } from "react-icons/io";
-import { Skeleton } from "@chakra-ui/react";
 
 import { SectionData } from "../../interfaces";
 import { SkeletonData } from "../../interfaces";
@@ -45,14 +44,18 @@ const Functionality: React.FC<SkeletonData> = ({
 
   return (
     <section className="flex flex-row flex-1 border-t-2 border-black flex-1 h-2/5">
-      <Skeleton className="w-1/5 h-full" isLoaded={imagesLoaded}>
-        <img
-          src={HomePageImage}
-          onLoad={imageLoaded}
-          className="h-full w-full object-cover"
-        />
-      </Skeleton>
-      <div className="flex flex-row flex-1 justify-evenly bg-white relative">
+      <img
+        src={HomePageImage}
+        onLoad={imageLoaded}
+        className={`w-1/5 h-full object-cover translate-y-full  ${
+          imagesLoaded ? "animate-slide-in-from-bottom" : ""
+        }`}
+      />
+      <div
+        className={`flex flex-row flex-1 justify-evenly bg-white relative translate-x-full ${
+          imagesLoaded ? "animate-slide-in-from-right" : ""
+        }`}
+      >
         {sectionData.map((data) => (
           <FunctionalitySection
             sectionName={data.sectionName}

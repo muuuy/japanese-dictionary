@@ -1,3 +1,5 @@
+const { transform } = require("typescript");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
@@ -76,11 +78,55 @@ module.exports = {
           "50%": { opacity: 1 },
           "100%": { opacity: 0 },
         },
+        slideInLeft: {
+          "0%": {
+            transform: "translateX(-100%)",
+            opacity: "0.5",
+          },
+          "100%": {
+            transform: "translateX(0)",
+            opacity: "1",
+          },
+        },
+        slideInTop: {
+          "0%": {
+            transform: "translateY(-100%)",
+            opacity: "0.5",
+          },
+          "100%": {
+            transform: "translateY(0)",
+            opacity: "1",
+          },
+        },
+        slideInRight: {
+          "0%": {
+            transform: "translateX(100%)",
+            opacity: "0.5",
+          },
+          "100%": {
+            transform: "translateX(0)",
+            opacity: "1",
+          },
+        },
+        slideInBottom: {
+          "0%": {
+            transform: "translateY(100%)",
+            opacity: "0.5",
+          },
+          "100%": {
+            transform: "translateY(0)",
+            opacity: "1",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-out": "fadeOut 10s ease-out forwards",
+        "slide-in-from-left": "slideInLeft 0.4s ease-in-out forwards",
+        "slide-in-from-top": "slideInTop 0.4s ease-in-out forwards",
+        "slide-in-from-right": "slideInRight 0.4s ease-in-out forwards",
+        "slide-in-from-bottom": "slideInBottom 0.4s ease-in-out forwards",
       },
       borderWidth: {
         0.5: "0.5px",
