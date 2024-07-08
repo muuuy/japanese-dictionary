@@ -67,6 +67,7 @@ const AddFlashcard: React.FC<AddFLashcardProp> = ({ addFlashcard }) => {
         <Button
           className="mt-8 w-96"
           type="submit"
+          colorScheme="red"
           onClick={() => addFlashcard(formData.character, formData.definition)}
         >
           CREATE

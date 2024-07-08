@@ -46,6 +46,7 @@ exports.user_login = [
 
     if (req.session.authenticated) return res.status(200).json({});
 
+    req.session.userID = user._id;
     req.session.authenticated = true;
 
     return res.status(200).json({});

@@ -6,6 +6,8 @@ const {
   validateDefinition,
   handleErrors,
 } = require("../middleware/validate");
+const Flashcard = require("../models/Flashcard");
+const User = require("../models/User");
 
 exports.create = [
   validateCharacter,
@@ -14,12 +16,28 @@ exports.create = [
   body("character").trim(),
   body("definition").trim(),
   asyncHandler(async (req, res, next) => {
-    if (req.session.authenticated === true) {
-      console.log("true");
+    if (!req.session.authenticated) {
+      return res.status(401).json({ errors: "Not logged in." });
     }
 
-    console.log(req.body);
+    const flashcard = new Flashcard({
+      character: req.body.character,
+      definition: req.body.definition,
+    });
+    await flashcard.save();
 
-    return res.status(200).json({});
+    const user = await User.findById(req.session.userID).exec();
+    user.flashcards.push(flashcard._id);
+    await user.save();
+
+    console.log(user);
+
+    return res
+      .status(200)
+      .json({
+        flashcard: [
+          { character: flashcard.character, definition: flashcard.definition },
+        ],
+      });
   }),
 ];
