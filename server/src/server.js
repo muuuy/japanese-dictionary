@@ -5,6 +5,7 @@ var logger = require("morgan");
 var createError = require("http-errors");
 
 const usersRouter = require("./routes/user");
+const flashcardRouter = require("./routes/flashcards.js");
 
 const { createServer } = require("node:http");
 const { join } = require("node:path");
@@ -35,6 +36,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/users", usersRouter);
+app.use("/flashcards", flashcardRouter);
 
 app.use((err, req, res, next) => {
   console.error(err);
