@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { BrowserRouter as Routes, Route, Link } from "react-router-dom";
 
 import Logo from "../assets/yu_kana.png";
@@ -16,10 +16,10 @@ const Navbar = () => {
 
   const sidebar = useRef<HTMLInputElement>(null);
 
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
   const handleClick = () => {
-    if (sidebar.current)
-      sidebar.current.style.display =
-        sidebar.current.style.display === "flex" ? "none" : "flex";
+    setIsOpen(!isOpen);
   };
 
   const handleLogout = async () => {
@@ -30,14 +30,16 @@ const Navbar = () => {
   };
 
   return (
-    <div className="sticky top-0 z-50">
+    <div className="sticky top-0 z-40">
       <HamburgerIcon
         boxSize="32px"
-        className="ml-2 mt-4 cursor-pointer absolute"
+        className="ml-2 mt-4 cursor-pointer absolute z-50"
         onClick={handleClick}
       />
       <div
-        className="hidden flex-col h-screen w-fit gap-4 items-center border-r-2 border-black"
+        className={`flex-col h-screen gap-4 items-center border-r-2 border-black ${
+          isOpen ? "animate-navbar-open" : "animate-navbar-close"
+        } ${isOpen ? "flex" : "hidden"}`}
         ref={sidebar}
       >
         <img src={Logo} className="scale-50 h-16 select-none" />

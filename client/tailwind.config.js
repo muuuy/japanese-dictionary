@@ -118,6 +118,28 @@ module.exports = {
             opacity: "1",
           },
         },
+        navbarOpen: {
+          "0%": {
+            transform: "translateX(-400px)",
+            width: "0px",
+          },
+          "100%": {
+            transform: "translateX(0)",
+            width: "240px",
+          },
+        },
+        navbarClose: {
+          "0%": {
+            transform: "translateX(0)",
+            display: "flex",
+            width: "240px",
+          },
+          "100%": {
+            transform: "translateX(-400px)",
+            display: "none",
+            width: "0px",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -127,6 +149,8 @@ module.exports = {
         "slide-in-from-top": "slideInTop 0.4s ease-in-out forwards",
         "slide-in-from-right": "slideInRight 0.4s ease-in-out forwards",
         "slide-in-from-bottom": "slideInBottom 0.4s ease-in-out forwards",
+        "navbar-open": "navbarOpen 0.4s ease-in-out forwards",
+        "navbar-close": "navbarClose 0.4s ease-in-out forwards",
       },
       borderWidth: {
         0.5: "0.5px",
