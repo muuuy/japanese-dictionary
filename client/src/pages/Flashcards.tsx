@@ -108,11 +108,16 @@ const Flashcards = () => {
         {displayCards}
       </div>
       <div
-        className={`absolute ${displayPopup ? "block" : "hidden"}`}
+        className={`absolute z-50 ${displayPopup ? "block" : "hidden"}`}
         ref={addFlashcardPopup}
       >
         <AddFlashcard addFlashcard={addFlashcard} />
       </div>
+      <div
+        className={`absolute inset-0 bg-black opacity-50 z-0 ${
+          displayPopup ? "block" : "hidden"
+        }`}
+      ></div>
     </div>
   );
 };
