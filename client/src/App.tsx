@@ -36,7 +36,7 @@ function App() {
         );
 
         if (res.status === 200) {
-          authUser();
+          authUser(res.data.flashcards);
         }
       } catch (err) {
         console.log(err);

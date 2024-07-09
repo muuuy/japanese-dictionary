@@ -38,12 +38,12 @@ const Flashcards = () => {
 
   const populateDisplayCards = useCallback(() => {
     if (input === "") {
-      return flashcards.map((flashcard) => (
+      return flashcards.map((flashcard, index) => (
         <FlashcardComponent
           id={flashcard.id}
           character={flashcard.character}
           definition={flashcard.definition}
-          key={`flashcard-${flashcard.id}`}
+          key={`flashcard-${index}`}
         />
       ));
     } else {

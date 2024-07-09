@@ -5,6 +5,8 @@ const nodemailer = require("nodemailer");
 
 const User = require("../models/User");
 
+const fetchFlashcards = require("../middleware/fetchFlashcards");
+
 const {
   handleErrors,
   validateEmail,
@@ -68,10 +70,14 @@ exports.logout = [
 ];
 
 exports.authenticate = [
-  function (req, res, next) {
+  asyncHandler(async (req, res, next) => {
     if (req.session.authenticated) {
-      return res.status(200).json({});
+      console.log(req.session);
+      const user = await User.findById(req.session.userID).exec();
+      const flashcardItems = await fetchFlashcards(user.flashcards);
+
+      return res.status(200).json({ flashcards: flashcardItems });
     }
     return res.status(204).json({});
-  },
+  }),
 ];
