@@ -1,47 +1,19 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
+import useUserStore from "../stores/store";
 
 import { Input, Button } from "@chakra-ui/react";
 
 import FlashcardComponent from "../components/Flashcard/FlashcardComponent";
 import AddFlashcard from "../components/Flashcard/AddFlashcard";
 
-import { FlashcardData } from "../interfaces";
-
 const Flashcards = () => {
-  const [flashcards, setFlashcards] = useState<FlashcardData[]>([
-    { id: 1, character: "あ", definition: "a" },
-    { id: 2, character: "い", definition: "i" },
-    { id: 3, character: "え", definition: "e" },
-    { id: 4, character: "お", definition: "o" },
-    { id: 5, character: "う", definition: "u" },
-    { id: 6, character: "ありがとう", definition: "thank you" },
-    { id: 7, character: "あまり", definition: "not much" },
-    { id: 8, character: "あなた", definition: "you" },
-    { id: 9, character: "いや", definition: "no" },
-    { id: 10, character: "お手洗い", definition: "toilet" },
-  ]);
+  const flashcards = useUserStore((state) => state.flashcards);
 
-  const [currentID, setCurrentID] = useState<number>(11);
   const [input, setInput] = useState<string>("");
   const [displayCards, setDisplayCards] = useState<JSX.Element[]>([]);
 
   const [displayPopup, setDisplayPopup] = useState<boolean>(false);
   const addFlashcardPopup = useRef<HTMLDivElement>(null);
-
-  //DELETE THE FUNCTION BELOW (JUST THE ONE)
-  //JUST FOR TESTING PURPOSES
-  //GOING TO ADD BACKEND + DB INSTEAD OF STORING IN OBJECT
-  const addFlashcard = (character: string, definition: string) => {
-    if (character === "" && definition === "") {
-      return;
-    }
-
-    setFlashcards([
-      ...flashcards,
-      { id: currentID, character: character, definition: definition },
-    ]);
-    setCurrentID((prev) => prev + 1);
-  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -115,7 +87,7 @@ const Flashcards = () => {
         className={`absolute z-50 ${displayPopup ? "block" : "hidden"}`}
         ref={addFlashcardPopup}
       >
-        <AddFlashcard addFlashcard={addFlashcard} />
+        <AddFlashcard />
       </div>
       <div
         className={`absolute inset-0 bg-black opacity-50 z-0 ${

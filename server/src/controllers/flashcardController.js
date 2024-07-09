@@ -32,12 +32,24 @@ exports.create = [
 
     console.log(user);
 
-    return res
-      .status(200)
-      .json({
-        flashcard: [
-          { character: flashcard.character, definition: flashcard.definition },
-        ],
-      });
+    return res.status(200).json({
+      flashcard: {
+        id: flashcard._id,
+        character: flashcard.character,
+        definition: flashcard.definition,
+      },
+    });
+  }),
+];
+
+exports.delete = [
+  asyncHandler(async (req, res, next) => {
+    return res.status(200).json({});
+  }),
+];
+
+exports.edit = [
+  asyncHandler(async (req, res, next) => {
+    return res.status(200).json({});
   }),
 ];
