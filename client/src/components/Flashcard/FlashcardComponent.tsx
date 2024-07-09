@@ -19,7 +19,9 @@ const FlashcardComponent: React.FC<Flashcard> = ({
         <ul
           className={`${
             openDropdown ? "flex" : "hidden"
-          } z-50 bg-white font-black text-xl tracking-widest flex-row`}
+          } z-50 font-black text-xl tracking-widest flex-row overflow-hidden ${
+            openDropdown ? "animate-open-flashcard-menu" : ""
+          }`}
         >
           <li className="rounded-full hover:bg-red-200 p-1">
             <FaPencilAlt className="h-4 " />

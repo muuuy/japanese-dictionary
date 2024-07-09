@@ -140,6 +140,16 @@ module.exports = {
             width: "0px",
           },
         },
+        openFlashcardMenu: {
+          "0%": {
+            transform: "translateX(12px)",
+            opacity: "0",
+          },
+          "100%": {
+            transform: "translateX(0)",
+            opacity: "1",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -151,6 +161,7 @@ module.exports = {
         "slide-in-from-bottom": "slideInBottom 0.4s ease-in-out forwards",
         "navbar-open": "navbarOpen 0.4s ease-in-out forwards",
         "navbar-close": "navbarClose 0.4s ease-in-out forwards",
+        "open-flashcard-menu": "openFlashcardMenu 0.6s ease-out forwards",
       },
       borderWidth: {
         0.5: "0.5px",
