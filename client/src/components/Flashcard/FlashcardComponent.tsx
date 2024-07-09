@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-import { Flashcard } from "../../interfaces";
+import { FlashcardData } from "../../interfaces";
 
 import { FaPencilAlt, FaTrash, FaEllipsisH } from "react-icons/fa";
 
-const FlashcardComponent: React.FC<Flashcard> = ({
+const FlashcardComponent: React.FC<FlashcardData> = ({
   id,
   character,
   definition,

@@ -1,4 +1,4 @@
-export interface Flashcard {
+export interface FlashcardData {
   id: number;
   character: string;
   definition: string;

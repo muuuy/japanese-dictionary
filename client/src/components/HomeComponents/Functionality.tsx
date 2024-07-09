@@ -56,7 +56,7 @@ const Functionality: React.FC<SkeletonData> = ({
           imagesLoaded ? "animate-slide-in-from-right" : ""
         }`}
       >
-        {sectionData.map((data) => (
+        {sectionData.map((data, index) => (
           <FunctionalitySection
             sectionName={data.sectionName}
             japaneseName={data.japaneseName}
@@ -65,6 +65,7 @@ const Functionality: React.FC<SkeletonData> = ({
             isRound={data.isRound}
             linkTo={data.linkTo}
             iconType={data.iconType}
+            key={`functionality-${index}`}
           />
         ))}
         <p className="absolute font-black text-2xl text-white top-4 right-0 tracking-widest text-right">

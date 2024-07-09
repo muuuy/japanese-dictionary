@@ -5,10 +5,10 @@ import { Input, Button } from "@chakra-ui/react";
 import FlashcardComponent from "../components/Flashcard/FlashcardComponent";
 import AddFlashcard from "../components/Flashcard/AddFlashcard";
 
-import { Flashcard } from "../interfaces";
+import { FlashcardData } from "../interfaces";
 
 const Flashcards = () => {
-  const [flashcards, setFlashcards] = useState<Flashcard[]>([
+  const [flashcards, setFlashcards] = useState<FlashcardData[]>([
     { id: 1, character: "あ", definition: "a" },
     { id: 2, character: "い", definition: "i" },
     { id: 3, character: "え", definition: "e" },
