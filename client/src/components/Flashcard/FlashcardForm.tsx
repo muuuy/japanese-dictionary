@@ -8,6 +8,7 @@ import { Input, Button } from "@chakra-ui/react";
 
 interface AddFlashcardProps {
   isEdit: boolean;
+  id: string;
   character: string;
   definition: string;
 }
@@ -19,6 +20,7 @@ type FormData = {
 
 const FlashcardForm: React.FC<AddFlashcardProps> = ({
   isEdit,
+  id,
   character,
   definition,
 }) => {
@@ -51,9 +53,13 @@ const FlashcardForm: React.FC<AddFlashcardProps> = ({
 
   const handleEdit = async () => {
     try {
-      const res = await fetch(`http://localhost:3000/flashcards/123`, {
+      const res = await fetch(`http://localhost:3000/flashcards/${id}`, {
         method: "PUT",
         credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       });
 
       if (res.status === 200) console.log("success");

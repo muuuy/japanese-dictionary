@@ -16,9 +16,8 @@ exports.create = [
   body("character").trim(),
   body("definition").trim(),
   asyncHandler(async (req, res, next) => {
-    if (!req.session.authenticated) {
+    if (!req.session.authenticated)
       return res.status(401).json({ errors: "Not logged in." });
-    }
 
     const flashcard = new Flashcard({
       character: req.body.character,
@@ -60,7 +59,22 @@ exports.delete = [
 
 exports.edit = [
   asyncHandler(async (req, res, next) => {
-    console.log("edit");
+    console.log(req.params, req.body);
+
+    if (!req.session.authenticated)
+      return res.status(401).json({ errors: "Not logged in." });
+
+    const searchID = req.params.id;
+    const character = req.body.character;
+    const definition = req.body.definition;
+
+    const flashcard = await Flashcard.findById(searchID).exec();
+
+    if (flashcard.character !== character) flashcard.character = character;
+    if (flashcard.definition !== definition) flashcard.definition = definition;
+
+    await flashcard.save();
+
     return res.status(200).json({});
   }),
 ];

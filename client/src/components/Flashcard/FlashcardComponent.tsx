@@ -8,7 +8,12 @@ import { FaPencilAlt, FaTrash, FaEllipsisH } from "react-icons/fa";
 
 interface FlashcardComponentProps {
   flashcardData: FlashcardData;
-  handlePopup: (isEdit: boolean, character: string, definition: string) => void;
+  handlePopup: (
+    isEdit: boolean,
+    id: string,
+    character: string,
+    definition: string
+  ) => void;
 }
 
 const FlashcardComponent: React.FC<FlashcardComponentProps> = ({
@@ -56,7 +61,12 @@ const FlashcardComponent: React.FC<FlashcardComponentProps> = ({
           <li
             className="rounded-full hover:bg-red-200 p-1"
             onClick={() =>
-              handlePopup(true, flashcardData.character, flashcardData.definition)
+              handlePopup(
+                true,
+                flashcardData.id,
+                flashcardData.character,
+                flashcardData.definition
+              )
             }
           >
             <FaPencilAlt className="h-4" />
