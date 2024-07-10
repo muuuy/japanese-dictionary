@@ -43,9 +43,12 @@ const Flashcards = () => {
     if (input === "") {
       return flashcards.map((flashcard, index) => (
         <FlashcardComponent
-          id={flashcard.id}
-          character={flashcard.character}
-          definition={flashcard.definition}
+          flashcardData={{
+            id: flashcard.id,
+            character: flashcard.character,
+            definition: flashcard.definition,
+          }}
+          handlePopup={handlePopup}
           key={`flashcard-${index}`}
         />
       ));
@@ -54,9 +57,12 @@ const Flashcards = () => {
         .filter((flashcard) => flashcard.character.includes(input))
         .map((flashcard) => (
           <FlashcardComponent
-            id={flashcard.id}
-            character={flashcard.character}
-            definition={flashcard.definition}
+            flashcardData={{
+              id: flashcard.id,
+              character: flashcard.character,
+              definition: flashcard.definition,
+            }}
+            handlePopup={handlePopup}
             key={`flashcard-${flashcard.id}`}
           />
         ));

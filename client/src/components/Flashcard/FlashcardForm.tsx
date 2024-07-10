@@ -42,19 +42,23 @@ const FlashcardForm: React.FC<AddFlashcardProps> = ({
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (formData.character === "" && formData.definition === "") {
-      console.log("empty");
+    if (isEdit) {
+      console.log("edit");
     } else {
-      const res = await axios.post(
-        "http://localhost:3000/flashcards/",
-        formData,
-        { withCredentials: true }
-      );
+      if (formData.character === "" && formData.definition === "") {
+        console.log("empty");
+      } else {
+        const res = await axios.post(
+          "http://localhost:3000/flashcards/",
+          formData,
+          { withCredentials: true }
+        );
 
-      if (res.status === 200) {
-        addFlashcard(res.data.flashcard);
-        setFormData({ character: "", definition: "" });
-        return;
+        if (res.status === 200) {
+          addFlashcard(res.data.flashcard);
+          setFormData({ character: "", definition: "" });
+          return;
+        }
       }
     }
   };
