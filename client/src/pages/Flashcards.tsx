@@ -15,6 +15,9 @@ const Flashcards = () => {
   const [displayPopup, setDisplayPopup] = useState<boolean>(false);
   const addFlashcardPopup = useRef<HTMLDivElement>(null);
 
+  const [popupCharacter, setPopupCharacter] = useState<string>("");
+  const [popupDefinition, setPopupDefinition] = useState<string>("");
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     setInput(event.target.value);
@@ -60,6 +63,12 @@ const Flashcards = () => {
     }
   }, [flashcards, input]);
 
+  const handlePopup = (character: string, definition: string) => {
+    setDisplayPopup(true);
+    setPopupCharacter(character);
+    setPopupDefinition(definition);
+  };
+
   useEffect(() => {
     setDisplayCards(populateDisplayCards());
   }, [populateDisplayCards]);
@@ -73,7 +82,7 @@ const Flashcards = () => {
       <div className="flex flex-col gap-2 mt-4 w-96 items-center">
         <Input onChange={handleChange} value={input} name="add_flashcard" />
         <Button
-          onClick={() => setDisplayPopup(true)}
+          onClick={() => handlePopup("test", "test")}
           colorScheme="red"
           width={"200px"}
         >
@@ -87,7 +96,11 @@ const Flashcards = () => {
         className={`absolute z-50 ${displayPopup ? "block" : "hidden"}`}
         ref={addFlashcardPopup}
       >
-        <FlashcardForm isEdit={false} />
+        <FlashcardForm
+          isEdit={false}
+          character={popupCharacter}
+          definition={popupDefinition}
+        />
       </div>
       <div
         className={`absolute inset-0 bg-black opacity-50 z-0 ${

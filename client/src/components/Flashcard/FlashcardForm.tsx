@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 import useUserStore from "../../stores/store";
@@ -8,6 +8,8 @@ import { Input, Button } from "@chakra-ui/react";
 
 interface AddFlashcardProps {
   isEdit: boolean;
+  character: string;
+  definition: string;
 }
 
 type FormData = {
@@ -15,13 +17,21 @@ type FormData = {
   definition: string;
 };
 
-const FlashcardForm: React.FC<AddFlashcardProps> = ({ isEdit }) => {
+const FlashcardForm: React.FC<AddFlashcardProps> = ({
+  isEdit,
+  character,
+  definition,
+}) => {
   const addFlashcard = useUserStore((state) => state.addFlashcard);
 
   const [formData, setFormData] = useState<FormData>({
-    character: "",
-    definition: "",
+    character: character,
+    definition: definition,
   });
+
+  useEffect(() => {
+    setFormData({ character: character, definition: definition });
+  }, [character, definition]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -51,7 +61,7 @@ const FlashcardForm: React.FC<AddFlashcardProps> = ({ isEdit }) => {
 
   return (
     <div className="bg-white border-2 border-red-600 p-8 rounded-xl">
-      <h1 className="text-4xl font-black text-center mb-8">
+      <h1 className="text-4xl font-black text-center mb-8 tracking-widest">
         {isEdit ? "EDIT" : "ADD"} FLASHCARD
       </h1>
       <form onSubmit={handleSubmit}>
