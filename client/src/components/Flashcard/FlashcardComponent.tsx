@@ -70,7 +70,9 @@ const FlashcardComponent: React.FC<FlashcardComponentProps> = ({
         >
           <li
             className="rounded-full hover:bg-red-200 p-1"
-            onClick={handleEdit}
+            onClick={() =>
+              handlePopup(flashcardData.character, flashcardData.definition)
+            }
           >
             <FaPencilAlt className="h-4" />
           </li>
