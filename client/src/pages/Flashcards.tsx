@@ -15,6 +15,7 @@ const Flashcards = () => {
   const [displayPopup, setDisplayPopup] = useState<boolean>(false);
   const addFlashcardPopup = useRef<HTMLDivElement>(null);
 
+  const [popupIsEdit, setPopupIsEdit] = useState<boolean>(false);
   const [popupCharacter, setPopupCharacter] = useState<string>("");
   const [popupDefinition, setPopupDefinition] = useState<string>("");
 
@@ -69,8 +70,15 @@ const Flashcards = () => {
     }
   }, [flashcards, input]);
 
-  const handlePopup = (character: string, definition: string) => {
+  const handlePopup = (
+    isEdit: boolean,
+    character: string,
+    definition: string
+  ) => {
     setDisplayPopup(true);
+
+    if (popupIsEdit !== isEdit) setPopupIsEdit(isEdit);
+
     setPopupCharacter(character);
     setPopupDefinition(definition);
   };
@@ -88,7 +96,7 @@ const Flashcards = () => {
       <div className="flex flex-col gap-2 mt-4 w-96 items-center">
         <Input onChange={handleChange} value={input} name="add_flashcard" />
         <Button
-          onClick={() => handlePopup("test", "test")}
+          onClick={() => handlePopup(false, "test", "test")}
           colorScheme="red"
           width={"200px"}
         >
@@ -103,7 +111,7 @@ const Flashcards = () => {
         ref={addFlashcardPopup}
       >
         <FlashcardForm
-          isEdit={false}
+          isEdit={popupIsEdit}
           character={popupCharacter}
           definition={popupDefinition}
         />

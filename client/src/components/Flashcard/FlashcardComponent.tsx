@@ -8,7 +8,7 @@ import { FaPencilAlt, FaTrash, FaEllipsisH } from "react-icons/fa";
 
 interface FlashcardComponentProps {
   flashcardData: FlashcardData;
-  handlePopup: (character: string, definition: string) => void;
+  handlePopup: (isEdit: boolean, character: string, definition: string) => void;
 }
 
 const FlashcardComponent: React.FC<FlashcardComponentProps> = ({
@@ -39,21 +39,6 @@ const FlashcardComponent: React.FC<FlashcardComponentProps> = ({
     }
   };
 
-  const handleEdit = async () => {
-    try {
-      const res = await axios.post(
-        "http://localhost:3000/flashcards/edit",
-        null,
-        { withCredentials: true }
-      );
-
-      if (res.status === 200) console.log("success");
-      else console.log("failure");
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   return (
     <div className="flex flex-row gap-4 w-96 p-5 border-2 border-red-600 rounded-xl cursor-pointer hover:scale-105 ease-out	duration-300 relative">
       <p className="w-1/3 font-black text-xl">{flashcardData.character}</p>
@@ -71,7 +56,7 @@ const FlashcardComponent: React.FC<FlashcardComponentProps> = ({
           <li
             className="rounded-full hover:bg-red-200 p-1"
             onClick={() =>
-              handlePopup(flashcardData.character, flashcardData.definition)
+              handlePopup(true, flashcardData.character, flashcardData.definition)
             }
           >
             <FaPencilAlt className="h-4" />

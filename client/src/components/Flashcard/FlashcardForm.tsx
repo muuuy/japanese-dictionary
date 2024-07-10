@@ -33,6 +33,10 @@ const FlashcardForm: React.FC<AddFlashcardProps> = ({
     setFormData({ character: character, definition: definition });
   }, [character, definition]);
 
+  useEffect(() => {
+    console.log("isEdit:", isEdit);
+  }, [isEdit]);
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
 
@@ -42,12 +46,28 @@ const FlashcardForm: React.FC<AddFlashcardProps> = ({
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (isEdit) {
-      console.log("edit");
+    isEdit ? await handleEdit() : await handleAdd();
+  };
+
+  const handleEdit = async () => {
+    try {
+      const res = await fetch(`http://localhost:3000/flashcards/123`, {
+        method: "PUT",
+        credentials: "include",
+      });
+
+      if (res.status === 200) console.log("success");
+      else console.log("failure");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleAdd = async () => {
+    if (formData.character === "" && formData.definition === "") {
+      console.log("empty");
     } else {
-      if (formData.character === "" && formData.definition === "") {
-        console.log("empty");
-      } else {
+      try {
         const res = await axios.post(
           "http://localhost:3000/flashcards/",
           formData,
@@ -59,6 +79,8 @@ const FlashcardForm: React.FC<AddFlashcardProps> = ({
           setFormData({ character: "", definition: "" });
           return;
         }
+      } catch (err) {
+        console.log(err);
       }
     }
   };

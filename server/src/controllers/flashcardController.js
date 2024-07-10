@@ -60,6 +60,7 @@ exports.delete = [
 
 exports.edit = [
   asyncHandler(async (req, res, next) => {
+    console.log("edit");
     return res.status(200).json({});
   }),
 ];
