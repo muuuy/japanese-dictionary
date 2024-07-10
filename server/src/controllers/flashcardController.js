@@ -44,7 +44,16 @@ exports.create = [
 
 exports.delete = [
   asyncHandler(async (req, res, next) => {
-    console.log("yo");
+    console.log(req.params.id);
+
+    const user = await User.findById(req.session.userID);
+    user.flashcards = user.flashcards.filter(
+      (flashcardID) => flashcardID.toString() !== req.params.id
+    );
+    await user.save();
+
+    await Flashcard.findByIdAndDelete(req.params.id);
+
     return res.status(200).json({});
   }),
 ];

@@ -21,7 +21,7 @@ const FlashcardComponent: React.FC<FlashcardData> = ({
   const handleDelete = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:3000/flashcards/123",
+        `http://localhost:3000/flashcards/${id}`,
         null,
         { withCredentials: true }
       );
