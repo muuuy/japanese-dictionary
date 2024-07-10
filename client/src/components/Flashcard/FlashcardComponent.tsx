@@ -62,7 +62,10 @@ const FlashcardComponent: React.FC<FlashcardData> = ({
             openDropdown ? "animate-open-flashcard-menu" : ""
           }`}
         >
-          <li className="rounded-full hover:bg-red-200 p-1">
+          <li
+            className="rounded-full hover:bg-red-200 p-1"
+            onClick={handleEdit}
+          >
             <FaPencilAlt className="h-4" />
           </li>
           <li

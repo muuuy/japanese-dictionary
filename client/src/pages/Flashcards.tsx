@@ -4,7 +4,7 @@ import useUserStore from "../stores/store";
 import { Input, Button } from "@chakra-ui/react";
 
 import FlashcardComponent from "../components/Flashcard/FlashcardComponent";
-import AddFlashcard from "../components/Flashcard/AddFlashcard";
+import FlashcardForm from "../components/Flashcard/FlashcardForm";
 
 const Flashcards = () => {
   const flashcards = useUserStore((state) => state.flashcards);
@@ -87,7 +87,7 @@ const Flashcards = () => {
         className={`absolute z-50 ${displayPopup ? "block" : "hidden"}`}
         ref={addFlashcardPopup}
       >
-        <AddFlashcard />
+        <FlashcardForm isEdit={false} />
       </div>
       <div
         className={`absolute inset-0 bg-black opacity-50 z-0 ${

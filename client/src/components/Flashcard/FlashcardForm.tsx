@@ -6,12 +6,16 @@ import useUserStore from "../../stores/store";
 import { FormControl, FormLabel, FormErrorMessage } from "@chakra-ui/react";
 import { Input, Button } from "@chakra-ui/react";
 
+interface AddFlashcardProps {
+  isEdit: boolean;
+}
+
 type FormData = {
   character: string;
   definition: string;
 };
 
-const AddFlashcard = () => {
+const FlashcardForm: React.FC<AddFlashcardProps> = ({ isEdit }) => {
   const addFlashcard = useUserStore((state) => state.addFlashcard);
 
   const [formData, setFormData] = useState<FormData>({
@@ -47,21 +51,26 @@ const AddFlashcard = () => {
 
   return (
     <div className="bg-white border-2 border-red-600 p-8 rounded-xl">
+      <h1 className="text-4xl font-black text-center mb-8">
+        {isEdit ? "EDIT" : "ADD"} FLASHCARD
+      </h1>
       <form onSubmit={handleSubmit}>
-        <FormControl isRequired>
-          <FormLabel>CHARACTER / PHRASE</FormLabel>
+        <FormControl isRequired className="mb-4">
+          <FormLabel>character (漢字)</FormLabel>
           <Input
             name="character"
             onChange={handleChange}
             value={formData.character}
+            className="text-xs"
           />
         </FormControl>
         <FormControl isRequired>
-          <FormLabel>DESCRIPTION / DEFINITION</FormLabel>
+          <FormLabel>definition (定義)</FormLabel>
           <Input
             name="definition"
             onChange={handleChange}
             value={formData.definition}
+            className="text-xs"
           />
         </FormControl>
         <Button className="mt-8 w-96" type="submit" colorScheme="red">
@@ -72,4 +81,4 @@ const AddFlashcard = () => {
   );
 };
 
-export default AddFlashcard;
+export default FlashcardForm;
