@@ -25,6 +25,7 @@ const FlashcardForm: React.FC<AddFlashcardProps> = ({
   definition,
 }) => {
   const addFlashcard = useUserStore((state) => state.addFlashcard);
+  const editFlashcard = useUserStore((state) => state.editFlashcard);
 
   const [formData, setFormData] = useState<FormData>({
     character: character,
@@ -48,6 +49,11 @@ const FlashcardForm: React.FC<AddFlashcardProps> = ({
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    if (formData.character === "" || formData.definition === "") {
+      console.log("empty");
+      return;
+    }
+
     isEdit ? await handleEdit() : await handleAdd();
   };
 
@@ -62,32 +68,36 @@ const FlashcardForm: React.FC<AddFlashcardProps> = ({
         body: JSON.stringify(formData),
       });
 
-      if (res.status === 200) console.log("success");
-      else console.log("failure");
+      if (res.ok) {
+        editFlashcard(id, formData.character, formData.definition);
+        setFormData({ character: "", definition: "" });
+        return;
+      } else console.log("failure");
     } catch (err) {
       console.log(err);
     }
   };
 
   const handleAdd = async () => {
-    if (formData.character === "" && formData.definition === "") {
-      console.log("empty");
-    } else {
-      try {
-        const res = await axios.post(
-          "http://localhost:3000/flashcards/",
-          formData,
-          { withCredentials: true }
-        );
+    try {
+      const res = await fetch("http://localhost:3000/flashcards/", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-        if (res.status === 200) {
-          addFlashcard(res.data.flashcard);
-          setFormData({ character: "", definition: "" });
-          return;
-        }
-      } catch (err) {
-        console.log(err);
+      if (res.ok) {
+        const data = await res.json();
+        console.log(data);
+        addFlashcard(data.flashcard);
+        setFormData({ character: "", definition: "" });
+        return;
       }
+    } catch (err) {
+      console.log(err);
     }
   };
 
