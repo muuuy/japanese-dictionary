@@ -1,5 +1,5 @@
 export interface FlashcardData {
-  id: number;
+  id: string;
   character: string;
   definition: string;
 }

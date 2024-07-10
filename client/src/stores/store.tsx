@@ -8,6 +8,7 @@ interface UserState {
   authUser: (flashcards: FlashcardData[]) => void;
   unAuthUser: () => void;
   addFlashcard: (newFlashcard: FlashcardData) => void;
+  deleteFlashcard: (flashcardID: string) => void;
 }
 
 const useUserStore = create<UserState>()(
@@ -18,6 +19,14 @@ const useUserStore = create<UserState>()(
     unAuthUser: () => set({ auth: false }),
     addFlashcard: (newFlashcard) =>
       set((state) => ({ flashcards: [...state.flashcards, newFlashcard] })),
+    deleteFlashcard: (flashcardID) =>
+      set((state) => ({
+        flashcards: [
+          ...state.flashcards.filter(
+            (flashcard) => flashcard.id !== flashcardID
+          ),
+        ],
+      })),
   }))
 );
 

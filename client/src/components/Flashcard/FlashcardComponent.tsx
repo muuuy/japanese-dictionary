@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 
 import { FlashcardData } from "../../interfaces";
+import useUserStore from "../../stores/store";
 
 import { FaPencilAlt, FaTrash, FaEllipsisH } from "react-icons/fa";
 
@@ -10,18 +11,25 @@ const FlashcardComponent: React.FC<FlashcardData> = ({
   character,
   definition,
 }) => {
+  console.log("id", id);
+
+  const deleteFlashcard = useUserStore((state) => state.deleteFlashcard);
+  const flashcards = useUserStore((state) => state.flashcards);
+
   const [openDropdown, setOpenDropdown] = useState<boolean>(false);
 
   const handleDelete = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:3000/flashcards/delete",
+        "http://localhost:3000/flashcards/123",
         null,
         { withCredentials: true }
       );
 
-      if (res.status === 200) console.log("succes");
-      else console.log("failure");
+      if (res.status === 200) {
+        deleteFlashcard(id);
+        console.log(flashcards);
+      } else console.log("failure");
     } catch (err) {
       console.log(err);
     }
@@ -54,13 +62,13 @@ const FlashcardComponent: React.FC<FlashcardData> = ({
             openDropdown ? "animate-open-flashcard-menu" : ""
           }`}
         >
+          <li className="rounded-full hover:bg-red-200 p-1">
+            <FaPencilAlt className="h-4" />
+          </li>
           <li
             className="rounded-full hover:bg-red-200 p-1"
             onClick={handleDelete}
           >
-            <FaPencilAlt className="h-4" />
-          </li>
-          <li className="rounded-full hover:bg-red-200 p-1">
             <FaTrash className="h-4" />
           </li>
         </ul>
