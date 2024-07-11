@@ -7,6 +7,7 @@ import useUserStore from "../stores/store";
 import { logout } from "../api/logout";
 
 import { Button, ButtonGroup } from "@chakra-ui/react";
+import { IoLogOut } from "react-icons/io5";
 
 import { HamburgerIcon } from "@chakra-ui/icons";
 
@@ -37,7 +38,7 @@ const Navbar = () => {
         onClick={handleClick}
       />
       <div
-        className={`flex-col h-screen gap-4 items-center border-r-2 border-black ${
+        className={`flex-col h-screen gap-4 items-center border-r-2 border-black relative ${
           isOpen ? "animate-navbar-open" : "animate-navbar-close"
         } ${isOpen ? "flex" : "hidden"}`}
         ref={sidebar}
@@ -63,12 +64,16 @@ const Navbar = () => {
             <span className="sidebar--button-text">temp</span>
           </Button>
           {auth ? (
-            <Link to={"/"}>
+            <Link
+              to={"/"}
+              className="bottom-16	absolute left-1/2 -translate-x-1/2"
+            >
               <Button
                 colorScheme="red"
-                variant="ghost"
-                className="w-48"
+                height={12}
+                leftIcon={<IoLogOut />}
                 onClick={handleLogout}
+                fontSize={32}
               >
                 <span className="sidebar--button-text">logout</span>
               </Button>
