@@ -46,15 +46,18 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post(
-        "http://localhost:3000/users/login",
-        formData,
-        { withCredentials: true }
-      );
+      const res = await fetch("http://localhost:3000/users/login", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-      if (res.status === 200) {
-        console.log("success");
-        authUser();
+      if (res.ok) {
+        const data = await res.json();
+        authUser(data.flashcards);
         navigate("/");
       }
     } catch (err) {

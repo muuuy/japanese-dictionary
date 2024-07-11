@@ -36,10 +36,6 @@ const FlashcardForm: React.FC<AddFlashcardProps> = ({
     setFormData({ character: character, definition: definition });
   }, [character, definition]);
 
-  useEffect(() => {
-    console.log("isEdit:", isEdit);
-  }, [isEdit]);
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
 
@@ -91,7 +87,6 @@ const FlashcardForm: React.FC<AddFlashcardProps> = ({
 
       if (res.ok) {
         const data = await res.json();
-        console.log(data);
         addFlashcard(data.flashcard);
         setFormData({ character: "", definition: "" });
         return;
@@ -126,7 +121,7 @@ const FlashcardForm: React.FC<AddFlashcardProps> = ({
           />
         </FormControl>
         <Button className="mt-8 w-96" type="submit" colorScheme="red">
-          CREATE
+          {isEdit ? "EDIT" : "CREATE"}
         </Button>
       </form>
     </div>

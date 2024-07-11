@@ -20,8 +20,6 @@ const FlashcardComponent: React.FC<FlashcardComponentProps> = ({
   flashcardData,
   handlePopup,
 }) => {
-  console.log("id", flashcardData.id);
-
   const deleteFlashcard = useUserStore((state) => state.deleteFlashcard);
   const flashcards = useUserStore((state) => state.flashcards);
 
@@ -37,7 +35,6 @@ const FlashcardComponent: React.FC<FlashcardComponentProps> = ({
 
       if (res.status === 200) {
         deleteFlashcard(flashcardData.id);
-        console.log(flashcards);
       } else console.log("failure");
     } catch (err) {
       console.log(err);

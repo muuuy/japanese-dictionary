@@ -55,10 +55,6 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
     };
   }, []);
 
-  useEffect(() => {
-    console.log(colorValue);
-  }, [colorValue]);
-
   const handleMouseMove = (event: React.MouseEvent<HTMLCanvasElement>) => {
     if (isDrawing) {
       const rect = canvas.current?.getBoundingClientRect();

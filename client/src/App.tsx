@@ -18,11 +18,6 @@ import ForgotPassword from "./pages/ForgotPassword";
 
 function App() {
   const authUser = useUserStore((state) => state.authUser);
-  const auth = useUserStore((state) => state.auth);
-
-  useEffect(() => {
-    console.log(auth);
-  }, [auth]);
 
   useEffect(() => {
     const authenticateUser = async () => {
@@ -36,7 +31,6 @@ function App() {
         );
 
         if (res.status === 200) {
-          console.log(res.data.flashcards);
           authUser(res.data.flashcards);
         }
       } catch (err) {

@@ -21,7 +21,7 @@ const useUserStore = create<UserState>()(
     auth: false,
     flashcards: [],
     authUser: (flashcards) => set({ auth: true, flashcards: [...flashcards] }),
-    unAuthUser: () => set({ auth: false }),
+    unAuthUser: () => set({ auth: false, flashcards: [] }),
     addFlashcard: (newFlashcard) =>
       set((state) => ({ flashcards: [...state.flashcards, newFlashcard] })),
     deleteFlashcard: (flashcardID) =>

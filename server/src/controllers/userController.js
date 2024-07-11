@@ -51,7 +51,9 @@ exports.user_login = [
     req.session.userID = user._id;
     req.session.authenticated = true;
 
-    return res.status(200).json({});
+    const flashcardItems = await fetchFlashcards(user.flashcards);
+
+    return res.status(200).json({ flashcards: flashcardItems });
   }),
 ];
 

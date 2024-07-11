@@ -9,7 +9,6 @@ const useTypewriter = (text: string, speed: number): string => {
     const typingInterval = setInterval(() => {
       if (i < text.length) {
         setDisplayText((prevText) => prevText + text.charAt(i));
-        console.log(displayText, i, text.charAt(i));
         i += 1;
       } else clearInterval(typingInterval);
     }, speed);
