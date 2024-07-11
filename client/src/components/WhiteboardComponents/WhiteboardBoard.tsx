@@ -1,12 +1,11 @@
 import { useState, useRef, useEffect } from "react";
-import io from "socket.io-client";
+import { io } from "socket.io-client";
 
 import { DrawingData } from "../../interfaces";
 
 import { Button } from "@chakra-ui/react";
 
-const SERVER_URL = "http://localhost:5173/";
-const socket = io(SERVER_URL);
+const socket = io("http://localhost:3000", { transports: ["websocket"] });
 interface WhiteboardBoardProps {
   colorValue: string;
   penSize: number;
@@ -20,8 +19,6 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
   colorValue,
   penSize,
 }) => {
-  useEffect(() => {}, []);
-
   const whiteboard = useRef<HTMLDivElement | null>(null);
   const canvas = useRef<HTMLCanvasElement | null>(null);
   const [isDrawing, setIsDrawing] = useState(false);
@@ -30,6 +27,8 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
     mouseX: 0,
     mouseY: 0,
   });
+
+  useEffect(() => {}, [mouseLocation]);
 
   useEffect(() => {
     const resizeCanvas = () => {
@@ -118,13 +117,11 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
         ref={whiteboard}
       >
         <canvas
-          width="100%"
-          height="100%"
           ref={canvas}
           onMouseMove={handleMouseMove}
           onMouseDown={handleMouseDown}
           onMouseUp={handleMouseUp}
-        ></canvas>
+        />
       </div>
     </>
   );
