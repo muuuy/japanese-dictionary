@@ -28,7 +28,18 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
     mouseY: 0,
   });
 
-  useEffect(() => {}, [mouseLocation]);
+  useEffect(() => {
+    socket.emit("send_coordinates", {
+      mouseX: mouseLocation.mouseX,
+      mouseY: mouseLocation.mouseY,
+    });
+  }, [mouseLocation]);
+
+  useEffect(() => {
+    socket.on("recieve_coordinates", (coordinates) => {
+      console.log(coordinates);
+    });
+  }, [socket]);
 
   useEffect(() => {
     const resizeCanvas = () => {
