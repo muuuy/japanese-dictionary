@@ -21,7 +21,7 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
 }) => {
   const whiteboard = useRef<HTMLDivElement | null>(null);
   const canvas = useRef<HTMLCanvasElement | null>(null);
-  const [isDrawing, setIsDrawing] = useState(false);
+  const isDrawingRef = useRef<boolean>(false);
 
   const [mouseLocation, setMouseLocation] = useState<Mouse>({
     mouseX: 0,
@@ -74,16 +74,18 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
     socketMouseX: number,
     socketMouseY: number
   ) => {
-    if (isDrawing || event === null) {
+    if (isDrawingRef.current || event === null) {
       const rect = canvas.current?.getBoundingClientRect();
       if (rect) {
-        // socket.emit("send_coordinates", {
-        //   mouseX: mouseLocation.mouseX,
-        //   mouseY: mouseLocation.mouseY,
-        // });
-
         const clientX: number = event === null ? socketMouseX : event.clientX;
         const clientY: number = event === null ? socketMouseY : event.clientY;
+
+        if (isDrawingRef.current) {
+          socket.emit("send_coordinates", {
+            mouseX: clientX,
+            mouseY: clientY,
+          });
+        }
 
         event === null ? console.log("null") : console.log("fail");
 
@@ -125,11 +127,11 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
       const mouseY = event.clientY - rect.top;
       setMouseLocation({ mouseX, mouseY });
     }
-    setIsDrawing(true);
+    isDrawingRef.current = true;
   };
 
   const handleMouseUp = () => {
-    setIsDrawing(false);
+    isDrawingRef.current = false;
   };
 
   const clearCanvas = () => {

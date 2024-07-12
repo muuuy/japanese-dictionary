@@ -43,8 +43,6 @@ exports.create = [
 
 exports.delete = [
   asyncHandler(async (req, res, next) => {
-    console.log(req.params.id);
-
     const user = await User.findById(req.session.userID);
     user.flashcards = user.flashcards.filter(
       (flashcardID) => flashcardID.toString() !== req.params.id
@@ -59,8 +57,6 @@ exports.delete = [
 
 exports.edit = [
   asyncHandler(async (req, res, next) => {
-    console.log(req.params, req.body);
-
     if (!req.session.authenticated)
       return res.status(401).json({ errors: "Not logged in." });
 

@@ -74,7 +74,6 @@ exports.logout = [
 exports.authenticate = [
   asyncHandler(async (req, res, next) => {
     if (req.session.authenticated) {
-      console.log(req.session);
       const user = await User.findById(req.session.userID).exec();
       const flashcardItems = await fetchFlashcards(user.flashcards);
 

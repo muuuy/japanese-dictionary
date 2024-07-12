@@ -44,12 +44,19 @@ app.use((err, req, res, next) => {
 });
 
 io.on("connection", (socket) => {
-  console.log("User connected.");
+  console.log(`User connected. Socket id: ${socket.id}`);
   socket.on("disconnect", () => {
     console.log("User disconnected.");
   });
   socket.on("chat message", (msg) => {
     io.emit("chat message", msg);
+  });
+
+  socket.on("send_coordinates", (coordinates) => {
+    socket.broadcast.emit("recieve_coordinates", {
+      mouseX: coordinates.mouseX,
+      mouseY: coordinates.mouseY,
+    });
   });
 });
 
