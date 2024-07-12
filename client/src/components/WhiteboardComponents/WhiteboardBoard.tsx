@@ -77,6 +77,11 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
     if (isDrawing || event === null) {
       const rect = canvas.current?.getBoundingClientRect();
       if (rect) {
+        // socket.emit("send_coordinates", {
+        //   mouseX: mouseLocation.mouseX,
+        //   mouseY: mouseLocation.mouseY,
+        // });
+
         const clientX: number = event === null ? socketMouseX : event.clientX;
         const clientY: number = event === null ? socketMouseY : event.clientY;
 
@@ -89,11 +94,6 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
 
         if (context) {
           drawOnCanvas(context, mouseX, mouseY);
-
-          socket.emit("send_coordinates", {
-            mouseX: mouseLocation.mouseX,
-            mouseY: mouseLocation.mouseY,
-          });
 
           setMouseLocation({ mouseX, mouseY });
         }
