@@ -28,17 +28,21 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
     mouseY: 0,
   });
 
-  useEffect(() => {
-    socket.emit("send_coordinates", {
-      mouseX: mouseLocation.mouseX,
-      mouseY: mouseLocation.mouseY,
-    });
-  }, [mouseLocation]);
+  // useEffect(() => {
+  //   socket.emit("send_coordinates", {
+  //     mouseX: mouseLocation.mouseX,
+  //     mouseY: mouseLocation.mouseY,
+  //   });
+  // }, [mouseLocation]);
 
   useEffect(() => {
     socket.on("recieve_coordinates", (coordinates) => {
-      console.log(coordinates);
+      handleMouseMove(null, coordinates.mouseX, coordinates.mouseY);
     });
+
+    return () => {
+      socket.off("receive_coordinates");
+    };
   }, [socket]);
 
   useEffect(() => {
@@ -65,31 +69,53 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
     };
   }, []);
 
-  const handleMouseMove = (event: React.MouseEvent<HTMLCanvasElement>) => {
-    if (isDrawing) {
+  const handleMouseMove = (
+    event: React.MouseEvent<HTMLCanvasElement> | null,
+    socketMouseX: number,
+    socketMouseY: number
+  ) => {
+    if (isDrawing || event === null) {
       const rect = canvas.current?.getBoundingClientRect();
       if (rect) {
-        const mouseX = event.clientX - rect.left;
-        const mouseY = event.clientY - rect.top;
-        setMouseLocation({ mouseX: mouseX, mouseY: mouseY });
+        const clientX: number = event === null ? socketMouseX : event.clientX;
+        const clientY: number = event === null ? socketMouseY : event.clientY;
+
+        event === null ? console.log("null") : console.log("fail");
+
+        const mouseX = clientX - rect.left;
+        const mouseY = clientY - rect.top;
 
         const context = canvas.current?.getContext("2d");
+
         if (context) {
-          context.strokeStyle = colorValue;
-          context.lineWidth = penSize;
-          context.lineCap = "round";
-          context.lineJoin = "round";
+          drawOnCanvas(context, mouseX, mouseY);
 
-          context.beginPath();
-          context.moveTo(mouseLocation.mouseX, mouseLocation.mouseY);
-          context.lineTo(mouseX, mouseY);
-          context.stroke();
-          context.closePath();
+          socket.emit("send_coordinates", {
+            mouseX: mouseLocation.mouseX,
+            mouseY: mouseLocation.mouseY,
+          });
 
-          setMouseLocation((prev) => ({ mouseX, mouseY }));
+          setMouseLocation({ mouseX, mouseY });
         }
       }
     }
+  };
+
+  const drawOnCanvas = (
+    context: CanvasRenderingContext2D,
+    mouseX: number,
+    mouseY: number
+  ) => {
+    context.strokeStyle = colorValue;
+    context.lineWidth = penSize;
+    context.lineCap = "round";
+    context.lineJoin = "round";
+
+    context.beginPath();
+    context.moveTo(mouseLocation.mouseX, mouseLocation.mouseY);
+    context.lineTo(mouseX, mouseY);
+    context.stroke();
+    context.closePath();
   };
 
   const handleMouseDown = (event: React.MouseEvent<HTMLCanvasElement>) => {
@@ -129,7 +155,7 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
       >
         <canvas
           ref={canvas}
-          onMouseMove={handleMouseMove}
+          onMouseMove={(event) => handleMouseMove(event, -1, -1)}
           onMouseDown={handleMouseDown}
           onMouseUp={handleMouseUp}
         />
