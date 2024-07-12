@@ -46,44 +46,45 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
     };
   }, [socket]);
 
-  useEffect(() => {
-    const resizeCanvas = () => {
-      const canvasElem = canvas.current;
-      const parentDiv = whiteboard.current;
+  // useEffect(() => {
+  //   const resizeCanvas = () => {
+  //     const canvasElem = canvas.current;
+  //     const parentDiv = whiteboard.current;
 
-      if (canvasElem && parentDiv) {
-        const parentDiv = whiteboard.current;
-        canvasElem.width = parentDiv?.clientWidth || 0;
-        canvasElem.height = parentDiv?.clientHeight || 0;
-      }
-    };
+  //     if (canvasElem && parentDiv) {
+  //       canvasElem.width = parentDiv?.clientWidth || 0;
+  //       canvasElem.height = parentDiv?.clientHeight || 0;
+  //     }
+  //   };
 
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
+  //   resizeCanvas();
+  //   window.addEventListener("resize", resizeCanvas);
 
-    socket.on("draw", (data: DrawingData) => {
-      console.log("recieved data", data);
-    });
+  //   socket.on("draw", (data: DrawingData) => {
+  //     console.log("recieved data", data);
+  //   });
 
-    return () => {
-      window.removeEventListener("resize", resizeCanvas);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener("resize", resizeCanvas);
+  //   };
+  // }, []);
 
   const handleMouseMove = (
     event: React.MouseEvent<HTMLCanvasElement> | null,
     startMouseX: number,
     startMouseY: number,
-    socketMouseX: number,
-    socketMouseY: number,
+    socketMouseX: number | null,
+    socketMouseY: number | null,
     color: string,
     size: number
   ) => {
     if (isDrawingRef.current || event === null) {
       const rect = canvas.current?.getBoundingClientRect();
       if (rect) {
-        const clientX: number = event === null ? socketMouseX : event.clientX;
-        const clientY: number = event === null ? socketMouseY : event.clientY;
+        const clientX: number | null = event?.clientX ?? socketMouseX ?? null;
+        const clientY: number | null = event?.clientY ?? socketMouseY ?? null;
+
+        if (clientX === null || clientY === null) return;
 
         if (isDrawingRef.current) {
           socket.emit("send_coordinates", {
@@ -102,25 +103,15 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
         const context = canvas.current?.getContext("2d");
 
         if (context) {
-          startMouseX === -1 && startMouseY === -1 && color === ""
-            ? drawOnCanvas(
-                context,
-                mouseLocation.mouseX,
-                mouseLocation.mouseY,
-                mouseX,
-                mouseY,
-                colorValue,
-                size
-              )
-            : drawOnCanvas(
-                context,
-                startMouseX,
-                startMouseY,
-                mouseX,
-                mouseY,
-                color,
-                size
-              );
+          drawOnCanvas(
+            context,
+            startMouseX,
+            startMouseY,
+            mouseX,
+            mouseY,
+            color,
+            size
+          );
 
           setMouseLocation({ mouseX, mouseY });
         }
@@ -186,8 +177,18 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
       >
         <canvas
           ref={canvas}
+          height={1000}
+          width={1000}
           onMouseMove={(event) =>
-            handleMouseMove(event, -1, -1, -1, -1, "", penSize)
+            handleMouseMove(
+              event,
+              mouseLocation.mouseX,
+              mouseLocation.mouseY,
+              null,
+              null,
+              colorValue,
+              penSize
+            )
           }
           onMouseDown={handleMouseDown}
           onMouseUp={handleMouseUp}

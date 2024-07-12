@@ -60,9 +60,11 @@ const Navbar = () => {
               <span className="sidebar--button-text">flashcards</span>
             </Button>
           </Link>
-          <Button colorScheme="red" variant="ghost" className="w-48">
-            <span className="sidebar--button-text">temp</span>
-          </Button>
+          <Link to={"/quiz"}>
+            <Button colorScheme="red" variant="ghost" className="w-48">
+              <span className="sidebar--button-text">quiz</span>
+            </Button>
+          </Link>
           {auth ? (
             <Link
               to={"/"}
