@@ -37,6 +37,7 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
         coordinates.mouseX,
         coordinates.mouseY,
         coordinates.color,
+        coordinates.size
       );
     });
 
@@ -75,7 +76,8 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
     startMouseY: number,
     socketMouseX: number,
     socketMouseY: number,
-    color: string
+    color: string,
+    size: number
   ) => {
     if (isDrawingRef.current || event === null) {
       const rect = canvas.current?.getBoundingClientRect();
@@ -90,6 +92,7 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
             mouseX: clientX,
             mouseY: clientY,
             color: colorValue,
+            size: penSize,
           });
         }
 
@@ -106,7 +109,8 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
                 mouseLocation.mouseY,
                 mouseX,
                 mouseY,
-                colorValue
+                colorValue,
+                size
               )
             : drawOnCanvas(
                 context,
@@ -114,7 +118,8 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
                 startMouseY,
                 mouseX,
                 mouseY,
-                color
+                color,
+                size
               );
 
           setMouseLocation({ mouseX, mouseY });
@@ -129,10 +134,11 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
     startMouseY: number,
     mouseX: number,
     mouseY: number,
-    color: string
+    color: string,
+    size: number
   ) => {
     context.strokeStyle = color;
-    context.lineWidth = penSize;
+    context.lineWidth = size;
     context.lineCap = "round";
     context.lineJoin = "round";
 
@@ -180,7 +186,9 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
       >
         <canvas
           ref={canvas}
-          onMouseMove={(event) => handleMouseMove(event, -1, -1, -1, -1, "")}
+          onMouseMove={(event) =>
+            handleMouseMove(event, -1, -1, -1, -1, "", penSize)
+          }
           onMouseDown={handleMouseDown}
           onMouseUp={handleMouseUp}
         />

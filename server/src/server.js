@@ -59,6 +59,7 @@ io.on("connection", (socket) => {
       mouseX: coordinates.mouseX,
       mouseY: coordinates.mouseY,
       color: coordinates.color,
+      size: coordinates.size,
     });
   });
 });
