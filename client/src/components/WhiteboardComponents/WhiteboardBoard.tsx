@@ -35,7 +35,8 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
         coordinates.startMouseX,
         coordinates.startMouseY,
         coordinates.mouseX,
-        coordinates.mouseY
+        coordinates.mouseY,
+        coordinates.color,
       );
     });
 
@@ -73,7 +74,8 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
     startMouseX: number,
     startMouseY: number,
     socketMouseX: number,
-    socketMouseY: number
+    socketMouseY: number,
+    color: string
   ) => {
     if (isDrawingRef.current || event === null) {
       const rect = canvas.current?.getBoundingClientRect();
@@ -84,13 +86,12 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
         if (isDrawingRef.current) {
           socket.emit("send_coordinates", {
             startMouseX: mouseLocation.mouseX,
-            stateMouseY: mouseLocation.mouseY,
+            startMouseY: mouseLocation.mouseY,
             mouseX: clientX,
             mouseY: clientY,
+            color: colorValue,
           });
         }
-
-        event === null ? console.log("null") : console.log("fail");
 
         const mouseX = clientX - rect.left;
         const mouseY = clientY - rect.top;
@@ -98,17 +99,23 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
         const context = canvas.current?.getContext("2d");
 
         if (context) {
-          startMouseX === -1 && startMouseY === -1
+          startMouseX === -1 && startMouseY === -1 && color === ""
             ? drawOnCanvas(
                 context,
                 mouseLocation.mouseX,
                 mouseLocation.mouseY,
                 mouseX,
-                mouseY
+                mouseY,
+                colorValue
               )
-            : drawOnCanvas(context, startMouseX, startMouseY, mouseX, mouseY);
-
-          // drawOnCanvas(context, mouseX, mouseY);
+            : drawOnCanvas(
+                context,
+                startMouseX,
+                startMouseY,
+                mouseX,
+                mouseY,
+                color
+              );
 
           setMouseLocation({ mouseX, mouseY });
         }
@@ -121,15 +128,15 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
     startMouseX: number,
     startMouseY: number,
     mouseX: number,
-    mouseY: number
+    mouseY: number,
+    color: string
   ) => {
-    context.strokeStyle = colorValue;
+    context.strokeStyle = color;
     context.lineWidth = penSize;
     context.lineCap = "round";
     context.lineJoin = "round";
 
     context.beginPath();
-    // context.moveTo(mouseLocation.mouseX, mouseLocation.mouseY);
     context.moveTo(startMouseX, startMouseY);
     context.lineTo(mouseX, mouseY);
     context.stroke();
@@ -173,7 +180,7 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
       >
         <canvas
           ref={canvas}
-          onMouseMove={(event) => handleMouseMove(event, -1, -1, -1, -1)}
+          onMouseMove={(event) => handleMouseMove(event, -1, -1, -1, -1, "")}
           onMouseDown={handleMouseDown}
           onMouseUp={handleMouseUp}
         />

@@ -54,8 +54,11 @@ io.on("connection", (socket) => {
 
   socket.on("send_coordinates", (coordinates) => {
     socket.broadcast.emit("recieve_coordinates", {
+      startMouseX: coordinates.startMouseX,
+      startMouseY: coordinates.startMouseY,
       mouseX: coordinates.mouseX,
       mouseY: coordinates.mouseY,
+      color: coordinates.color,
     });
   });
 });
