@@ -35,7 +35,7 @@ const Functionality: React.FC<SkeletonData> = ({
       sectionName: "QUIZ",
       japaneseName: "クイズ",
       description: "Take a quiz using the flashcards you have created!",
-      linkTo: "",
+      linkTo: "quiz",
       variant: "solid",
       isRound: true,
       iconType: <FaQuestion />,

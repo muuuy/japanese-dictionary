@@ -7,25 +7,18 @@ import { FlashcardData } from "../interfaces";
 
 import AnswerBar from "../components/Quiz/AnswerBar";
 
-interface QuizData {
-  flashcard: FlashcardData;
-  isAnswered: boolean;
-}
-
 const Quiz = () => {
-  const flashcards: FlashcardData[] = useUserStore((state) => state.flashcards);
-  const [quizQuestions, setQuizQuestions] = useState<QuizData[]>([]);
+  const [answeredQuestions, setAnsweredQuestions] = useState<FlashcardData[]>(
+    []
+  );
+  const [unAnsweredQuestions, setUnansweredQuestions] = useState<
+    FlashcardData[]
+  >(useUserStore((state) => state.flashcards));
 
   const [userInput, setUserInput] = useState<string>("");
-
-  useEffect(() => {
-    const questions: QuizData[] = flashcards.map((flashcard) => ({
-      flashcard: flashcard,
-      isAnswered: false,
-    }));
-
-    setQuizQuestions(questions);
-  }, [flashcards]);
+  const [currentQuestion, setcurrentQuestion] = useState<FlashcardData | null>(
+    null
+  );
 
   const handleSubmit = (
     event: React.FormEvent<HTMLFormElement>,
@@ -33,9 +26,8 @@ const Quiz = () => {
   ) => {
     event.preventDefault();
 
-    if (input === "") return;
-
-    console.log(input);
+    if (input === currentQuestion?.character) return true;
+    else return false;
   };
 
   return (

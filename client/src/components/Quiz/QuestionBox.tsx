@@ -2,17 +2,14 @@ import { useState } from "react";
 
 import { FlashcardData } from "../../interfaces";
 
-const QuestionBox = () => {
-  const answeredQuestions = useState<FlashcardData[]>([]);
-  const unAnsweredQuestions = useState<FlashcardData[]>([]);
+interface QuestionBoxData {
+  currentQuestion: FlashcardData;
+}
 
-  const randomQuestion = () => {
-    
-  }
-
+const QuestionBox: React.FC<QuestionBoxData> = ({ currentQuestion }) => {
   return (
     <div>
-      <div></div>
+      <div>{currentQuestion.character}</div>
     </div>
   );
 };
