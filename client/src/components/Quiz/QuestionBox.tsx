@@ -3,13 +3,13 @@ import { useState } from "react";
 import { FlashcardData } from "../../interfaces";
 
 interface QuestionBoxData {
-  currentQuestion: FlashcardData;
+  currentQuestion: FlashcardData | null;
 }
 
 const QuestionBox: React.FC<QuestionBoxData> = ({ currentQuestion }) => {
   return (
     <div>
-      <div>{currentQuestion.character}</div>
+      <p className="font-black text-4xl mb-8">{currentQuestion?.character}</p>
     </div>
   );
 };
