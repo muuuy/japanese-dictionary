@@ -7,9 +7,11 @@ import AnswerBar from "../components/Quiz/AnswerBar";
 import QuestionBox from "../components/Quiz/QuestionBox";
 import Restart from "../components/Quiz/Restart";
 import Results from "../components/Quiz/Results";
+import LoginBanner from "../components/LoginBanner";
 
 const Quiz = () => {
-  const flashcards = useUserStore<FlashcardData[]>((state) => state.flashcards);
+  const flashcards: FlashcardData[] = useUserStore((state) => state.flashcards);
+  const auth: boolean = useUserStore((state) => state.auth);
 
   const [answeredQuestions, setAnsweredQuestions] = useState<FlashcardData[]>(
     []
@@ -68,21 +70,36 @@ const Quiz = () => {
   return (
     <div className="flex flex-1 flex-col justify-center items-center">
       <h1 className="page--header">QUIZ</h1>
-      {unAnsweredQuestions.length === 0 ? (
-        <Restart handleRestart={handleReset} />
+      {!auth ? (
+        <>
+          <h2 className="text-xl font-semibold italic my-8">
+            Please log in or sign up to proceed further.
+          </h2>
+          <div className="flex flex-row gap-4 w-96">
+            <LoginBanner />
+          </div>
+        </>
       ) : (
         <>
-          <p className="font-black my-2">
-            <span className="text-green-500">{answeredQuestions.length}</span> /{" "}
-            <span className="text-red-500">{flashcards.length}</span>
-          </p>
-          <QuestionBox
-            currentQuestion={unAnsweredQuestions[currentQuestionIndex]}
-          />
-          <AnswerBar handleSubmit={handleSubmit} />
+          {unAnsweredQuestions.length === 0 ? (
+            <Restart handleRestart={handleReset} />
+          ) : (
+            <>
+              <p className="font-black my-2">
+                <span className="text-green-500">
+                  {answeredQuestions.length}
+                </span>{" "}
+                / <span className="text-red-500">{flashcards.length}</span>
+              </p>
+              <QuestionBox
+                currentQuestion={unAnsweredQuestions[currentQuestionIndex]}
+              />
+              <AnswerBar handleSubmit={handleSubmit} />
+            </>
+          )}
+          <Results numCorrect={numCorrect} numWrong={numWrong} />
         </>
       )}
-      <Results numCorrect={numCorrect} numWrong={numWrong} />
     </div>
   );
 };

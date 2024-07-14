@@ -1,7 +1,5 @@
 import HomePageImage2 from "../../assets/homepage_img2.jpg";
-import { BrowserRouter as Routes, Route, Link } from "react-router-dom";
-
-import { Button } from "@chakra-ui/react";
+import LoginBanner from "../LoginBanner";
 
 import { SkeletonData } from "../../interfaces";
 
@@ -23,16 +21,7 @@ const Header: React.FC<SkeletonData> = ({ imageLoaded, imagesLoaded }) => {
           friends!
         </h2>
         <div className="flex flex-row gap-8 w-[400px]">
-          <Link to={"/signup"} className="w-1/2">
-            <Button colorScheme="red" variant={"outline"} width={"100%"}>
-              <span className="font-black">SIGN UP</span>
-            </Button>
-          </Link>
-          <Link to={"/login"} className="w-1/2">
-            <Button colorScheme="red" width={"100%"}>
-              <span className="font-black">LOG IN</span>
-            </Button>
-          </Link>
+          <LoginBanner />
         </div>
       </div>
       <img
