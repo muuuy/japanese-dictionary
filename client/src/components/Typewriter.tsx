@@ -8,7 +8,7 @@ interface TypewriterData {
 const Typewriter: React.FC<TypewriterData> = ({ text, speed }) => {
   const displayText = useTypewriter(text, speed);
 
-  return <p className="bg-red-600 pl-2">{displayText}</p>;
+  return <p className="text-xl font-semibold italic my-8">{displayText}</p>;
 };
 
 export default Typewriter;

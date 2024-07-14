@@ -9,6 +9,8 @@ import Restart from "../components/Quiz/Restart";
 import Results from "../components/Quiz/Results";
 import LoginBanner from "../components/LoginBanner";
 
+import Typewriter from "../components/Typewriter";
+
 const Quiz = () => {
   const flashcards: FlashcardData[] = useUserStore((state) => state.flashcards);
   const auth: boolean = useUserStore((state) => state.auth);
@@ -72,9 +74,10 @@ const Quiz = () => {
       <h1 className="page--header">QUIZ</h1>
       {!auth ? (
         <>
-          <h2 className="text-xl font-semibold italic my-8">
-            Please log in or sign up to proceed further.
-          </h2>
+          <Typewriter
+            text="Please log in or sign up to proceed further."
+            speed={50}
+          />
           <div className="flex flex-row gap-4 w-96">
             <LoginBanner />
           </div>
