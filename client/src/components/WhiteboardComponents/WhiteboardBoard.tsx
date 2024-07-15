@@ -9,6 +9,7 @@ const socket = io("http://localhost:3000", { transports: ["websocket"] });
 interface WhiteboardBoardProps {
   colorValue: string;
   penSize: number;
+  roomCode: string;
 }
 interface Mouse {
   mouseX: number;
@@ -18,6 +19,7 @@ interface Mouse {
 const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
   colorValue,
   penSize,
+  roomCode,
 }) => {
   const whiteboard = useRef<HTMLDivElement | null>(null);
   const canvas = useRef<HTMLCanvasElement | null>(null);
@@ -27,6 +29,10 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
     mouseX: 0,
     mouseY: 0,
   });
+
+  useEffect(() => {
+    socket.emit("join_room", roomCode);
+  }, [roomCode]);
 
   useEffect(() => {
     socket.on("recieve_coordinates", (coordinates) => {
@@ -45,29 +51,6 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
       socket.off("receive_coordinates");
     };
   }, [socket]);
-
-  // useEffect(() => {
-  //   const resizeCanvas = () => {
-  //     const canvasElem = canvas.current;
-  //     const parentDiv = whiteboard.current;
-
-  //     if (canvasElem && parentDiv) {
-  //       canvasElem.width = parentDiv?.clientWidth || 0;
-  //       canvasElem.height = parentDiv?.clientHeight || 0;
-  //     }
-  //   };
-
-  //   resizeCanvas();
-  //   window.addEventListener("resize", resizeCanvas);
-
-  //   socket.on("draw", (data: DrawingData) => {
-  //     console.log("recieved data", data);
-  //   });
-
-  //   return () => {
-  //     window.removeEventListener("resize", resizeCanvas);
-  //   };
-  // }, []);
 
   const handleMouseMove = (
     event: React.MouseEvent<HTMLCanvasElement> | null,
@@ -94,6 +77,7 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
             mouseY: clientY,
             color: colorValue,
             size: penSize,
+            roomCode: roomCode,
           });
         }
 

@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+import { Link } from "react-router-dom";
+
+import useUserStore from "../../stores/store";
 
 import {
   FormControl,
@@ -8,27 +12,39 @@ import {
 } from "@chakra-ui/react";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 
+interface Form {
+  name: string;
+  roomCode: string;
+}
+
 const CreateRoomForm = () => {
-  interface Form {
-    name: string;
-    roomCode: string;
-  }
+  const auth: boolean = useUserStore((state) => state.auth);
+  const [error, setError] = useState<string>("");
 
   const [formData, setFormData] = useState<Form>({
     name: "",
     roomCode: "",
   });
 
+  const [roomCode, setRoomCode] = useState<string>("");
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
-  const handleSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {};
+  const handleGenerate = () => {
+    if (auth) {
+      if (error !== "") {
+        setError("");
+      }
+      setFormData({ ...formData, roomCode: uuidv4() });
+    } else setError("Not logged in.");
+  };
 
-  const handleGenerate = (event: React.ChangeEvent<HTMLInputElement>) => {};
-
-  const handleCopy = (event: React.ChangeEvent<HTMLInputElement>) => {};
+  const handleCopy = () => {
+    navigator.clipboard.writeText(formData.roomCode);
+  };
 
   return (
     <>
@@ -54,19 +70,27 @@ const CreateRoomForm = () => {
             type="text"
             onChange={handleChange}
             focusBorderColor="black"
+            value={formData.roomCode}
           />
           <ButtonGroup spacing={0}>
-            <Button colorScheme="red" rounded="none">
+            <Button colorScheme="red" rounded="none" onClick={handleGenerate}>
               GENERATE
             </Button>
-            <Button colorScheme="red" variant="outline" rounded="none">
+            <Button
+              colorScheme="red"
+              variant="outline"
+              rounded="none"
+              onClick={handleCopy}
+            >
               COPY
             </Button>
           </ButtonGroup>
         </div>
-        <Button minW="100%" colorScheme="red" mt={8}>
-          <span className="font-black">GENERATE ROOM</span>
-        </Button>
+        <Link to={"/whiteboard"} state={{ roomCode: formData.roomCode }}>
+          <Button minW="100%" colorScheme="red" mt={8}>
+            <span className="font-black">GENERATE ROOM</span>
+          </Button>
+        </Link>
       </FormControl>
     </>
   );

@@ -7,6 +7,7 @@ import {
   Input,
 } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 const JoinRoomForm = () => {
   interface Form {
@@ -23,8 +24,6 @@ const JoinRoomForm = () => {
     event.preventDefault();
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
-
-  const handleSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {};
 
   return (
     <>
@@ -49,9 +48,11 @@ const JoinRoomForm = () => {
           onChange={handleChange}
           focusBorderColor="black"
         />
-        <Button minW="100%" colorScheme="red" mt={8}>
-          <span className="font-black">JOIN ROOM</span>
-        </Button>
+        <Link to="/whiteboard" state={{ roomCode: formData.roomCode }}>
+          <Button minW="100%" colorScheme="red" mt={8}>
+            <span className="font-black">JOIN ROOM</span>
+          </Button>
+        </Link>
       </FormControl>
     </>
   );

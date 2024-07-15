@@ -44,7 +44,6 @@ app.use((err, req, res, next) => {
 });
 
 io.on("connection", (socket) => {
-  console.log(`User connected. Socket id: ${socket.id}`);
   socket.on("disconnect", () => {
     console.log("User disconnected.");
   });
@@ -52,8 +51,13 @@ io.on("connection", (socket) => {
     io.emit("chat message", msg);
   });
 
+  socket.on("join_room", (roomCode) => {
+    console.log(roomCode);
+    socket.join(roomCode);
+  });
+
   socket.on("send_coordinates", (coordinates) => {
-    socket.broadcast.emit("recieve_coordinates", {
+    socket.to(coordinates.roomCode).emit("recieve_coordinates", {
       startMouseX: coordinates.startMouseX,
       startMouseY: coordinates.startMouseY,
       mouseX: coordinates.mouseX,
