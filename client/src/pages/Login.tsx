@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect } from "react";
-import { BrowserRouter as Routes, Route, Link } from "react-router-dom";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import axios, { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 import clsx from "clsx";

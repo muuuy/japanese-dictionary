@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BrowserRouter as Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { FormControl, FormLabel, Button, Input } from "@chakra-ui/react";
 
@@ -30,7 +30,9 @@ const ResetPassword = () => {
             placeholder="Password"
             onChange={handleInput}
           />
-          <FormLabel htmlFor="reset--verify-password">VERIFY NEW PASSWORD</FormLabel>
+          <FormLabel htmlFor="reset--verify-password">
+            VERIFY NEW PASSWORD
+          </FormLabel>
           <Input
             id="reset--verify-password"
             name="password"

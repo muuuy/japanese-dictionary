@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BrowserRouter as Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 import { FormControl, FormLabel, Button, Input } from "@chakra-ui/react";

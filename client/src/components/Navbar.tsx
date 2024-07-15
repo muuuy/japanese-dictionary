@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { BrowserRouter as Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import Logo from "../assets/yu_kana.png";
 

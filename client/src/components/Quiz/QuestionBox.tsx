@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { FlashcardData } from "../../interfaces";
 
 interface QuestionBoxData {

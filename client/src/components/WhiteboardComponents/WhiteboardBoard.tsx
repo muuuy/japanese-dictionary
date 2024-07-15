@@ -1,8 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { io } from "socket.io-client";
 
-import { DrawingData } from "../../interfaces";
-
 import { Button } from "@chakra-ui/react";
 
 const socket = io("http://localhost:3000", { transports: ["websocket"] });

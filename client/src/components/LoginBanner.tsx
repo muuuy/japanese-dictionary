@@ -1,4 +1,4 @@
-import { BrowserRouter as Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button } from "@chakra-ui/react";
 
 const LoginBanner = () => {

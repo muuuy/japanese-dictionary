@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import useTypewriter from "../../hooks/useTypewriter";
 
 interface QuizTypewriterData {
