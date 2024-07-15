@@ -3,6 +3,7 @@ const path = require("path");
 const cors = require("cors");
 var logger = require("morgan");
 var createError = require("http-errors");
+const { socketHandler } = require("./socketHandler.js");
 
 const usersRouter = require("./routes/user");
 const flashcardRouter = require("./routes/flashcards.js");
@@ -27,9 +28,6 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
-
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -43,30 +41,7 @@ app.use((err, req, res, next) => {
   res.status(500).send("Internal Server Error");
 });
 
-io.on("connection", (socket) => {
-  socket.on("disconnect", () => {
-    console.log("User disconnected.");
-  });
-  socket.on("chat message", (msg) => {
-    io.emit("chat message", msg);
-  });
-
-  socket.on("join_room", (roomCode) => {
-    console.log(roomCode);
-    socket.join(roomCode);
-  });
-
-  socket.on("send_coordinates", (coordinates) => {
-    socket.to(coordinates.roomCode).emit("recieve_coordinates", {
-      startMouseX: coordinates.startMouseX,
-      startMouseY: coordinates.startMouseY,
-      mouseX: coordinates.mouseX,
-      mouseY: coordinates.mouseY,
-      color: coordinates.color,
-      size: coordinates.size,
-    });
-  });
-});
+socketHandler(io);
 
 app.use("/", (req, res) => {
   res.render("index");
