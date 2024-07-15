@@ -9,7 +9,7 @@ import Restart from "../components/Quiz/Restart";
 import Results from "../components/Quiz/Results";
 import LoginBanner from "../components/LoginBanner";
 
-import Typewriter from "../components/Typewriter";
+import QuizTypewriter from "../components/Quiz/QuizTypewriter";
 
 const Quiz = () => {
   const flashcards: FlashcardData[] = useUserStore((state) => state.flashcards);
@@ -25,6 +25,8 @@ const Quiz = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(-1);
   const [numCorrect, setNumCorrect] = useState<number>(0);
   const [numWrong, setNumWrong] = useState<number>(0);
+
+  const [typewriterLoading, setTypewriterLoading] = useState<boolean>(false);
 
   useEffect(() => {
     setUnansweredQuestions([...flashcards]);
@@ -69,15 +71,26 @@ const Quiz = () => {
     setNumWrong(0);
   };
 
+  const handleLoading = () => {
+    setTypewriterLoading(true);
+  };
+
   return (
     <div className="flex flex-1 flex-col justify-center items-center">
       <h1 className="page--header">QUIZ</h1>
       {!auth ? (
         <>
-          <Typewriter
-            text="Please log in or sign up to proceed further."
-            speed={50}
-          />
+          <div className="flex flex-col text-center my-8 gap-2">
+            <QuizTypewriter
+              text="Please log in or sign up to proceed further."
+              speed={50}
+              setLoading={handleLoading}
+              fontWeight="semibold"
+            />
+            {typewriterLoading && (
+              <QuizTypewriter text="ありがとうございます。" speed={100} fontWeight="normal" />
+            )}
+          </div>
           <div className="flex flex-row gap-4 w-96">
             <LoginBanner />
           </div>

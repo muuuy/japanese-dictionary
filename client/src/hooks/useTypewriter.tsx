@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 
-const useTypewriter = (text: string, speed: number): string => {
+const useTypewriter = (
+  text: string,
+  speed: number,
+  setLoading?: () => void
+): string => {
   const [displayText, setDisplayText] = useState<string>("");
   const [index, setIndex] = useState<number>(0);
 
@@ -12,8 +16,8 @@ const useTypewriter = (text: string, speed: number): string => {
       }, speed);
 
       return () => clearTimeout(timeout);
-    }
-  }, [index, speed, text]);
+    } else if (setLoading !== undefined) setLoading();
+  }, [index, speed, text, setLoading]);
 
   return displayText;
 };
