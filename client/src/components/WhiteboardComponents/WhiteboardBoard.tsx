@@ -19,7 +19,6 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
   penSize,
   roomCode,
 }) => {
-  const whiteboard = useRef<HTMLDivElement | null>(null);
   const canvas = useRef<HTMLCanvasElement | null>(null);
   const isDrawingRef = useRef<boolean>(false);
 
@@ -153,29 +152,25 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
       >
         CLEAR BOARD
       </Button>
-      <div
-        className="w-11/12 my-8 flex-1 border-2 border-black cursor-crosshair"
-        ref={whiteboard}
-      >
-        <canvas
-          ref={canvas}
-          height={1000}
-          width={1000}
-          onMouseMove={(event) =>
-            handleMouseMove(
-              event,
-              mouseLocation.mouseX,
-              mouseLocation.mouseY,
-              null,
-              null,
-              colorValue,
-              penSize
-            )
-          }
-          onMouseDown={handleMouseDown}
-          onMouseUp={handleMouseUp}
-        />
-      </div>
+      <canvas
+        className="border-2 border-black my-8"
+        ref={canvas}
+        height={1000}
+        width={1000}
+        onMouseMove={(event) =>
+          handleMouseMove(
+            event,
+            mouseLocation.mouseX,
+            mouseLocation.mouseY,
+            null,
+            null,
+            colorValue,
+            penSize
+          )
+        }
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+      />
     </>
   );
 };

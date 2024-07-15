@@ -1,3 +1,23 @@
+class activeRooms {
+  constructor() {
+    this.rooms = {};
+  }
+
+  doesRoomExist(roomCode) {
+    if (this.rooms[roomCode]) {
+      console.log("exists");
+      return true;
+    }
+
+    console.log("does not exist");
+    return false;
+  }
+
+  clearRooms() {
+    this.rooms = {};
+  }
+}
+
 function socketHandler(io) {
   io.on("connection", (socket) => {
     console.log("User connected.");
