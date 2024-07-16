@@ -12,6 +12,7 @@ import WhiteboardForm from "./pages/WhiteboardForm";
 import Whiteboard from "./pages/Whiteboard";
 import Flashcards from "./pages/Flashcards";
 import Quiz from "./pages/Quiz";
+import MatchingQuiz from "./pages/MatchingQuiz";
 
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -57,6 +58,7 @@ function App() {
             <Route path="/signup/" element={<Signup />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/quiz" element={<Quiz />} />
+            <Route path="/quiz/matching-quiz" element={<MatchingQuiz />} />
           </Routes>
         </div>
       </div>

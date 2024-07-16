@@ -9,8 +9,6 @@ import Restart from "../components/Quiz/Restart";
 import Results from "../components/Quiz/Results";
 import LoginBanner from "../components/LoginBanner";
 
-import Timer from "../components/MatchingQuiz/Timer";
-
 import QuizTypewriter from "../components/Quiz/QuizTypewriter";
 
 const Quiz = () => {
@@ -122,7 +120,6 @@ const Quiz = () => {
           <Results numCorrect={numCorrect} numWrong={numWrong} />
         </>
       )}
-      <Timer />
     </div>
   );
 };
