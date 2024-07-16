@@ -13,10 +13,36 @@ class activeRooms {
     return false;
   }
 
-  clearRooms() {
+  addRoom(roomCode) {
+    const exists = this.doesRoomExist(roomCode);
+
+    if (exists) {
+      return false;
+    } else {
+      this.rooms[roomCode] = [];
+      console.log(this.rooms);
+      return true;
+    }
+  }
+
+  addPeople(roomCode, userID) {
+    const exists = this.doesRoomExist(roomCode);
+
+    if (exists) {
+      this.rooms.roomCode[roomCode].push(userID);
+      console.log(this.rooms);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  clearAllRooms() {
     this.rooms = {};
   }
 }
+
+const rooms = new activeRooms();
 
 function socketHandler(io) {
   io.on("connection", (socket) => {
@@ -29,8 +55,18 @@ function socketHandler(io) {
       io.emit("chat message", msg);
     });
 
+    socket.on("create_room", (roomCode) => {
+      if (roomCode) {
+        const addedRoom = rooms.addRoom(roomCode);
+        if (addedRoom) socket.join(roomCode);
+      }
+    });
+
     socket.on("join_room", (roomCode) => {
-      socket.join(roomCode);
+      if (roomCode) {
+        const addedPerson = rooms.addPeople(roomCode, "hi");
+        if (addedPerson) socket.join(roomCode);
+      }
     });
 
     socket.on("send_coordinates", (coordinates) => {

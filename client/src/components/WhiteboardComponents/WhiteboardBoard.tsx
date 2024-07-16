@@ -8,6 +8,7 @@ interface WhiteboardBoardProps {
   colorValue: string;
   penSize: number;
   roomCode: string;
+  connectionType: string;
 }
 interface Mouse {
   mouseX: number;
@@ -18,6 +19,7 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
   colorValue,
   penSize,
   roomCode,
+  connectionType,
 }) => {
   const canvas = useRef<HTMLCanvasElement | null>(null);
   const isDrawingRef = useRef<boolean>(false);
@@ -28,8 +30,9 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
   });
 
   useEffect(() => {
-    socket.emit("join_room", roomCode);
-  }, [roomCode]);
+    console.log(connectionType);
+    socket.emit(connectionType, roomCode);
+  }, [connectionType, roomCode]);
 
   useEffect(() => {
     socket.on("recieve_coordinates", (coordinates) => {

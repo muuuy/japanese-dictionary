@@ -48,7 +48,10 @@ const JoinRoomForm = () => {
           onChange={handleChange}
           focusBorderColor="black"
         />
-        <Link to="/whiteboard" state={{ roomCode: formData.roomCode }}>
+        <Link
+          to="/whiteboard"
+          state={{ roomCode: formData.roomCode, connectionType: "join_room" }}
+        >
           <Button minW="100%" colorScheme="red" mt={8}>
             <span className="font-black">JOIN ROOM</span>
           </Button>

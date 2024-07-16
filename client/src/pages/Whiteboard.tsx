@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
 
 import WhiteboardBoard from "../components/WhiteboardComponents/WhiteboardBoard";
@@ -13,6 +13,7 @@ interface PenSettings {
 const Whiteboard = () => {
   const location = useLocation();
   const [roomCode, setRoomCode] = useState<string>("");
+  const [connectionType, setConnectionType] = useState<string>("");
 
   const [penSettings, setPenSettings] = useState<PenSettings>({
     colorValue: "black",
@@ -21,7 +22,10 @@ const Whiteboard = () => {
   const [activeButton, setActiveButton] = useState<string>("black");
 
   useEffect(() => {
-    setRoomCode(location.state.roomCode);
+    if (location.state) {
+      setRoomCode(location.state.roomCode);
+      setConnectionType(location.state.connectionType);
+    }
   }, [location]);
 
   const changeColor = (color: string, size: number) => {
@@ -52,11 +56,14 @@ const Whiteboard = () => {
           isActive={activeButton === "white"}
         ></IconButton>
       </div>
-      <WhiteboardBoard
-        colorValue={penSettings.colorValue}
-        penSize={penSettings.penSize}
-        roomCode={roomCode}
-      />
+      {connectionType !== "" && roomCode !== "" && (
+        <WhiteboardBoard
+          colorValue={penSettings.colorValue}
+          penSize={penSettings.penSize}
+          roomCode={roomCode}
+          connectionType={connectionType}
+        />
+      )}
     </div>
   );
 };

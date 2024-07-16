@@ -26,8 +26,6 @@ const CreateRoomForm = () => {
     roomCode: "",
   });
 
-  const [roomCode, setRoomCode] = useState<string>("");
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -86,7 +84,10 @@ const CreateRoomForm = () => {
             </Button>
           </ButtonGroup>
         </div>
-        <Link to={"/whiteboard"} state={{ roomCode: formData.roomCode }}>
+        <Link
+          to={"/whiteboard"}
+          state={{ roomCode: formData.roomCode, connectionType: "create_room" }}
+        >
           <Button minW="100%" colorScheme="red" mt={8}>
             <span className="font-black">GENERATE ROOM</span>
           </Button>
