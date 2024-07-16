@@ -1,13 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import useUserStore from "../stores/store";
 import Timer from "../components/MatchingQuiz/Timer";
+import Card from "../components/MatchingQuiz/Card";
 
 import { Button } from "@chakra-ui/react";
+
+interface CardData {
+  id: number;
+  content: string;
+}
 
 const MatchingQuiz = () => {
   const flashcards = useUserStore((state) => state.flashcards);
   const auth = useUserStore((state) => state.auth);
+
+  const [characterCards, setCharacterCards] = useState({});
+  const [definitionCards, setDefinitionCards] = useState({});
+
+  useEffect(() => {
+    flashcards.map((flashcard, index) => {
+      setCharacterCards((prev) => ({ ...prev, [index]: flashcard.character }));
+      setDefinitionCards((prev) => ({
+        ...prev,
+        [index]: flashcard.definition,
+      }));
+    });
+  }, [flashcards]);
 
   const [start, setStart] = useState<boolean>(false);
 
@@ -28,6 +47,8 @@ const MatchingQuiz = () => {
         <Timer start={start} />
         <Button onClick={handleStart}>START</Button>
       </div>
+
+      <Card flashcard={flashcards[0]} type="character" />
     </div>
   );
 };
