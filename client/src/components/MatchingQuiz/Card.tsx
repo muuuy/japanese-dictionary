@@ -1,18 +1,18 @@
 import { FlashcardData } from "../../interfaces";
 
 interface CardData {
-  flashcard: FlashcardData;
+  flashcardItem: string;
   type: string;
 }
 
-const Card: React.FC<CardData> = ({ flashcard, type }) => {
+const Card: React.FC<CardData> = ({ flashcardItem, type }) => {
   return (
     <div
-      className={`absolute bg-white border-2 ${
+      className={`bg-white border-2 ${
         type === "character" ? "border-black" : "border-red-600"
       } p-4`}
     >
-      <p className="font-black text-2xl">{flashcard.character}</p>
+      <p className="font-black text-2xl">{flashcardItem}</p>
     </div>
   );
 };

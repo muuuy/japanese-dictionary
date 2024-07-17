@@ -8,24 +8,30 @@ import { Button } from "@chakra-ui/react";
 
 interface CardData {
   id: number;
-  content: string;
+  flashcardItem: string;
 }
 
 const MatchingQuiz = () => {
   const flashcards = useUserStore((state) => state.flashcards);
   const auth = useUserStore((state) => state.auth);
 
-  const [characterCards, setCharacterCards] = useState({});
-  const [definitionCards, setDefinitionCards] = useState({});
+  const [characterCards, setCharacterCards] = useState<CardData[]>([]);
+  const [definitionCards, setDefinitionCards] = useState<CardData[]>([]);
 
   useEffect(() => {
+    const newCharacterCards: CardData[] = [];
+    const newDefinitionCards: CardData[] = [];
+
     flashcards.map((flashcard, index) => {
-      setCharacterCards((prev) => ({ ...prev, [index]: flashcard.character }));
-      setDefinitionCards((prev) => ({
-        ...prev,
-        [index]: flashcard.definition,
-      }));
+      newCharacterCards.push({ id: index, flashcardItem: flashcard.character });
+      newDefinitionCards.push({
+        id: index,
+        flashcardItem: flashcard.definition,
+      });
     });
+
+    setCharacterCards(newCharacterCards);
+    setDefinitionCards(newDefinitionCards);
   }, [flashcards]);
 
   const [start, setStart] = useState<boolean>(false);
@@ -47,8 +53,26 @@ const MatchingQuiz = () => {
         <Timer start={start} />
         <Button onClick={handleStart}>START</Button>
       </div>
-
-      <Card flashcard={flashcards[0]} type="character" />
+      <div className="flex flex-row gap-2">
+        <div>
+          {characterCards.map((card) => (
+            <Card
+              key={`character-card-${card.id}`}
+              flashcardItem={card.flashcardItem}
+              type="character"
+            />
+          ))}
+        </div>
+        <div>
+          {definitionCards.map((card) => (
+            <Card
+              key={`definition-card-${card.id}`}
+              flashcardItem={card.flashcardItem}
+              type="definition"
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
