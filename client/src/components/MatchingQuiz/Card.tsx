@@ -1,5 +1,3 @@
-import { FlashcardData } from "../../interfaces";
-
 interface CardData {
   flashcardItem: string;
   type: string;
