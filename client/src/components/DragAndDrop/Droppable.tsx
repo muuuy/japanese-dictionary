@@ -14,7 +14,7 @@ const Droppable: React.FC<DroppableData> = ({ children }) => {
   };
 
   return (
-    <div ref={setNodeRef} style={style} className="flex flex-1">
+    <div ref={setNodeRef} style={style}>
       {children}
     </div>
   );
