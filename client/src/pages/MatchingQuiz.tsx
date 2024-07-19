@@ -5,6 +5,7 @@ import useUserStore from "../stores/store";
 import Timer from "../components/MatchingQuiz/Timer";
 import Card from "../components/MatchingQuiz/Card";
 import StartButton from "../components/MatchingQuiz/StartButton";
+import TutorialButton from "../components/MatchingQuiz/TutorialButton";
 
 import Droppable from "../components/DragAndDrop/Droppable";
 import Draggable from "../components/DragAndDrop/Draggable";
@@ -18,6 +19,7 @@ const MatchingQuiz = () => {
   const flashcards = useUserStore((state) => state.flashcards);
   const auth = useUserStore((state) => state.auth);
   const [start, setStart] = useState<boolean>(false);
+  const [tutorial, setTutorial] = useState<boolean>(false);
   const [parent, setParent] = useState<UniqueIdentifier | null>(null);
 
   const [characterCards, setCharacterCards] = useState<CardData[]>([]);
@@ -43,6 +45,10 @@ const MatchingQuiz = () => {
     setStart(true);
   };
 
+  const handleTutorial = () => {
+    setTutorial(true);
+  };
+
   const handleDragEnd = (event: DragEndEvent) => {
     const { over } = event;
 
@@ -58,18 +64,16 @@ const MatchingQuiz = () => {
           <h2 className="page--header-description">
             Match the characters to the definition.
           </h2>
-          <p className="w-1/3 text-wrap mt-2">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-          </p>
         </div>
         {!start ? (
-          <StartButton handleStart={handleStart} />
+          <>
+            <div className="w-1/5  right-0 border-2">
+              <StartButton handleStart={handleStart} />
+            </div>
+            <div>
+              <TutorialButton handleTutorial={handleTutorial} />
+            </div>
+          </>
         ) : (
           <>
             <Timer start={start} />

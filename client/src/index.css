@@ -18,6 +18,10 @@
   .user-form--header {
     @apply font-black text-3xl;
   }
+
+  .navigation--user-button {
+    @apply bottom-16	absolute left-1/2 -translate-x-1/2;
+  }
 }
 
 @layer base {

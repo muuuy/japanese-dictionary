@@ -66,10 +66,7 @@ const Navbar = () => {
             </Button>
           </Link>
           {auth ? (
-            <Link
-              to={"/"}
-              className="bottom-16	absolute left-1/2 -translate-x-1/2"
-            >
+            <Link to={"/"} className="navigation--user-button">
               <Button
                 colorScheme="red"
                 height={12}
@@ -81,8 +78,13 @@ const Navbar = () => {
               </Button>
             </Link>
           ) : (
-            <Link to={"/login/"}>
-              <Button colorScheme="red" variant="ghost" className="w-48">
+            <Link to={"/login/"} className="navigation--user-button">
+              <Button
+                colorScheme="red"
+                height={12}
+                fontSize={32}
+                className="w-48"
+              >
                 <span className="sidebar--button-text">login</span>
               </Button>
             </Link>
