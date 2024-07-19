@@ -2,11 +2,12 @@ import { useDroppable } from "@dnd-kit/core";
 
 interface DroppableData {
   children: React.ReactNode;
+  id: string;
 }
 
-const Droppable: React.FC<DroppableData> = ({ children }) => {
+const Droppable: React.FC<DroppableData> = ({ children, id }) => {
   const { isOver, setNodeRef } = useDroppable({
-    id: "droppable",
+    id: id,
   });
 
   const style = {
