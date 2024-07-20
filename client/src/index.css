@@ -22,6 +22,10 @@
   .navigation--user-button {
     @apply bottom-16	absolute left-1/2 -translate-x-1/2;
   }
+
+  .rules--list-header {
+    @apply font-black text-xl italic underline tracking-widest;
+  }
 }
 
 @layer base {

@@ -25,6 +25,10 @@ const StartScreen: React.FC<StartScreenData> = ({ handleStart }) => {
     setTutorial(true);
   };
 
+  const handleClose = () => {
+    setTutorial(false);
+  };
+
   return (
     <>
       <h1 className="text-9xl font-black">MATCHING QUIZ</h1>
@@ -35,7 +39,7 @@ const StartScreen: React.FC<StartScreenData> = ({ handleStart }) => {
         <RulesButton handleTutorial={handleTutorial} />
       </div>
 
-      {tutorial && <Rules />}
+      {tutorial && <Rules handleClose={handleClose} />}
     </>
   );
 };
