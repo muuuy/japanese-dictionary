@@ -12,9 +12,9 @@ const StartButton: React.FC<StartButtonData> = ({ handleStart }) => {
       className="border-2 border-black h-28 w-full -skew-x-6 bg-red-600 relative transition duration-500 ease-in-out hover:bg-red-500"
     >
       <div>
-        <span className="font-black text-5xl tracking-widest flex flex-row items-center gap-16 ml-4">
+        <span className="font-black text-5xl tracking-widest flex flex-row items-center gap-8 ml-4">
           START QUIZ
-          <FaPlay size={36} className="mt-[6px]" />
+          <FaPlay size={36} className="mt-[6px] mx-8" />
         </span>
       </div>
       <Typewriter
