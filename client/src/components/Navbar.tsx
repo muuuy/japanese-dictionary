@@ -7,7 +7,8 @@ import useUserStore from "../stores/store";
 import { logout } from "../api/logout";
 
 import { Button, ButtonGroup } from "@chakra-ui/react";
-import { IoLogOut } from "react-icons/io5";
+import { FaArrowRightToBracket } from "react-icons/fa6";
+import { FaArrowRightFromBracket } from "react-icons/fa6";
 
 import { HamburgerIcon } from "@chakra-ui/icons";
 
@@ -70,9 +71,10 @@ const Navbar = () => {
               <Button
                 colorScheme="red"
                 height={12}
-                leftIcon={<IoLogOut />}
+                leftIcon={<FaArrowRightToBracket />}
                 onClick={handleLogout}
                 fontSize={32}
+                variant={'outline'}
               >
                 <span className="sidebar--button-text">logout</span>
               </Button>
@@ -82,6 +84,7 @@ const Navbar = () => {
               <Button
                 colorScheme="red"
                 height={12}
+                leftIcon={<FaArrowRightFromBracket />}
                 fontSize={32}
                 className="w-48"
               >

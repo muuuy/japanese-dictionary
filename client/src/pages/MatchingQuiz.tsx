@@ -59,18 +59,13 @@ const MatchingQuiz = () => {
   return (
     <DndContext onDragEnd={handleDragEnd}>
       <div className="flex flex-col justify-center items-center flex-1 overflow-hidden relative">
-        <div className="flex flex-col items-center text-center mb-8">
-          <h1 className="page--header">MATCHING QUIZ</h1>
-          <h2 className="page--header-description">
-            Match the characters to the definition.
-          </h2>
-        </div>
+        <div className="flex flex-col items-center text-center mb-8"></div>
         {!start ? (
           <>
+            <h1 className="text-9xl font-black">MATCHING QUIZ</h1>
             <div className="absolute bottom-0 -right-2">
               <StartButton handleStart={handleStart} />
             </div>
-
             <div className="absolute bottom-0 -left-2">
               <TutorialButton handleTutorial={handleTutorial} />
             </div>

@@ -1,5 +1,6 @@
 import Typewriter from "../Typewriter";
 import { FaPlay } from "react-icons/fa";
+import { FaArrowRightFromBracket } from "react-icons/fa6";
 
 interface StartButtonData {
   handleStart: () => void;
@@ -22,6 +23,9 @@ const StartButton: React.FC<StartButtonData> = ({ handleStart }) => {
         speed={100}
         style="font-semibold text-xs tracking-widest absolute left-1/2 bottom-2 -translate-x-1/2"
       />
+      <div className="w-10 h-10 border-2 border-black bg-white absolute -left-4 -top-4 rounded-full flex items-center justify-center z-5 skew-x-0">
+        <FaArrowRightFromBracket fontSize={20} color="black" />
+      </div>
     </button>
   );
 };
