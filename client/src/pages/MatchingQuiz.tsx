@@ -5,7 +5,8 @@ import useUserStore from "../stores/store";
 import Timer from "../components/MatchingQuiz/Timer";
 import Card from "../components/MatchingQuiz/Card";
 import StartButton from "../components/MatchingQuiz/StartButton";
-import TutorialButton from "../components/MatchingQuiz/TutorialButton";
+import RulesButton from "../components/MatchingQuiz/RulesButton";
+import Rules from "../components/MatchingQuiz/Rules";
 
 import Droppable from "../components/DragAndDrop/Droppable";
 import Draggable from "../components/DragAndDrop/Draggable";
@@ -24,6 +25,17 @@ const MatchingQuiz = () => {
 
   const [characterCards, setCharacterCards] = useState<CardData[]>([]);
   const [definitionCards, setDefinitionCards] = useState<CardData[]>([]);
+
+  useEffect(() => {
+    const handleKeyPress = (event: KeyboardEvent) => {
+      if (event.key === "Enter") handleStart();
+      else if (event.key === "t") handleTutorial();
+    };
+
+    window.addEventListener("keypress", handleKeyPress);
+
+    return () => window.removeEventListener("keypress", handleKeyPress);
+  }, []);
 
   useEffect(() => {
     const newCharacterCards: CardData[] = [];
@@ -67,8 +79,10 @@ const MatchingQuiz = () => {
               <StartButton handleStart={handleStart} />
             </div>
             <div className="absolute bottom-0 -left-2">
-              <TutorialButton handleTutorial={handleTutorial} />
+              <RulesButton handleTutorial={handleTutorial} />
             </div>
+
+            {tutorial && <Rules />}
           </>
         ) : (
           <>
