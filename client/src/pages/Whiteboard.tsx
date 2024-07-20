@@ -14,6 +14,7 @@ const Whiteboard = () => {
   const location = useLocation();
   const [roomCode, setRoomCode] = useState<string>("");
   const [connectionType, setConnectionType] = useState<string>("");
+  const [name, setName] = useState<string>("");
 
   const [penSettings, setPenSettings] = useState<PenSettings>({
     colorValue: "black",
@@ -25,6 +26,7 @@ const Whiteboard = () => {
     if (location.state) {
       setRoomCode(location.state.roomCode);
       setConnectionType(location.state.connectionType);
+      setName(location.state.name);
     }
   }, [location]);
 
@@ -62,6 +64,7 @@ const Whiteboard = () => {
           penSize={penSettings.penSize}
           roomCode={roomCode}
           connectionType={connectionType}
+          name={name}
         />
       )}
     </div>

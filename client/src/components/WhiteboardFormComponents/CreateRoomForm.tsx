@@ -86,7 +86,11 @@ const CreateRoomForm = () => {
         </div>
         <Link
           to={"/whiteboard"}
-          state={{ roomCode: formData.roomCode, connectionType: "create_room" }}
+          state={{
+            roomCode: formData.roomCode,
+            connectionType: "create_room",
+            name: formData.name,
+          }}
         >
           <Button minW="100%" colorScheme="red" mt={8}>
             <span className="font-black">GENERATE ROOM</span>

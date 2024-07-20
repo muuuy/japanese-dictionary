@@ -50,7 +50,11 @@ const JoinRoomForm = () => {
         />
         <Link
           to="/whiteboard"
-          state={{ roomCode: formData.roomCode, connectionType: "join_room" }}
+          state={{
+            roomCode: formData.roomCode,
+            connectionType: "join_room",
+            name: formData.name,
+          }}
         >
           <Button minW="100%" colorScheme="red" mt={8}>
             <span className="font-black">JOIN ROOM</span>
