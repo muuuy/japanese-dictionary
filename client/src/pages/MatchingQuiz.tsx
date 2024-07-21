@@ -1,43 +1,13 @@
 import { useEffect, useState } from "react";
 import { DndContext, DragEndEvent, UniqueIdentifier } from "@dnd-kit/core";
-
+import QuizScreen from "../components/MatchingQuiz/QuizScreen";
 import useUserStore from "../stores/store";
-import Timer from "../components/MatchingQuiz/Timer";
-import Card from "../components/MatchingQuiz/Card";
 import StartScreen from "../components/MatchingQuiz/StartScreen";
 
-import Droppable from "../components/DragAndDrop/Droppable";
-import Draggable from "../components/DragAndDrop/Draggable";
-
-interface CardData {
-  id: number;
-  flashcardItem: string;
-}
-
 const MatchingQuiz = () => {
-  const flashcards = useUserStore((state) => state.flashcards);
   const auth = useUserStore((state) => state.auth);
   const [start, setStart] = useState<boolean>(false);
   const [parent, setParent] = useState<UniqueIdentifier | null>(null);
-
-  const [characterCards, setCharacterCards] = useState<CardData[]>([]);
-  const [definitionCards, setDefinitionCards] = useState<CardData[]>([]);
-
-  useEffect(() => {
-    const newCharacterCards: CardData[] = [];
-    const newDefinitionCards: CardData[] = [];
-
-    flashcards.map((flashcard, index) => {
-      newCharacterCards.push({ id: index, flashcardItem: flashcard.character });
-      newDefinitionCards.push({
-        id: index,
-        flashcardItem: flashcard.definition,
-      });
-    });
-
-    setCharacterCards(newCharacterCards);
-    setDefinitionCards(newDefinitionCards);
-  }, [flashcards]);
 
   const handleStart = () => {
     setStart(true);
@@ -57,34 +27,7 @@ const MatchingQuiz = () => {
         {!start ? (
           <StartScreen handleStart={handleStart} />
         ) : (
-          <>
-            <Timer start={start} />
-            <div className="flex flex-row gap-2">
-              <div>
-                {characterCards.map((card) => (
-                  <Droppable
-                    key={`character-card-${card.id}`}
-                    id={`character-card-${card.id}`}
-                  >
-                    <Card flashcardItem={card.flashcardItem} type="character" />
-                  </Droppable>
-                ))}
-              </div>
-              <div>
-                {definitionCards.map((card) => (
-                  <Draggable
-                    key={`definition-card-${card.id}`}
-                    id={`definition-card-${card.id}`}
-                  >
-                    <Card
-                      flashcardItem={card.flashcardItem}
-                      type="definition"
-                    />
-                  </Draggable>
-                ))}
-              </div>
-            </div>
-          </>
+          <QuizScreen start={start} />
         )}
       </div>
     </DndContext>
