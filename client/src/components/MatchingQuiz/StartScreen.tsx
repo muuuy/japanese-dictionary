@@ -39,7 +39,12 @@ const StartScreen: React.FC<StartScreenData> = ({ handleStart }) => {
         <RulesButton handleTutorial={handleTutorial} />
       </div>
 
-      {tutorial && <Rules handleClose={handleClose} />}
+      {tutorial && (
+        <>
+          <div className="fixed inset-0 bg-black opacity-50 z-10" />
+          <Rules handleClose={handleClose} />
+        </>
+      )}
     </>
   );
 };

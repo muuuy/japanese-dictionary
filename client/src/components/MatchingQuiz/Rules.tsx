@@ -1,14 +1,31 @@
 import { CloseIcon } from "@chakra-ui/icons";
+import { useRef, useEffect } from "react";
 
 interface RulesData {
   handleClose: () => void;
 }
 
 const Rules: React.FC<RulesData> = ({ handleClose }) => {
+  const rulesRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (rulesRef.current && !rulesRef.current.contains(event.target as Node))
+        handleClose();
+    };
+
+    window.addEventListener("mousedown", handleClickOutside);
+
+    return () => window.removeEventListener("mousedown", handleClickOutside);
+  });
+
   return (
-    <div className="absolute z-6 bg-white text-center flex flex-col gap-4 border-2 border-black p-8 rounded-3xl">
+    <div
+      className="absolute z-6 bg-white text-center flex flex-col gap-4 border-2 border-black p-8 rounded-3xl z-20"
+      ref={rulesRef}
+    >
       <CloseIcon
-        className="absolute top-4 right-4 cursor-pointer"
+        className="absolute top-4 right-4 cursor-pointer hover:text-red-500"
         onClick={handleClose}
       />
       <h3 className="font-black text-4xl text-red-500 italic">RULES</h3>

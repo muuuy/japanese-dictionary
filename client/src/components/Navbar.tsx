@@ -39,7 +39,7 @@ const Navbar = () => {
         onClick={handleClick}
       />
       <div
-        className={`flex-col h-screen gap-4 items-center border-r-2 border-black relative ${
+        className={`flex-col h-screen gap-4 items-center border-r-2 border-black relative bg-white  ${
           isOpen ? "animate-navbar-open" : "animate-navbar-close"
         } ${isOpen ? "flex" : "hidden"}`}
         ref={sidebar}
@@ -74,7 +74,7 @@ const Navbar = () => {
                 leftIcon={<FaArrowRightToBracket />}
                 onClick={handleLogout}
                 fontSize={32}
-                variant={'outline'}
+                variant={"outline"}
               >
                 <span className="sidebar--button-text">logout</span>
               </Button>
