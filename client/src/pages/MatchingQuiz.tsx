@@ -3,6 +3,7 @@ import { DndContext, DragEndEvent, UniqueIdentifier } from "@dnd-kit/core";
 import QuizScreen from "../components/MatchingQuiz/QuizScreen";
 import useUserStore from "../stores/store";
 import StartScreen from "../components/MatchingQuiz/StartScreen";
+import LoginPrompt from "../components/LoginPrompt";
 
 const MatchingQuiz = () => {
   const auth = useUserStore((state) => state.auth);
@@ -21,16 +22,22 @@ const MatchingQuiz = () => {
   };
 
   return (
-    <DndContext onDragEnd={handleDragEnd}>
-      <div className="flex flex-col justify-center items-center flex-1 overflow-hidden relative">
-        <div className="flex flex-col items-center text-center mb-8"></div>
-        {!start ? (
-          <StartScreen handleStart={handleStart} />
-        ) : (
-          <QuizScreen start={start} />
-        )}
-      </div>
-    </DndContext>
+    <>
+      {!auth ? (
+        <LoginPrompt />
+      ) : (
+        <DndContext onDragEnd={handleDragEnd}>
+          <div className="flex flex-col justify-center items-center flex-1 overflow-hidden relative">
+            <div className="flex flex-col items-center text-center mb-8"></div>
+            {!start ? (
+              <StartScreen handleStart={handleStart} />
+            ) : (
+              <QuizScreen start={start} />
+            )}
+          </div>
+        </DndContext>
+      )}
+    </>
   );
 };
 
