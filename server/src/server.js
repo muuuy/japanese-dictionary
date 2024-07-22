@@ -4,6 +4,8 @@ const cors = require("cors");
 var logger = require("morgan");
 var createError = require("http-errors");
 const { socketHandler } = require("./socketHandler.js");
+const passport = require("./config/passport.js");
+const flash = require("connect-flash");
 
 const usersRouter = require("./routes/user");
 const flashcardRouter = require("./routes/flashcards.js");
@@ -21,6 +23,10 @@ const io = new Server(server);
 require("./config/db")();
 const session = require("./config/session.js");
 app.use(session);
+
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 
 const corsOptions = {
   origin: "http://localhost:5173",
