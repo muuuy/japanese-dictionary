@@ -31,7 +31,11 @@ const StartScreen: React.FC<StartScreenData> = ({ handleStart }) => {
 
   return (
     <>
-      <h1 className="text-9xl font-black">MATCHING QUIZ</h1>
+      <h1 className="text-9xl font-black animate-matching-slide-x text-center z-2 font-outline-4 text-white italic">
+        MATCHING
+        <br />
+        QUIZ
+      </h1>
       <div className="absolute bottom-0 -right-2">
         <StartButton handleStart={handleStart} />
       </div>

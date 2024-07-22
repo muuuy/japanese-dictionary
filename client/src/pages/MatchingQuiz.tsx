@@ -4,6 +4,7 @@ import QuizScreen from "../components/MatchingQuiz/QuizScreen";
 import useUserStore from "../stores/store";
 import StartScreen from "../components/MatchingQuiz/StartScreen";
 import LoginPrompt from "../components/LoginPrompt";
+import MatchingQuizImage from "../assets/matching_quiz.jpg";
 
 const MatchingQuiz = () => {
   const auth = useUserStore((state) => state.auth);
@@ -27,7 +28,12 @@ const MatchingQuiz = () => {
         <LoginPrompt />
       ) : (
         <DndContext onDragEnd={handleDragEnd}>
-          <div className="flex flex-col justify-center items-center flex-1 overflow-hidden relative">
+          <div
+            className="flex flex-col justify-center items-center flex-1 overflow-hidden relative bg-cover bg-center"
+            style={{
+              backgroundImage: !start ? `url(${MatchingQuizImage})` : "",
+            }}
+          >
             <div className="flex flex-col items-center text-center mb-8"></div>
             {!start ? (
               <StartScreen handleStart={handleStart} />

@@ -13,6 +13,7 @@ const handleErrors = (req, res, next) => {
 const validateEmail = [
   body("email")
     .trim()
+    .normalizeEmail()
     .escape()
     .isEmail()
     .withMessage("Invalid email.")

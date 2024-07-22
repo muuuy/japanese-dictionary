@@ -150,6 +150,14 @@ module.exports = {
             opacity: "1",
           },
         },
+        matchingSlideX: {
+          "0%": {
+            transform: "translateX(100%)",
+          },
+          "100%": {
+            transform: "translateX(-100%)",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -162,6 +170,7 @@ module.exports = {
         "navbar-open": "navbarOpen 0.4s ease-in-out forwards",
         "navbar-close": "navbarClose 0.4s ease-in-out forwards",
         "open-flashcard-menu": "openFlashcardMenu 0.6s ease-out forwards",
+        "matching-slide-x": "matchingSlideX 14s linear infinite",
       },
       borderWidth: {
         0.5: "0.5px",

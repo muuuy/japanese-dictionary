@@ -26,6 +26,13 @@
   .rules--list-header {
     @apply font-black text-xl italic underline tracking-widest;
   }
+
+  .font-outline-2 {
+    -webkit-text-stroke: 2px black;
+  }
+  .font-outline-4 {
+    -webkit-text-stroke: 4px black;
+  }
 }
 
 @layer base {
