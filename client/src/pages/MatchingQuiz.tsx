@@ -29,12 +29,11 @@ const MatchingQuiz = () => {
       ) : (
         <DndContext onDragEnd={handleDragEnd}>
           <div
-            className="flex flex-col justify-center items-center flex-1 overflow-hidden relative bg-cover bg-center"
-            style={{
-              backgroundImage: !start ? `url(${MatchingQuizImage})` : "",
-            }}
+            className="flex flex-col flex-1 justify-center items-center  overflow-hidden relative max-h-screen"
+            // style={{
+            //   backgroundImage: !start ? `url(${MatchingQuizImage})` : "",
+            // }}
           >
-            <div className="flex flex-col items-center text-center mb-8"></div>
             {!start ? (
               <StartScreen handleStart={handleStart} />
             ) : (

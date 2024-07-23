@@ -1,4 +1,7 @@
-const { transform } = require("typescript");
+// const { transform } = require("typescript");
+import { transform } from "typescript";
+import { FadeOutKeyframes } from "./keyframes/FadeOutKeyframes";
+import { FadeOutAnimations } from "./animations/FadeOutAnimations";
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -158,8 +161,10 @@ module.exports = {
             transform: "translateX(-100%)",
           },
         },
+        // FadeOutKeyframes,
       },
       animation: {
+        // FadeOutAnimations,
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-out": "fadeOut 10s ease-out forwards",

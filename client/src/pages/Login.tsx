@@ -1,19 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import axios, { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
-import clsx from "clsx";
-
-import { ErrorBanner } from "../interfaces";
 import useUserStore from "../stores/store";
-
 import { FormControl, FormLabel, Button, Input } from "@chakra-ui/react";
-import {
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
-} from "@chakra-ui/react";
+import ErrorBanner from "../components/ErrorBanner";
+import { ErrorBannerData } from "../interfaces";
 
 interface LoginData {
   email: string;
@@ -28,12 +19,10 @@ const Login = () => {
     email: "",
     password: "",
   });
-  const [errorBanner, setErrorBanner] = useState<ErrorBanner>({
-    show: false,
-    text: "",
-  });
 
   const [loading, setLoading] = useState<boolean>(false);
+
+  const [errorBanners, setErrorBanners] = useState<ErrorBannerData[]>([]);
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -59,16 +48,10 @@ const Login = () => {
         const data = await res.json();
         authUser(data.flashcards);
         navigate("/");
-      }
+      } else setLoading(false);
     } catch (err) {
-      if (err instanceof AxiosError && err.response)
-        setErrorBanner({ show: true, text: err.response.data.errors });
-
+      console.log(err);
       setLoading(false);
-
-      setTimeout(() => {
-        setErrorBanner((prev) => ({ ...prev, show: false }));
-      }, 10000);
     }
   };
 
@@ -128,15 +111,9 @@ const Login = () => {
           </FormControl>
         </form>
       </div>
-      {errorBanner.show && (
-        <div className={clsx("absolute bottom-8 right-8", "animate-fade-out")}>
-          <Alert status="error">
-            <AlertIcon />
-            <AlertTitle>Error logging in!</AlertTitle>
-            <AlertDescription>{errorBanner.text}</AlertDescription>
-          </Alert>
-        </div>
-      )}
+      {errorBanners.map((banner) => (
+        <ErrorBanner title={banner.title} description={banner.description} />
+      ))}
     </div>
   );
 };

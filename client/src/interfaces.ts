@@ -15,11 +15,6 @@ export interface DrawingData {
   lineJoin: string;
 }
 
-export interface ErrorBanner {
-  show: boolean;
-  text: string;
-}
-
 export interface SectionData {
   sectionName: string;
   japaneseName: string;
@@ -33,4 +28,9 @@ export interface SectionData {
 export interface SkeletonData {
   imageLoaded: () => void;
   imagesLoaded: boolean;
+}
+
+export interface ErrorBannerData {
+  title: string;
+  description: string;
 }

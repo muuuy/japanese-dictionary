@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import StartButton from "./StartButton";
 import RulesButton from "./RulesButton";
 import Rules from "./Rules";
+import MatchingQuizImage from "../../assets/matching_quiz.jpg";
 
 interface StartScreenData {
   handleStart: () => void;
@@ -31,11 +32,19 @@ const StartScreen: React.FC<StartScreenData> = ({ handleStart }) => {
 
   return (
     <>
-      <h1 className="text-9xl font-black text-center z-2 font-outline-2 text-white italic absolute top-4">
+      <h1 className="text-7xl font-black text-center z-2 italic absolute top-8">
         MATCHING
         <br />
         QUIZ
       </h1>
+      <h2 className="absolute bottom-8 text-2xl font-black bg-red-500 text-white rounded-full px-4 py-2 border-2 border-black">
+        マッチングクイズ
+      </h2>
+      <img
+        src={MatchingQuizImage}
+        alt="Beautiful Japanese Scenery"
+        className="h-4/6 w-full object-cover"
+      />
       <div className="absolute bottom-0 -right-2">
         <StartButton handleStart={handleStart} />
       </div>
