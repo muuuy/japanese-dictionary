@@ -9,7 +9,7 @@ import { ErrorBannerData } from "../interfaces";
 
 const ErrorBanner: React.FC<ErrorBannerData> = ({ title, description }) => {
   return (
-    <div className={clsx("absolute bottom-8 right-8", "animate-fade-out")}>
+    <div className={clsx("animate-fade-out")}>
       <Alert status="error">
         <AlertIcon />
         <AlertTitle>{title}</AlertTitle>

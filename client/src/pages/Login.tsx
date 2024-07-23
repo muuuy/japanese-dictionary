@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import useUserStore from "../stores/store";
@@ -24,6 +24,17 @@ const Login = () => {
 
   const [errorBanners, setErrorBanners] = useState<ErrorBannerData[]>([]);
 
+  useEffect(() => {
+    if (errorBanners.length > 0) {
+      const timer = setTimeout(
+        () => setErrorBanners((prev) => prev.slice(1)),
+        5000
+      );
+
+      return () => clearTimeout(timer);
+    }
+  }, [errorBanners]);
+
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -48,11 +59,22 @@ const Login = () => {
         const data = await res.json();
         authUser(data.flashcards);
         navigate("/");
-      } else setLoading(false);
+      } else {
+        setLoading(false);
+        addBanner("test", "test");
+      }
     } catch (err) {
-      console.log(err);
+      console.log(err, "test");
       setLoading(false);
+      addBanner("test", "test");
     }
+  };
+
+  const addBanner = (title: string, description: string) => {
+    setErrorBanners((prev) => [
+      ...prev,
+      { title: title, description: description },
+    ]);
   };
 
   return (
@@ -111,9 +133,11 @@ const Login = () => {
           </FormControl>
         </form>
       </div>
-      {errorBanners.map((banner) => (
-        <ErrorBanner title={banner.title} description={banner.description} />
-      ))}
+      <div className="absolute bottom-8 right-8 flex flex-col gap-2">
+        {errorBanners.map((banner) => (
+          <ErrorBanner title={banner.title} description={banner.description} />
+        ))}
+      </div>
     </div>
   );
 };

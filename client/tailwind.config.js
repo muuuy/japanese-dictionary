@@ -167,7 +167,7 @@ module.exports = {
         // FadeOutAnimations,
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "fade-out": "fadeOut 10s ease-out forwards",
+        "fade-out": "fadeOut 5s ease-out forwards",
         "slide-in-from-left": "slideInLeft 0.4s ease-in-out forwards",
         "slide-in-from-top": "slideInTop 0.4s ease-in-out forwards",
         "slide-in-from-right": "slideInRight 0.4s ease-in-out forwards",
