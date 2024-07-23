@@ -31,7 +31,7 @@ const StartScreen: React.FC<StartScreenData> = ({ handleStart }) => {
 
   return (
     <>
-      <h1 className="text-9xl font-black animate-matching-slide-x text-center z-2 font-outline-4 text-white italic">
+      <h1 className="text-9xl font-black text-center z-2 font-outline-2 text-white italic absolute top-4">
         MATCHING
         <br />
         QUIZ

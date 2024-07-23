@@ -10,7 +10,7 @@ const StartButton: React.FC<StartButtonData> = ({ handleStart }) => {
   return (
     <button
       onClick={handleStart}
-      className="border-2 border-black h-28 w-full -skew-x-6 bg-red-600 relative transition duration-500 ease-in-out hover:bg-red-500"
+      className="border-2 border-black h-28 w-full -skew-x-6 bg-red-600 relative transition duration-500 ease-in-out hover:bg-red-700 hover:text-white"
     >
       <div>
         <span className="font-black text-5xl tracking-widest flex flex-row items-center gap-8 ml-4">

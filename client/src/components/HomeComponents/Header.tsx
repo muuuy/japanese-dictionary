@@ -29,7 +29,7 @@ const Header: React.FC<SkeletonData> = ({ imageLoaded, imagesLoaded }) => {
               <h3 className="text-4xl font-black italic underline">WELCOME BACK!</h3>
               <div className="bg-red-500 rounded-full">
                 <Typewriter
-                  text="いらっしゃいませ！"
+                  text="日本語を勉強しよう！"
                   speed={200}
                   style="font-semibold italic text-white text-2xl"
                 />

@@ -68,14 +68,6 @@ const Functionality: React.FC<SkeletonData> = ({
             key={`functionality-${index}`}
           />
         ))}
-        <p className="absolute font-black text-2xl text-white top-4 right-0 tracking-widest text-right">
-          <span className="bg-red-600 pl-2">ようこそ！</span>
-          <br />
-          <span className="bg-red-600 pl-2">日本語を勉強しよう！</span>
-        </p>
-        <p className="absolute font-black text-2xl text-white bottom-0 right-4 tracking-widest text-right bg-red-600 px-2">
-          が<br />ん<br />ば<br />れ<br />！
-        </p>
       </div>
     </section>
   );

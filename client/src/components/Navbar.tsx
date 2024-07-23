@@ -32,12 +32,14 @@ const Navbar = () => {
   };
 
   return (
-    <div className="sticky top-0 z-40 bg">
+    <div className="sticky top-0 z-40">
       <HamburgerIcon
-        boxSize="32px"
+        boxSize="40px"
         className="ml-2 mt-4 cursor-pointer absolute z-50"
         onClick={handleClick}
         background={"white"}
+        rounded={"full"}
+        padding={2}
       />
       <div
         className={`flex-col h-screen gap-4 items-center border-r-2 border-black relative bg-white  ${
@@ -45,7 +47,7 @@ const Navbar = () => {
         } ${isOpen ? "flex" : "hidden"}`}
         ref={sidebar}
       >
-        <img src={Logo} className="scale-50 h-16 select-none" />
+        <img src={Logo} className="scale-50 h-18 select-none" />
         <ButtonGroup orientation="vertical" spacing={8}>
           <Link to={"/"}>
             <Button colorScheme="red" variant="ghost" className="w-48">
