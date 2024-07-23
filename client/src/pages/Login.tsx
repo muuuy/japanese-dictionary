@@ -61,12 +61,12 @@ const Login = () => {
         navigate("/");
       } else {
         setLoading(false);
-        addBanner("test", "test");
+        console.log(res);
+        addBanner("Error logging in!", "test");
       }
     } catch (err) {
       console.log(err, "test");
       setLoading(false);
-      addBanner("test", "test");
     }
   };
 

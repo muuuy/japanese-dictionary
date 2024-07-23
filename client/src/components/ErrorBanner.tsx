@@ -20,4 +20,3 @@ const ErrorBanner: React.FC<ErrorBannerData> = ({ title, description }) => {
 };
 
 export default ErrorBanner;
-//LOGGING IN ERROR TITLE: Error logging in!
