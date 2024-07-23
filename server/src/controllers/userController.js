@@ -40,6 +40,8 @@ exports.user_login = [
   asyncHandler(async (req, res, next) => {
     const user = await User.findOne({ email: req.body.email });
 
+    if (!user) return res.status(401).json({ errors: "Invalid username." });
+
     const match = await bcrypt.compare(req.body.password, user.password);
 
     if (!match) {

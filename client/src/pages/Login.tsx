@@ -61,8 +61,11 @@ const Login = () => {
         navigate("/");
       } else {
         setLoading(false);
-        console.log(res);
-        addBanner("Error logging in!", "test");
+
+        const response = await res.json();
+
+        console.log(response);
+        addBanner("Error logging in!", response.errors[0].msg);
       }
     } catch (err) {
       console.log(err, "test");
@@ -134,8 +137,12 @@ const Login = () => {
         </form>
       </div>
       <div className="absolute bottom-8 right-8 flex flex-col gap-2">
-        {errorBanners.map((banner) => (
-          <ErrorBanner title={banner.title} description={banner.description} />
+        {errorBanners.map((banner, index) => (
+          <ErrorBanner
+            key={`error-banner-${index}`}
+            title={banner.title}
+            description={banner.description}
+          />
         ))}
       </div>
     </div>
