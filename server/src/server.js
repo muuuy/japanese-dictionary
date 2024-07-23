@@ -26,7 +26,7 @@ app.use(session);
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(flash());
+// app.use(flash());
 
 const corsOptions = {
   origin: "http://localhost:5173",

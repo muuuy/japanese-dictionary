@@ -4,42 +4,39 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 
 passport.use(
-  "local-signup",
-  new LocalStrategy({ usernameField: "email" }, async function verify(
-    email,
-    password,
-    verifyPassword,
-    done
-  ) {
+  new LocalStrategy(async function verify(email, password, callback) {
     try {
+      console.log("test");
       let user = await User.findOne({ email: email }).exec();
+      if (!user)
+        return callback(null, false, {
+          message: "Incorrect username or password.",
+        });
 
-      if (user) {
-        return done(null, false, { message: "Email already exists." });
-      }
+      const match = await bcrypt.compare(password, user.password);
 
-      const hashedPassword = await bcrypt.hash(password, 13);
-      user = new User({
-        email: email,
-        password: hashedPassword,
-        flashcards: [],
-      });
-      await user.save();
+      if (!match)
+        return callback(null, false, {
+          message: "Incorrect username or password.",
+        });
 
-      // return done(null, user);
+      return callback(null, user);
     } catch (err) {
       console.log(err);
+      return callback(null, err);
     }
   })
 );
 
-passport.serializeUser((user, done) => {
-  done(null, user.id);
+passport.serializeUser((user, callback) => {
+  process.nextTick(function () {
+    callback(null, user.id);
+  });
 });
 
-passport.deserializeUser((id, done) => {
+passport.deserializeUser((id, callback) => {
   User.findById(id, (err, user) => {
-    done(err, user);
+    callback(err, user);
   });
 });
 
