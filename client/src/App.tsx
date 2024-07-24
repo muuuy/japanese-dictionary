@@ -11,8 +11,9 @@ import Home from "./pages/Home";
 import WhiteboardForm from "./pages/WhiteboardForm";
 import Whiteboard from "./pages/Whiteboard";
 import Flashcards from "./pages/Flashcards";
-import Quiz from "./pages/Quiz";
+import FillInTheBlankQuiz from "./pages/FillInTheBlankQuiz";
 import MatchingQuiz from "./pages/MatchingQuiz";
+import Quiz from "./pages/Quiz";
 
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -58,6 +59,10 @@ function App() {
             <Route path="/signup/" element={<Signup />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/quiz" element={<Quiz />} />
+            <Route
+              path="/quiz/fill-in-the-blank-quiz"
+              element={<FillInTheBlankQuiz />}
+            />
             <Route path="/quiz/matching-quiz" element={<MatchingQuiz />} />
           </Routes>
         </div>
