@@ -1,5 +1,7 @@
 import { useState } from "react";
 import QuizSection from "../components/Quiz/QuizSection";
+import FillInBlankImage from "../assets/Quiz/fill-blank_section.jpg";
+import MatchingImage from "../assets/Quiz/matching_section.jpg";
 
 const Quiz = () => {
   const [active, setActive] = useState<string | null>(null);
@@ -18,12 +20,14 @@ const Quiz = () => {
         setActive={handleActive}
         sectionName="FILL IN THE BLANK"
         sectionID="fill-in-the-blank"
+        image={FillInBlankImage}
       />
       <QuizSection
         active={active}
         setActive={handleActive}
         sectionName="MATCHING"
         sectionID="matching"
+        image={MatchingImage}
       />
     </div>
   );

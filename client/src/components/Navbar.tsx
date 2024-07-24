@@ -66,6 +66,9 @@ const Navbar = () => {
               <span className="sidebar--button-text">quiz</span>
             </Button>
           </Link>
+          <Button colorScheme="red" variant="ghost" className="w-48">
+            <span className="sidebar--button-text">download</span>
+          </Button>
           {auth ? (
             <Link to={"/"} className="navigation--user-button">
               <Button

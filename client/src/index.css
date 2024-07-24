@@ -28,7 +28,7 @@
   }
 
   .quiz--section-container {
-    @apply border-2 border-black h-4/6 w-3/12 relative flex justify-center transition-all duration-300;
+    @apply border-2 border-black rounded-xl overflow-hidden h-4/6 w-3/12 relative flex justify-center transition-all duration-300 bg-cover bg-center;
   }
 
   .font-outline-2 {
