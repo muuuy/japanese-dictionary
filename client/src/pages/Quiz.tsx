@@ -1,16 +1,30 @@
+import { useState } from "react";
+import QuizSection from "../components/Quiz/QuizSection";
+
 const Quiz = () => {
+  const [active, setActive] = useState<string | null>(null);
+
+  const handleActive = (e: React.MouseEvent<HTMLDivElement>) => {
+    const id = e.currentTarget.getAttribute("id");
+
+    if (id === active) setActive(null);
+    else setActive(e.currentTarget.getAttribute("id"));
+  };
+
   return (
     <div className="flex flex-1 flex-row justify-center items-center gap-12">
-      <div className="quiz--section-container">
-        <h2 className="font-black text-5xl text-center absolute bottom-20">
-          FILL IN THE BLANK
-        </h2>
-      </div>
-      <div className="quiz--section-container">
-        <h2 className="font-black text-5xl text-center absolute bottom-20">
-          MATCHING
-        </h2>
-      </div>
+      <QuizSection
+        active={active}
+        setActive={handleActive}
+        sectionName="FILL IN THE BLANK"
+        sectionID="fill-in-the-blank"
+      />
+      <QuizSection
+        active={active}
+        setActive={handleActive}
+        sectionName="MATCHING"
+        sectionID="matching"
+      />
     </div>
   );
 };
