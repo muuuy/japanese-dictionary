@@ -14,6 +14,9 @@ afterAll(async () => {
   await mongoServer.stop();
 }, 10000);
 
+const correctEmail = "test@test.test";
+const correctPassword = "testing";
+
 describe("User Model Test", () => {
   test("should connect to the database", () => {
     expect(mongoose.connection.readyState === 1);
@@ -74,5 +77,27 @@ describe("User Model Test", () => {
     });
 
     expect(res.status === 401);
+  });
+
+  test("should login with email and password that matches user in database", async () => {
+    const user = {
+      email: correctEmail,
+      password: correctEmail,
+    };
+
+    try {
+      const res = await fetch("http://localhost:3000/login", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+    } catch (err) {
+      console.log(err);
+    }
+
+    expect(res.status === 200);
   });
 });

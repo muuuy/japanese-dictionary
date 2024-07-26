@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Link } from "react-router-dom";
-
-import useUserStore from "../../stores/store";
-
 import {
   FormControl,
   FormLabel,
@@ -18,7 +15,6 @@ interface Form {
 }
 
 const CreateRoomForm = () => {
-  const auth: boolean = useUserStore((state) => state.auth);
   const [error, setError] = useState<string>("");
 
   const [formData, setFormData] = useState<Form>({
@@ -32,12 +28,10 @@ const CreateRoomForm = () => {
   };
 
   const handleGenerate = () => {
-    if (auth) {
-      if (error !== "") {
-        setError("");
-      }
-      setFormData({ ...formData, roomCode: uuidv4() });
-    } else setError("Not logged in.");
+    if (error !== "") {
+      setError("");
+    }
+    setFormData({ ...formData, roomCode: uuidv4() });
   };
 
   const handleCopy = () => {
@@ -56,6 +50,7 @@ const CreateRoomForm = () => {
           mb={4}
           onChange={handleChange}
           focusBorderColor="black"
+          isRequired
         />
         <FormErrorMessage></FormErrorMessage>
       </FormControl>
@@ -69,6 +64,7 @@ const CreateRoomForm = () => {
             onChange={handleChange}
             focusBorderColor="black"
             value={formData.roomCode}
+            isRequired
           />
           <ButtonGroup spacing={0}>
             <Button colorScheme="red" rounded="none" onClick={handleGenerate}>
@@ -84,18 +80,24 @@ const CreateRoomForm = () => {
             </Button>
           </ButtonGroup>
         </div>
-        <Link
-          to={"/whiteboard"}
-          state={{
-            roomCode: formData.roomCode,
-            connectionType: "create_room",
-            name: formData.name,
-          }}
-        >
+        {formData.roomCode && formData.name ? (
+          <Link
+            to={"/whiteboard"}
+            state={{
+              roomCode: formData.roomCode,
+              connectionType: "create_room",
+              name: formData.name,
+            }}
+          >
+            <Button minW="100%" colorScheme="red" mt={8}>
+              <span className="font-black">GENERATE ROOM</span>
+            </Button>
+          </Link>
+        ) : (
           <Button minW="100%" colorScheme="red" mt={8}>
             <span className="font-black">GENERATE ROOM</span>
           </Button>
-        </Link>
+        )}
       </FormControl>
     </>
   );

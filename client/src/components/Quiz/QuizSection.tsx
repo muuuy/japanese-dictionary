@@ -2,18 +2,22 @@ import { Link } from "react-router-dom";
 import { Button } from "@chakra-ui/react";
 import { FaArrowRightToBracket } from "react-icons/fa6";
 
+import "../../styles/QuizSection.scss";
+
 interface QuizSectionData {
   active: string | null;
   setActive: (e: React.MouseEvent<HTMLDivElement>) => void;
   sectionName: string;
   sectionID: string;
   image: string;
+  japaneseName: string;
 }
 
 const QuizSection: React.FC<QuizSectionData> = ({
   active,
   setActive,
   sectionName,
+  japaneseName,
   sectionID,
   image,
 }) => {
@@ -33,9 +37,14 @@ const QuizSection: React.FC<QuizSectionData> = ({
           </Button>
         </Link>
       ) : (
-        <h2 className="font-black text-5xl text-white italic text-center absolute bottom-0 bg-black p-4 w-full">
-          {sectionName}
-        </h2>
+        <div className="w-full absolute bottom-0">
+          <h2 className="font-black text-5xl text-white italic text-center  bg-black p-1 w-full">
+            {sectionName}
+          </h2>
+          <h3 className="text-white font-black bg-black w-full text-center p-1">
+            {japaneseName}
+          </h3>
+        </div>
       )}
     </div>
   );

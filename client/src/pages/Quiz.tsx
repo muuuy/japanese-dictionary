@@ -26,6 +26,7 @@ const Quiz = () => {
         active={active}
         setActive={handleActive}
         sectionName="MATCHING"
+        japaneseName="マッチング"
         sectionID="matching"
         image={MatchingImage}
       />

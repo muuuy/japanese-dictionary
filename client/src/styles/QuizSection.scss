@@ -1,0 +1,23 @@
+.transition-container {
+  transition: all 0.3s ease;
+}
+
+.transition-h2 {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.transition-btn {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.btn-enter {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.btn-exit {
+  opacity: 0;
+  transform: translateY(20px);
+}
