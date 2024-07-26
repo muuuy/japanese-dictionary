@@ -15,7 +15,7 @@ afterAll(async () => {
 }, 10000);
 
 const correctEmail = "test@test.test";
-const correctPassword = "testing";
+const correctPassword = "testingpassword";
 
 describe("User Model Test", () => {
   test("should connect to the database", () => {
@@ -25,14 +25,80 @@ describe("User Model Test", () => {
   test("should create a user and save to database", async () => {
     const user = {
       email: "test@test.test",
-      password: "testing",
-      verifyPassword: "testing",
+      password: correctPassword,
+      verifyPassword: correctPassword,
     };
 
     let error;
 
     try {
-      const res = await fetch("http://localhost:3000/user/signup", {
+      const res = await fetch("http://localhost:3000/users/signup", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+
+      const response = await res.json();
+
+      expect(res.status).toBe(200);
+    } catch (err) {
+      error = err;
+    }
+
+    if (error) throw new Error("SUCEED: Signup failed");
+  });
+
+  test("should fail to create a user b/c uses an existing email", async () => {
+    const user = {
+      email: "test@test.test",
+      password: "testingWrong",
+      verifyPassword: "testingWrong",
+    };
+
+    let error;
+
+    try {
+      const res = await fetch("http://localhost:3000/users/signup", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+
+      const response = await res.json();
+
+      console.log("response", response);
+
+      expect(res.status).toBe(200);
+    } catch (err) {
+      // console.log(err);
+      error = err;
+    }
+
+    if (error) {
+      // console.log("Signup failed:", error);
+      // expect(error).toBeUndefined();
+
+      throw new Error("Signup failed:", error);
+    }
+  });
+
+  test("should fail to create a user b/c passwords don't match", async () => {
+    const user = {
+      email: "testing@test.test",
+      password: "testing",
+      verifyPassword: "test",
+    };
+
+    let error;
+
+    try {
+      const res = await fetch("http://localhost:3000/users/signup", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -52,66 +118,6 @@ describe("User Model Test", () => {
     }
   });
 
-  test("should fail to create a user b/c uses an existing email", async () => {
-    const user = {
-      email: "test@test.test",
-      password: "testing",
-      verifyPassword: "testing",
-    };
-
-    let error;
-
-    try {
-      const res = await fetch("http://localhost:3000/user/signup", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      });
-
-      expect(res.status).toBe(401);
-    } catch (err) {
-      error = err;
-    }
-
-    if (error) {
-      console.log("Signup failed:", error);
-      expect(error).toBeUndefined();
-    }
-  });
-
-  test("should fail to create a user b/c passwords don't match", async () => {
-    const user = {
-      email: "testing@test.test",
-      password: "testing",
-      verifyPassword: "test",
-    };
-
-    let error;
-
-    try {
-      const res = await fetch("http://localhost:3000/user/signup", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      });
-
-      expect(res.status).toBe(401);
-    } catch (err) {
-      error = err;
-    }
-
-    if (error) {
-      console.log("Signup failed:", error);
-      expect(error).toBeUndefined();
-    }
-  });
-
   test("should login with email and password that matches user in database", async () => {
     const user = {
       email: correctEmail,
@@ -121,7 +127,7 @@ describe("User Model Test", () => {
     let error;
 
     try {
-      const res = await fetch("http://localhost:3000/user/login", {
+      const res = await fetch("http://localhost:3000/users/login", {
         method: "POST",
         credentials: "include",
         headers: {

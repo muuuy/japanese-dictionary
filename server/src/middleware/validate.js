@@ -3,6 +3,9 @@ const User = require("../models/User");
 
 const handleErrors = (req, res, next) => {
   const errors = validationResult(req);
+
+  console.log("oops");
+
   if (!errors.isEmpty())
     return res.status(401).json({ errors: errors.array() });
 
