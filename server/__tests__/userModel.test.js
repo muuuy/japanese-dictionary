@@ -29,16 +29,27 @@ describe("User Model Test", () => {
       verifyPassword: "testing",
     };
 
-    const res = await fetch("http://localhost:3000/signup", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    });
+    let error;
 
-    expect(res.status === 200);
+    try {
+      const res = await fetch("http://localhost:3000/user/signup", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+
+      expect(res.status).toBe(200);
+    } catch (err) {
+      error = err;
+    }
+
+    if (error) {
+      console.log("Signup failed:", error);
+      expect(error).toBeUndefined();
+    }
   });
 
   test("should fail to create a user b/c uses an existing email", async () => {
@@ -48,16 +59,27 @@ describe("User Model Test", () => {
       verifyPassword: "testing",
     };
 
-    const res = await fetch("http://localhost:3000/signup", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    });
+    let error;
 
-    expect(res.status === 401);
+    try {
+      const res = await fetch("http://localhost:3000/user/signup", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+
+      expect(res.status).toBe(401);
+    } catch (err) {
+      error = err;
+    }
+
+    if (error) {
+      console.log("Signup failed:", error);
+      expect(error).toBeUndefined();
+    }
   });
 
   test("should fail to create a user b/c passwords don't match", async () => {
@@ -67,26 +89,10 @@ describe("User Model Test", () => {
       verifyPassword: "test",
     };
 
-    const res = await fetch("http://localhost:3000/signup", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    });
-
-    expect(res.status === 401);
-  });
-
-  test("should login with email and password that matches user in database", async () => {
-    const user = {
-      email: correctEmail,
-      password: correctEmail,
-    };
+    let error;
 
     try {
-      const res = await fetch("http://localhost:3000/login", {
+      const res = await fetch("http://localhost:3000/user/signup", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -94,10 +100,44 @@ describe("User Model Test", () => {
         },
         body: JSON.stringify(user),
       });
+
+      expect(res.status).toBe(401);
     } catch (err) {
-      console.log(err);
+      error = err;
     }
 
-    expect(res.status === 200);
+    if (error) {
+      console.log("Signup failed:", error);
+      expect(error).toBeUndefined();
+    }
+  });
+
+  test("should login with email and password that matches user in database", async () => {
+    const user = {
+      email: correctEmail,
+      password: "correctEmail",
+    };
+
+    let error;
+
+    try {
+      const res = await fetch("http://localhost:3000/user/login", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+
+      expect(res.status).toBe(200);
+    } catch (err) {
+      error = err;
+    }
+
+    if (error) {
+      console.log("Login failed:", error);
+      expect(error).toBeUndefined();
+    }
   });
 });
