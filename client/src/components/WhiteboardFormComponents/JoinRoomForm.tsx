@@ -4,9 +4,7 @@ import SubmitButton from "./SubmitButton";
 import { FormData } from "../../interfaces";
 import { WhiteBoardFormData } from "../../interfaces";
 
-const JoinRoomForm: React.FC<WhiteBoardFormData> = ({
-  addErrorBanner,
-}) => {
+const JoinRoomForm: React.FC<WhiteBoardFormData> = ({ addErrorBanner }) => {
   const [formData, setFormData] = useState<FormData>({
     name: "",
     roomCode: "",
@@ -40,7 +38,6 @@ const JoinRoomForm: React.FC<WhiteBoardFormData> = ({
           onChange={handleChange}
           focusBorderColor="black"
         />
-
         <SubmitButton formData={formData} addErrorBanner={addErrorBanner} />
       </FormControl>
     </>

@@ -1,14 +1,12 @@
 import { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import { nanoid } from "nanoid";
 import { FormControl, FormLabel, Input } from "@chakra-ui/react";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import SubmitButton from "./SubmitButton";
 import { FormData } from "../../interfaces";
 import { WhiteBoardFormData } from "../../interfaces";
 
-const CreateRoomForm: React.FC<WhiteBoardFormData> = ({
-  addErrorBanner,
-}) => {
+const CreateRoomForm: React.FC<WhiteBoardFormData> = ({ addErrorBanner }) => {
   const [formData, setFormData] = useState<FormData>({
     name: "",
     roomCode: "",
@@ -20,7 +18,7 @@ const CreateRoomForm: React.FC<WhiteBoardFormData> = ({
   };
 
   const handleGenerate = () => {
-    setFormData({ ...formData, roomCode: uuidv4() });
+    setFormData({ ...formData, roomCode: nanoid() });
   };
 
   const handleCopy = () => {

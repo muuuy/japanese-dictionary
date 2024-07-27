@@ -12,8 +12,6 @@ const ErrorBanner: React.FC<ErrorBannerData> = ({
   description,
   link,
 }) => {
-  console.log(link);
-
   return (
     <div className={clsx("animate-fade-out")}>
       <Alert status="error">
@@ -24,7 +22,6 @@ const ErrorBanner: React.FC<ErrorBannerData> = ({
             description
           ) : (
             <>
-              {console.log("wtf")}
               {description}
               <a href={link} className="font-semibold italic text-blue-500">
                 HERE!

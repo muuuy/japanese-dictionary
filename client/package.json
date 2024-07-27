@@ -22,6 +22,7 @@
     "esbuild": "^0.23.0",
     "framer-motion": "^11.2.12",
     "lucide-react": "^0.397.0",
+    "nanoid": "^5.0.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^5.2.1",
@@ -29,7 +30,6 @@
     "socket.io-client": "^4.7.5",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
-    "uuid": "^10.0.0",
     "zustand": "^4.5.4"
   },
   "devDependencies": {
