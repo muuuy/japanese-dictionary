@@ -1,35 +1,18 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { Link } from "react-router-dom";
 import { FormControl, FormLabel, Input } from "@chakra-ui/react";
 import { Button, ButtonGroup } from "@chakra-ui/react";
-import useUserStore from "../../stores/store";
-import Errors from "../Errors/Errors";
-import { ErrorBannerData } from "../../interfaces";
+import SubmitButton from "./SubmitButton";
+import { FormData } from "../../interfaces";
+import { WhiteBoardFormData } from "../../interfaces";
 
-interface Form {
-  name: string;
-  roomCode: string;
-}
-
-const CreateRoomForm = () => {
-  const [errorBanners, setErrorBanners] = useState<ErrorBannerData[]>([]);
-  const [formData, setFormData] = useState<Form>({
+const CreateRoomForm: React.FC<WhiteBoardFormData> = ({
+  addErrorBanner,
+}) => {
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     roomCode: "",
   });
-  const auth = useUserStore((state) => state.auth);
-
-  useEffect(() => {
-    if (errorBanners.length > 0) {
-      const timer = setTimeout(
-        () => setErrorBanners((prev) => prev.slice(1)),
-        5000
-      );
-
-      return () => clearTimeout(timer);
-    }
-  }, [errorBanners]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -42,13 +25,6 @@ const CreateRoomForm = () => {
 
   const handleCopy = () => {
     navigator.clipboard.writeText(formData.roomCode);
-  };
-
-  const addErrorBanner = (title: string, description: string) => {
-    setErrorBanners((prev) => [
-      ...prev,
-      { title: title, description: description },
-    ]);
   };
 
   return (
@@ -93,42 +69,8 @@ const CreateRoomForm = () => {
           </ButtonGroup>
         </div>
 
-        {auth ? (
-          formData.roomCode && formData.name ? (
-            <Link
-              to={"/whiteboard"}
-              state={{
-                roomCode: formData.roomCode,
-                connectionType: "create_room",
-                name: formData.name,
-              }}
-            >
-              <Button minW="100%" colorScheme="red" mt={8}>
-                <span className="font-black">GENERATE ROOM</span>
-              </Button>
-            </Link>
-          ) : (
-            <Button minW="100%" colorScheme="red" mt={8}>
-              <span className="font-black">GENERATE ROOM</span>
-            </Button>
-          )
-        ) : (
-          <Button
-            minW="100%"
-            colorScheme="red"
-            mt={8}
-            onClick={() =>
-              addErrorBanner(
-                "Not logged in!",
-                `Log in here: <a href="http://localhost:5173/login">http://localhost:5173/login</a>`
-              )
-            }
-          >
-            <span className="font-black">GENERATE ROOM</span>
-          </Button>
-        )}
+        <SubmitButton formData={formData} addErrorBanner={addErrorBanner} />
       </FormControl>
-      <Errors errorBanners={errorBanners} />
     </>
   );
 };

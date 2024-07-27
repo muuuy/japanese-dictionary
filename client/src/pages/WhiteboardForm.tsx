@@ -1,7 +1,34 @@
 import JoinRoom from "../components/WhiteboardFormComponents/JoinRoom";
 import CreateRoom from "../components/WhiteboardFormComponents/CreateRoom";
+import { useState, useEffect } from "react";
+import { ErrorBannerData } from "../interfaces";
+import Errors from "../components/Errors/Errors";
 
 const WhiteboardForm = () => {
+  const [errorBanners, setErrorBanners] = useState<ErrorBannerData[]>([]);
+
+  useEffect(() => {
+    if (errorBanners.length > 0) {
+      const timer = setTimeout(
+        () => setErrorBanners((prev) => prev.splice(1)),
+        5000
+      );
+
+      return () => clearTimeout(timer);
+    }
+  }, [errorBanners]);
+
+  const addErrorBanner = (
+    title: string,
+    description: string,
+    link?: string
+  ) => {
+    setErrorBanners((prev) => [
+      ...prev,
+      { title: title, description: description, link: link },
+    ]);
+  };
+
   return (
     <>
       <div className="flex flex-1 flex-col justify-center">
@@ -12,10 +39,15 @@ const WhiteboardForm = () => {
           </h2>
         </div>
         <div className="flex flex-row order-4">
-          <CreateRoom />
-          <JoinRoom />
+          <CreateRoom
+            addErrorBanner={addErrorBanner}
+          />
+          <JoinRoom
+            addErrorBanner={addErrorBanner}
+          />
         </div>
       </div>
+      <Errors errorBanners={errorBanners} />
     </>
   );
 };

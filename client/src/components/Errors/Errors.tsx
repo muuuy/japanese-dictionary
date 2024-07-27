@@ -13,6 +13,7 @@ const Errors: React.FC<ErrorsData> = ({ errorBanners }) => {
           key={`error-banner-${index}`}
           title={banner.title}
           description={banner.description}
+          link={banner.link}
         />
       ))}
     </div>

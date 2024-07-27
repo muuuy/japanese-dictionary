@@ -1,19 +1,13 @@
-import React, { useState } from "react";
-import {
-  FormControl,
-  FormLabel,
-  Input,
-} from "@chakra-ui/react";
-import { Button } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { FormControl, FormLabel, Input } from "@chakra-ui/react";
+import SubmitButton from "./SubmitButton";
+import { FormData } from "../../interfaces";
+import { WhiteBoardFormData } from "../../interfaces";
 
-const JoinRoomForm = () => {
-  interface Form {
-    name: string;
-    roomCode: string;
-  }
-
-  const [formData, setFormData] = useState<Form>({
+const JoinRoomForm: React.FC<WhiteBoardFormData> = ({
+  addErrorBanner,
+}) => {
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     roomCode: "",
   });
@@ -46,18 +40,8 @@ const JoinRoomForm = () => {
           onChange={handleChange}
           focusBorderColor="black"
         />
-        <Link
-          to="/whiteboard"
-          state={{
-            roomCode: formData.roomCode,
-            connectionType: "join_room",
-            name: formData.name,
-          }}
-        >
-          <Button minW="100%" colorScheme="red" mt={8}>
-            <span className="font-black">JOIN ROOM</span>
-          </Button>
-        </Link>
+
+        <SubmitButton formData={formData} addErrorBanner={addErrorBanner} />
       </FormControl>
     </>
   );

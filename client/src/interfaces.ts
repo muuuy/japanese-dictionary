@@ -32,5 +32,15 @@ export interface SkeletonData {
 
 export interface ErrorBannerData {
   title: string;
-  description: string;
+  description?: string;
+  link?: string;
+}
+
+export interface FormData {
+  name: string;
+  roomCode: string;
+}
+
+export interface WhiteBoardFormData {
+  addErrorBanner: (title: string, description: string, link?: string) => void;
 }

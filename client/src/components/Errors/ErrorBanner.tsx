@@ -7,13 +7,31 @@ import {
 import clsx from "clsx";
 import { ErrorBannerData } from "../../interfaces";
 
-const ErrorBanner: React.FC<ErrorBannerData> = ({ title, description }) => {
+const ErrorBanner: React.FC<ErrorBannerData> = ({
+  title,
+  description,
+  link,
+}) => {
+  console.log(link);
+
   return (
     <div className={clsx("animate-fade-out")}>
       <Alert status="error">
         <AlertIcon />
         <AlertTitle>{title}</AlertTitle>
-        <AlertDescription>{description}</AlertDescription>
+        <AlertDescription>
+          {!link ? (
+            description
+          ) : (
+            <>
+              {console.log("wtf")}
+              {description}
+              <a href={link} className="font-semibold italic text-blue-500">
+                HERE!
+              </a>
+            </>
+          )}
+        </AlertDescription>
       </Alert>
     </div>
   );
