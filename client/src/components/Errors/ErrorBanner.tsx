@@ -5,7 +5,7 @@ import {
   AlertDescription,
 } from "@chakra-ui/react";
 import clsx from "clsx";
-import { ErrorBannerData } from "../interfaces";
+import { ErrorBannerData } from "../../interfaces";
 
 const ErrorBanner: React.FC<ErrorBannerData> = ({ title, description }) => {
   return (

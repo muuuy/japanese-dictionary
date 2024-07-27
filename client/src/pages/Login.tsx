@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import useUserStore from "../stores/store";
 import { FormControl, FormLabel, Button, Input } from "@chakra-ui/react";
-import ErrorBanner from "../components/ErrorBanner";
 import { ErrorBannerData } from "../interfaces";
 import LoginPromptImage from "../assets/login_prompt.jpg";
+import Errors from "../components/Errors/Errors";
 
 interface LoginData {
   email: string;
@@ -66,7 +66,7 @@ const Login = () => {
         const response = await res.json();
 
         console.log(response);
-        addBanner("Error logging in!", response.errors[0].msg);
+        addErrorBanner("Error logging in!", response.errors[0].msg);
       }
     } catch (err) {
       console.log(err, "test");
@@ -74,7 +74,7 @@ const Login = () => {
     }
   };
 
-  const addBanner = (title: string, description: string) => {
+  const addErrorBanner = (title: string, description: string) => {
     setErrorBanners((prev) => [
       ...prev,
       { title: title, description: description },
@@ -86,7 +86,9 @@ const Login = () => {
       <div className="flex flex-row justify-center items-center border-2 border-black max-h-2xl max-w-5xl rounded-xl overflow-hidden  ">
         <div className="flex flex-col w-1/2 p-4">
           <h1 className="user-form--header mt-4 mb-1 text-4xl">LOGIN</h1>
-          <p className="mb-4 italic">Welcome back! Sign in to start studying!</p>
+          <p className="mb-4 italic">
+            Welcome back! Sign in to start studying!
+          </p>
           <form onSubmit={handleSubmit}>
             <FormControl className="text-center" isRequired>
               <FormLabel htmlFor="login--email">EMAIL</FormLabel>
@@ -141,16 +143,7 @@ const Login = () => {
         </div>
         <img src={LoginPromptImage} className="object-cover w-1/2" />
       </div>
-
-      <div className="absolute bottom-8 right-8 flex flex-col gap-2">
-        {errorBanners.map((banner, index) => (
-          <ErrorBanner
-            key={`error-banner-${index}`}
-            title={banner.title}
-            description={banner.description}
-          />
-        ))}
-      </div>
+      <Errors errorBanners={errorBanners} />
     </div>
   );
 };
