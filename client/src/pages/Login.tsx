@@ -4,8 +4,9 @@ import { useNavigate } from "react-router-dom";
 import useUserStore from "../stores/store";
 import { FormControl, FormLabel, Button, Input } from "@chakra-ui/react";
 import { ErrorBannerData } from "../interfaces";
-import LoginPromptImage from "../assets/login_prompt.jpg";
+import LoginImage from "../assets/login_image.jpg";
 import Errors from "../components/Errors/Errors";
+import { Skeleton } from "@chakra-ui/react";
 
 interface LoginData {
   email: string;
@@ -15,6 +16,7 @@ interface LoginData {
 const Login = () => {
   const authUser = useUserStore((state) => state.authUser);
   const navigate = useNavigate();
+  const [imageLoaded, setImageLoaded] = useState<boolean>(false);
 
   const [formData, setFormData] = useState<LoginData>({
     email: "",
@@ -81,10 +83,18 @@ const Login = () => {
     ]);
   };
 
+  const handleImageLoaded = () => {
+    setImageLoaded(true);
+  };
+
   return (
-    <div className="flex flex-1 justify-center items-center text-center">
-      <div className="flex flex-row justify-center items-center border-2 border-black max-h-2xl max-w-5xl rounded-xl overflow-hidden  ">
-        <div className="flex flex-col w-1/2 p-4">
+    <Skeleton
+      className="flex flex-1 justify-center items-center text-center"
+      isLoaded={imageLoaded}
+      fadeDuration={1}
+    >
+      <div className="flex flex-row justify-center items-center border-2 border-black max-h-2xl max-w-5xl rounded-xl overflow-hidden shadow-2xl">
+        <div className="flex flex-col w-1/2 px-12">
           <h1 className="user-form--header mt-4 mb-1 text-4xl">LOGIN</h1>
           <p className="mb-4 italic">
             Welcome back! Sign in to start studying!
@@ -118,33 +128,43 @@ const Login = () => {
               <p className="text-right">
                 <Link
                   to={"/forgot-password/"}
-                  className="text-violet-500 font-black italic font-bold text-xs"
+                  className="text-red-500 font-black italic font-bold text-xs hover:text-red-700"
                 >
                   Forgot password?
                 </Link>
               </p>
               <Button
                 colorScheme="red"
-                className="mt-4 mb-2"
+                className="mt-8 mb-2"
                 type="submit"
                 onClick={handleSubmit}
                 isLoading={loading}
+                width={"80%"}
               >
-                <span className="font-black">SUBMIT</span>
+                <span className="font-black text-2xl tracking-widest">
+                  SUBMIT
+                </span>
               </Button>
-              <p className="italic font-semibold">
+              <p className="italic font-semibold text-sm">
                 Don't have an account?{" "}
-                <Link to={"/signup/"} className="text-violet-500 font-black">
+                <Link
+                  to={"/signup/"}
+                  className="text-red-500 font-black hover:text-red-700"
+                >
                   SIGN UP
                 </Link>
               </p>
             </FormControl>
           </form>
         </div>
-        <img src={LoginPromptImage} className="object-cover w-1/2" />
+        <img
+          src={LoginImage}
+          className="object-cover w-1/2"
+          onLoad={handleImageLoaded}
+        />
       </div>
       <Errors errorBanners={errorBanners} />
-    </div>
+    </Skeleton>
   );
 };
 

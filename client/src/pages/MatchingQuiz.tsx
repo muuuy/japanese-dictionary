@@ -1,10 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { DndContext, DragEndEvent, UniqueIdentifier } from "@dnd-kit/core";
 import QuizScreen from "../components/MatchingQuiz/QuizScreen";
 import useUserStore from "../stores/store";
 import StartScreen from "../components/MatchingQuiz/StartScreen";
-import LoginPrompt from "../components/LoginPrompt";
-import MatchingQuizImage from "../assets/matching_quiz.jpg";
 
 const MatchingQuiz = () => {
   const auth = useUserStore((state) => state.auth);
@@ -25,7 +23,7 @@ const MatchingQuiz = () => {
   return (
     <>
       {!auth ? (
-        <LoginPrompt />
+        <p>Log in</p>
       ) : (
         <DndContext onDragEnd={handleDragEnd}>
           <div
