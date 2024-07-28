@@ -16,7 +16,7 @@
   }
 
   .user-form--header {
-    @apply font-black text-3xl;
+    @apply font-black mt-4 mb-1 text-4xl;
   }
 
   .navigation--user-button {
@@ -29,6 +29,22 @@
 
   .quiz--section-container {
     @apply border-2 border-black rounded-xl overflow-hidden h-4/6 w-3/12 relative flex justify-center transition-all duration-300 bg-cover bg-center;
+  }
+
+  .page--container {
+    @apply flex flex-1 justify-center items-center text-center;
+  }
+
+  .user-form--container {
+    @apply flex flex-row justify-center items-center border-2 border-black max-h-[650px] max-w-5xl rounded-xl overflow-hidden shadow-2xl;
+  }
+
+  .user-form--image {
+    @apply object-cover w-1/2;
+  }
+
+  .user-form--form-container {
+    @apply flex flex-col w-1/2 px-12;
   }
 
   .font-outline-2 {

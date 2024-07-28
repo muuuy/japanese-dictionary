@@ -43,12 +43,12 @@ const Signup = () => {
 
   return (
     <Skeleton
-      className="flex flex-1 justify-center items-center text-center"
+      className="page--container"
       fadeDuration={1}
       isLoaded={imageLoaded}
     >
-      <div className="flex flex-row justify-center items-center border-2 border-black max-h-2xl max-w-5xl rounded-xl overflow-hidden shadow-2xl">
-        <div className="flex flex-col w-1/2 px-12">
+      <div className="user-form--container">
+        <div className="user-form--form-container">
           <h1 className="user-form--header my-4">SIGNUP</h1>
           <FormControl
             className="flex-col justify-center items-center"
@@ -105,8 +105,10 @@ const Signup = () => {
         </div>
         <img
           src={SignupImage}
-          className="object-cover w-1/2"
+          className="user-form--image"
           onLoad={handleImageLoaded}
+          alt="Stairway to Japanese temple."
+          loading="lazy"
         />
       </div>
     </Skeleton>

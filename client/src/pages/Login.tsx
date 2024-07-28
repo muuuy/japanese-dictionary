@@ -2,16 +2,15 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import useUserStore from "../stores/store";
-import { FormControl, FormLabel, Button, Input } from "@chakra-ui/react";
+import { FormControl, FormLabel, Input } from "@chakra-ui/react";
 import { ErrorBannerData } from "../interfaces";
 import LoginImage from "../assets/login_image.jpg";
 import Errors from "../components/Errors/Errors";
 import { Skeleton } from "@chakra-ui/react";
-
-interface LoginFormData {
-  email: string;
-  password: string;
-}
+import UserFormButton from "../components/UserFormComponents/UserFormButton";
+import { LoginFormData } from "../interfaces";
+import EmailInput from "../components/UserFormComponents/EmailInput";
+import PasswordInput from "../components/UserFormComponents/PasswordInput";
 
 const Login = () => {
   const authUser = useUserStore((state) => state.authUser);
@@ -44,7 +43,9 @@ const Login = () => {
   };
 
   const handleSubmit = async () => {
-    if (loading) return;
+    if (loading) {
+      return;
+    }
 
     setLoading(true);
 
@@ -89,41 +90,27 @@ const Login = () => {
 
   return (
     <Skeleton
-      className="flex flex-1 justify-center items-center text-center"
+      className="page--container"
       isLoaded={imageLoaded}
       fadeDuration={1}
     >
-      <div className="flex flex-row justify-center items-center border-2 border-black max-h-2xl max-w-5xl rounded-xl overflow-hidden shadow-2xl">
-        <div className="flex flex-col w-1/2 px-12">
-          <h1 className="user-form--header mt-4 mb-1 text-4xl">LOGIN</h1>
+      <div className="user-form--container">
+        <div className="user-form--form-container">
+          <h1 className="user-form--header">LOGIN</h1>
           <p className="mb-4 italic">
             Welcome back! Sign in to start studying!
           </p>
           <form onSubmit={handleSubmit}>
             <FormControl className="text-center" isRequired>
-              <FormLabel htmlFor="login--email">EMAIL</FormLabel>
-              <Input
+              <EmailInput
+                handleInput={handleInput}
+                email={formData.email}
                 id="login--email"
-                name="email"
-                type="email"
-                placeholder="Email"
-                autoComplete="email"
-                minLength={2}
-                maxLength={254}
-                onChange={handleInput}
-                className="mb-4"
-                value={formData.email}
               />
-              <FormLabel htmlFor="login--password">PASSWORD</FormLabel>
-              <Input
+              <PasswordInput
+                handleInput={handleInput}
+                password={formData.password}
                 id="login--password"
-                name="password"
-                type="password"
-                placeholder="Password"
-                minLength={8}
-                maxLength={32}
-                onChange={handleInput}
-                value={formData.password}
               />
               <p className="text-right">
                 <Link
@@ -133,18 +120,7 @@ const Login = () => {
                   Forgot password?
                 </Link>
               </p>
-              <Button
-                colorScheme="red"
-                className="mt-8 mb-2"
-                type="submit"
-                onClick={handleSubmit}
-                isLoading={loading}
-                width={"80%"}
-              >
-                <span className="font-black text-2xl tracking-widest">
-                  SUBMIT
-                </span>
-              </Button>
+              <UserFormButton handleSubmit={handleSubmit} loading={loading} />
               <p className="italic font-semibold text-sm">
                 Don't have an account?{" "}
                 <Link
@@ -159,8 +135,10 @@ const Login = () => {
         </div>
         <img
           src={LoginImage}
-          className="object-cover w-1/2"
+          className="user-form--image"
           onLoad={handleImageLoaded}
+          alt="Osaka's Dotonbori"
+          loading="lazy"
         />
       </div>
       <Errors errorBanners={errorBanners} />

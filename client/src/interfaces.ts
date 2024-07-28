@@ -44,3 +44,8 @@ export interface FormData {
 export interface WhiteBoardFormData {
   addErrorBanner: (title: string, description: string, link?: string) => void;
 }
+
+export interface LoginFormData {
+  email: string;
+  password: string;
+}
