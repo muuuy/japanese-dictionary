@@ -8,7 +8,7 @@ import LoginImage from "../assets/login_image.jpg";
 import Errors from "../components/Errors/Errors";
 import { Skeleton } from "@chakra-ui/react";
 
-interface LoginData {
+interface LoginFormData {
   email: string;
   password: string;
 }
@@ -18,7 +18,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [imageLoaded, setImageLoaded] = useState<boolean>(false);
 
-  const [formData, setFormData] = useState<LoginData>({
+  const [formData, setFormData] = useState<LoginFormData>({
     email: "",
     password: "",
   });
