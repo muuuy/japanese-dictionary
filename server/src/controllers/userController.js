@@ -59,11 +59,18 @@ exports.user_login = [
   }),
 ];
 
-exports.forgot_password = [asyncHandler((req, res, next) => {})];
+exports.forgot_password = [
+  asyncHandler((req, res, next) => {
+    console.log("hi");
+    return res.status(200).json({});
+  }),
+];
 
 exports.reset_password = [asyncHandler((req, res, next) => {})];
 
 exports.logout = [
+  validateEmail,
+  handleErrors,
   asyncHandler((req, res, next) => {
     if (!req.session.authenticated) {
       return res.status(204).json({});

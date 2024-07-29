@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FormControl, FormLabel, Button, Input } from "@chakra-ui/react";
 import ForgotImage from "../assets/forgot_image.jpg";
 import EmailInput from "../components/UserFormComponents/EmailInput";
 import UserFormButton from "../components/UserFormComponents/UserFormButton";
+import { fetchInfo } from "../util/handleSubmit";
 
 const ForgotPassword = () => {
   const [formData, setFormData] = useState<string>("");
@@ -14,7 +15,14 @@ const ForgotPassword = () => {
     setFormData(event.target.value);
   };
 
-  const handleSubmit = () => {};
+  useEffect(() => {
+    console.log(formData);
+  }, [formData]);
+
+  const handleSubmit = async () => {
+    const res = await fetchInfo("users/forgot-password", formData);
+    console.log(res);
+  };
 
   return (
     <div className="page--container">

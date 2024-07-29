@@ -64,8 +64,6 @@ const Login = () => {
         authUser(data.flashcards);
         navigate("/");
       } else {
-        setLoading(false);
-
         const response = await res.json();
 
         console.log(response);
@@ -75,6 +73,8 @@ const Login = () => {
       console.log(err, "test");
       setLoading(false);
     }
+
+    setLoading(false);
   };
 
   const addErrorBanner = (title: string, description: string) => {
