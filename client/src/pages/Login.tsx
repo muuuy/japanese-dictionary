@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import useUserStore from "../stores/store";
-import { FormControl, FormLabel, Input } from "@chakra-ui/react";
+import { FormControl } from "@chakra-ui/react";
 import { ErrorBannerData } from "../interfaces";
 import LoginImage from "../assets/login_image.jpg";
 import Errors from "../components/Errors/Errors";
