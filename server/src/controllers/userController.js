@@ -2,8 +2,9 @@ const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
+const Joi = require("joi");
 
-const User = require("../models/User");
+const { User } = require("../models/User");
 
 const fetchFlashcards = require("../middleware/fetchFlashcards");
 
@@ -60,8 +61,26 @@ exports.user_login = [
 ];
 
 exports.forgot_password = [
-  asyncHandler((req, res, next) => {
-    console.log("hi");
+  asyncHandler(async (req, res, next) => {
+    const user = await User.findOne({ email: req.body.email });
+
+    if (!user) {
+      console.log("User not found.");
+      return res.status(404).json({ message: "Invalid email." });
+    }
+
+    const transporter = nodemailer.createTransport({
+      host: process.env.EMAIL_HOST,
+      port: 587,
+      secure: false,
+      auth: {
+        user: process.env.EMAIL_ADDRESS,
+        pass: process.env.EMAIL_PASSWORD,
+      },
+    });
+
+    console.log(user);
+
     return res.status(200).json({});
   }),
 ];
