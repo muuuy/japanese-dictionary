@@ -62,7 +62,9 @@ exports.user_login = [
 
 exports.forgot_password = [
   asyncHandler(async (req, res, next) => {
-    const user = await User.findOne({ email: req.body.email });
+    const email = req.body.email;
+
+    const user = await User.findOne({ email: email });
 
     if (!user) {
       console.log("User not found.");
@@ -77,6 +79,22 @@ exports.forgot_password = [
         user: process.env.EMAIL_ADDRESS,
         pass: process.env.EMAIL_PASSWORD,
       },
+    });
+
+    const mailOptions = {
+      from: process.env.EMAIL_ADDRESS,
+      to: email,
+      subject: "Password Reset Request - YUKANA",
+      html: `<p>test</p>`,
+    };
+
+    await transporter.sendMail(mailOptions, (err, info) => {
+      if (err) {
+        res.status(500).send({ message: err.message });
+      }
+
+      console.log("Message sent: %s", info.messageId);
+      console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
     });
 
     console.log(user);
