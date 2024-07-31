@@ -3,10 +3,9 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const Joi = require("joi");
-
-const { User } = require("../models/User");
-
 const fetchFlashcards = require("../middleware/fetchFlashcards");
+const { User } = require("../models/User");
+const generateResetToken = require("../middleware/generateResetToken");
 
 const {
   handleErrors,
@@ -71,6 +70,8 @@ exports.forgot_password = [
       return res.status(404).json({ message: "Invalid email." });
     }
 
+    const token = generateResetToken(user._id, user.password);
+
     const transporter = nodemailer.createTransport({
       host: process.env.EMAIL_HOST,
       port: 587,
@@ -85,10 +86,11 @@ exports.forgot_password = [
       from: process.env.EMAIL_ADDRESS,
       to: email,
       subject: "Password Reset Request - YUKANA",
-      html: `<p>test</p>`,
+      html: `<p>test</p>
+             <a href="http://${process.env.BACKEND_ADDRESS}/users/reset-password/${token}"></a>;`,
     };
 
-    await transporter.sendMail(mailOptions, (err, info) => {
+    transporter.sendMail(mailOptions, (err, info) => {
       if (err) {
         res.status(500).send({ message: err.message });
       }
