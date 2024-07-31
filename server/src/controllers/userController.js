@@ -87,7 +87,9 @@ exports.forgot_password = [
       to: email,
       subject: "Password Reset Request - YUKANA",
       html: `<p>test</p>
-             <a href="http://${process.env.BACKEND_ADDRESS}/users/reset-password/${token}"></a>;`,
+             <a href="http://${process.env.BACKEND_ADDRESS}/users/reset-password/${token}">RESET PASSWORD</a>
+             <p>If you didn't request a password reset, please ignore this email.</p>
+             <p>This link will expire in 10 minutes or after it is used.</p>`,
     };
 
     transporter.sendMail(mailOptions, (err, info) => {
@@ -98,8 +100,6 @@ exports.forgot_password = [
       console.log("Message sent: %s", info.messageId);
       console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
     });
-
-    console.log(user);
 
     return res.status(200).json({});
   }),
