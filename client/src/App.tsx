@@ -18,6 +18,7 @@ import Quiz from "./pages/Quiz";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
   const authUser = useUserStore((state) => state.authUser);
@@ -58,6 +59,8 @@ function App() {
             <Route path="/login/" element={<Login />} />
             <Route path="/signup/" element={<Signup />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password/:token" element={<ResetPassword />} />
+
             <Route path="/quiz" element={<Quiz />} />
             <Route
               path="/quiz/fill-in-the-blank-quiz"

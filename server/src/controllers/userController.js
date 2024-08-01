@@ -87,7 +87,7 @@ exports.forgot_password = [
       to: email,
       subject: "Password Reset Request - YUKANA",
       html: `<p>test</p>
-             <a href="http://${process.env.BACKEND_ADDRESS}/users/reset-password/${token}">RESET PASSWORD</a>
+             <a href="http://${process.env.VIEW_ADDRESS}/reset-password/${token}">RESET PASSWORD</a>
              <p>If you didn't request a password reset, please ignore this email.</p>
              <p>This link will expire in 10 minutes or after it is used.</p>`,
     };
