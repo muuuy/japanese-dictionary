@@ -1,8 +1,12 @@
+import { useState } from "react";
 import { FormContainer } from "./FormContainer";
 import { FormControl, FormLabel, Input } from "@chakra-ui/react";
 import UserFormButton from "./UserFormButton";
 import { handleSubmit } from "../../util/handleSubmit";
 import { Link } from "react-router-dom";
+import EmailInput from "./EmailInput";
+import PasswordInput from "./PasswordInput";
+import { VerifyPasswordInput } from "./VerifyPasswordInput";
 
 interface SignupData {
   email: string;
@@ -16,50 +20,52 @@ const SignupForm = () => {
     password: "",
     verifyPassword: "",
   });
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const handleInput = (event: React.ChangeEvent) => {
+  const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    setFormData({ ...formData, [event.target.name]: event.target.value });
+  };
 
-  }
+  const handleSubmit = async () => {
+    try {
+      const res = await fetch("http://localhost:3000/users/signup", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (res.status === 200) {
+        setFormData({ email: "", password: "", verifyPassword: "" });
+      } else {
+        console.log("failure");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <FormContainer>
       <h1 className="user-form--header my-4">SIGNUP</h1>
       <FormControl className="flex-col justify-center items-center" isRequired>
-        <FormLabel htmlFor="signup--email">EMAIL</FormLabel>
-        <Input
+        <EmailInput
+          handleInput={handleInput}
+          email={formData.email}
           id="signup--email"
-          name="email"
-          type="email"
-          placeholder="Email"
-          autoComplete="email"
-          minLength={2}
-          maxLength={254}
-          onChange={handleInput}
-          className="mb-4"
-          value={formData.email}
         />
-        <FormLabel htmlFor="signup--password">PASSWORD</FormLabel>
-        <Input
+        <PasswordInput
+          handleInput={handleInput}
+          password={formData.password}
           id="signup--password"
-          name="password"
-          type="password"
-          placeholder="Password"
-          minLength={8}
-          maxLength={32}
-          onChange={handleInput}
-          className="mb-4"
-          value={formData.password}
         />
-        <FormLabel htmlFor="signup--verify-password">VERIFY PASSWORD</FormLabel>
-        <Input
+        <VerifyPasswordInput
+          handleInput={handleInput}
+          verifyPassword={formData.verifyPassword}
           id="signup--verify-password"
-          name="verifyPassword"
-          type="password"
-          minLength={8}
-          maxLength={32}
-          placeholder="Password"
-          onChange={handleInput}
-          value={formData.verifyPassword}
         />
         <p className="italic font-semibold my-4">
           Already have an account?{" "}

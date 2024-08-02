@@ -1,32 +1,32 @@
 import { FormLabel, Input } from "@chakra-ui/react";
 
-interface PasswordInputData {
+interface VerifyPasswordInputData {
   handleInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  password: string;
+  verifyPassword: string;
   id: string;
 }
 
-const PasswordInput: React.FC<PasswordInputData> = ({
+const VerifyPasswordInput: React.FC<VerifyPasswordInputData> = ({
   handleInput,
-  password,
+  verifyPassword,
   id,
 }) => {
   return (
     <>
-      <FormLabel htmlFor={id}>PASSWORD</FormLabel>
+      <FormLabel htmlFor={id}>VERIFY PASSWORD</FormLabel>
       <Input
         id={id}
-        name="password"
+        name="verifyPassword"
         type="password"
-        placeholder="Password"
         minLength={8}
         maxLength={32}
+        placeholder="Password"
         onChange={handleInput}
-        value={password}
+        value={verifyPassword}
         className="mb-4"
       />
     </>
   );
 };
 
-export default PasswordInput;
+export { VerifyPasswordInput };
