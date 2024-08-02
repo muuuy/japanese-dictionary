@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { Skeleton } from "@chakra-ui/react";
 import { FormControl, FormLabel, Button, Input } from "@chakra-ui/react";
 import SignupImage from "../assets/signup_image.jpg";
+import axios from "axios";
+import { UserFormContainer } from "../components/UserFormComponents/UserFormContainer";
+import { FormContainer } from "../components/UserFormComponents/FormContainer";
 
 interface SignupData {
   email: string;
@@ -47,8 +49,8 @@ const Signup = () => {
       fadeDuration={1}
       isLoaded={imageLoaded}
     >
-      <div className="user-form--container">
-        <div className="user-form--form-container">
+      <UserFormContainer>
+        <FormContainer>
           <h1 className="user-form--header my-4">SIGNUP</h1>
           <FormControl
             className="flex-col justify-center items-center"
@@ -102,7 +104,7 @@ const Signup = () => {
               <span className="font-black">SUBMIT</span>
             </Button>
           </FormControl>
-        </div>
+        </FormContainer>
         <img
           src={SignupImage}
           className="user-form--image"
@@ -110,7 +112,7 @@ const Signup = () => {
           alt="Stairway to Japanese temple."
           loading="lazy"
         />
-      </div>
+      </UserFormContainer>
     </Skeleton>
   );
 };
