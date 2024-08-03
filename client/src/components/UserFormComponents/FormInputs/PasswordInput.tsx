@@ -29,4 +29,4 @@ const PasswordInput: React.FC<PasswordInputData> = ({
   );
 };
 
-export default PasswordInput;
+export { PasswordInput };

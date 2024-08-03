@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { FormContainer } from "./FormContainer";
-import { FormControl, FormLabel, Input } from "@chakra-ui/react";
-import UserFormButton from "./UserFormButton";
-import { handleSubmit } from "../../util/handleSubmit";
+import { FormControl } from "@chakra-ui/react";
+import { UserFormButton } from "./UserFormButton";
 import { Link } from "react-router-dom";
-import EmailInput from "./EmailInput";
-import PasswordInput from "./PasswordInput";
-import { VerifyPasswordInput } from "./VerifyPasswordInput";
+import { EmailInput } from "./FormInputs/EmailInput";
+import { PasswordInput } from "./FormInputs/PasswordInput";
+import { VerifyPasswordInput } from "./FormInputs/VerifyPasswordInput";
 
 interface SignupData {
   email: string;

@@ -30,4 +30,4 @@ const EmailInput: React.FC<EmailInputData> = ({
   );
 };
 
-export default EmailInput;
+export { EmailInput };

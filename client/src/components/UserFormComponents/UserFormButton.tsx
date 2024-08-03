@@ -23,4 +23,4 @@ const UserFormButton: React.FC<UserFormButtonData> = ({
   );
 };
 
-export default UserFormButton;
+export { UserFormButton };

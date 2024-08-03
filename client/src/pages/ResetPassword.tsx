@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { FormControl, FormLabel, Button, Input } from "@chakra-ui/react";
+import { FormControl, FormLabel, Input } from "@chakra-ui/react";
+import { UserFormButton } from "../components/UserFormComponents/UserFormButton";
 import ResetPasswordImage from "../assets/reset_password.jpg";
-import UserFormButton from "../components/UserFormComponents/UserFormButton";
 
 interface ResetData {
   password: string;

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { FormControl, FormLabel, Button, Input } from "@chakra-ui/react";
-import ForgotImage from "../assets/forgot_image.jpg";
-import EmailInput from "../components/UserFormComponents/EmailInput";
-import UserFormButton from "../components/UserFormComponents/UserFormButton";
+import { FormControl } from "@chakra-ui/react";
+import { EmailInput } from "../components/UserFormComponents/FormInputs/EmailInput";
+import { UserFormButton } from "../components/UserFormComponents/UserFormButton";
 import { fetchInfo } from "../util/handleSubmit";
+import ForgotImage from "../assets/forgot_image.jpg";
 
 const ForgotPassword = () => {
   const [formData, setFormData] = useState<string>("");

@@ -7,10 +7,10 @@ import { ErrorBannerData } from "../interfaces";
 import LoginImage from "../assets/login_image.jpg";
 import Errors from "../components/Errors/Errors";
 import { Skeleton } from "@chakra-ui/react";
-import UserFormButton from "../components/UserFormComponents/UserFormButton";
+import { UserFormButton } from "../components/UserFormComponents/UserFormButton";
 import { LoginFormData } from "../interfaces";
-import EmailInput from "../components/UserFormComponents/EmailInput";
-import PasswordInput from "../components/UserFormComponents/PasswordInput";
+import { EmailInput } from "../components/UserFormComponents/FormInputs/EmailInput";
+import { PasswordInput } from "../components/UserFormComponents/FormInputs/PasswordInput";
 
 const Login = () => {
   const authUser = useUserStore((state) => state.authUser);
