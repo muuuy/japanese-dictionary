@@ -25,8 +25,15 @@ const Navbar = () => {
   };
 
   const handleLogout = async () => {
-    const res = await logout();
-    if (res) {
+    const res = await fetch("http://localhost:3000/users/logout", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json ",
+      },
+    });
+
+    if (res.ok) {
       unAuthUser();
     }
   };

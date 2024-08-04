@@ -27,6 +27,8 @@ const SignupForm = () => {
   };
 
   const handleSubmit = async () => {
+    setLoading(true);
+
     try {
       const res = await fetch("http://localhost:3000/users/signup", {
         method: "POST",
@@ -37,7 +39,7 @@ const SignupForm = () => {
         body: JSON.stringify(formData),
       });
 
-      if (res.status === 200) {
+      if (res.ok) {
         setFormData({ email: "", password: "", verifyPassword: "" });
       } else {
         console.log("failure");
@@ -45,35 +47,42 @@ const SignupForm = () => {
     } catch (err) {
       console.log(err);
     }
+
+    setLoading(false);
   };
 
   return (
     <FormContainer>
       <h1 className="user-form--header my-4">SIGNUP</h1>
-      <FormControl className="flex-col justify-center items-center" isRequired>
-        <EmailInput
-          handleInput={handleInput}
-          email={formData.email}
-          id="signup--email"
-        />
-        <PasswordInput
-          handleInput={handleInput}
-          password={formData.password}
-          id="signup--password"
-        />
-        <VerifyPasswordInput
-          handleInput={handleInput}
-          verifyPassword={formData.verifyPassword}
-          id="signup--verify-password"
-        />
-        <p className="italic font-semibold my-4">
-          Already have an account?{" "}
-          <Link to={"/login/"} className="text-violet-500 font-black">
-            LOGIN
-          </Link>
-        </p>
-        <UserFormButton handleSubmit={handleSubmit} loading={loading} />
-      </FormControl>
+      <form onSubmit={handleSubmit}>
+        <FormControl
+          className="flex-col justify-center items-center"
+          isRequired
+        >
+          <EmailInput
+            handleInput={handleInput}
+            email={formData.email}
+            id="signup--email"
+          />
+          <PasswordInput
+            handleInput={handleInput}
+            password={formData.password}
+            id="signup--password"
+          />
+          <VerifyPasswordInput
+            handleInput={handleInput}
+            verifyPassword={formData.verifyPassword}
+            id="signup--verify-password"
+          />
+          <p className="italic font-semibold my-4">
+            Already have an account?{" "}
+            <Link to={"/login/"} className="text-violet-500 font-black">
+              LOGIN
+            </Link>
+          </p>
+          <UserFormButton handleSubmit={handleSubmit} loading={loading} />
+        </FormControl>
+      </form>
     </FormContainer>
   );
 };

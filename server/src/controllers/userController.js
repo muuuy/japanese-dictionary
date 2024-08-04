@@ -130,3 +130,13 @@ exports.authenticate = [
     return res.status(204).json({});
   }),
 ];
+
+exports.user_logout = [
+  asyncHandler((req, res, next) => {
+    if (req.session.authenticated) {
+      req.session.destroy();
+    }
+
+    return res.status(200).json({});
+  }),
+];
