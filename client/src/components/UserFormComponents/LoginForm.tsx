@@ -2,6 +2,7 @@ import { LoginFormData, ErrorBannerData } from "../../interfaces";
 import { useState, useEffect } from "react";
 import { FormContainer } from "./FormContainer";
 import { useNavigate } from "react-router-dom";
+import { fetchInfo } from "../../util/handleSubmit";
 import useUserStore from "../../stores/store";
 
 const LoginForm = () => {
