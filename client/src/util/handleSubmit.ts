@@ -1,23 +1,18 @@
-// import { LoginFormData } from "../interfaces";
-// import { FlashcardData } from "../interfaces";
+import { LoginFormData } from "../interfaces";
+import { FlashcardData } from "../interfaces";
 
 export const fetchInfo = async (
   urlPath: string,
-  formData: string
-): Promise<Response | boolean> => {
-  try {
-    return await fetch(`http://localhost:3000/${urlPath}`, {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email: formData }),
-    });
-  } catch (err) {
-    console.error(`Error Fetching from ${urlPath}: ${err}`);
-    return false;
-  }
+  formData: string | LoginFormData
+): Promise<Response> => {
+  return await fetch(`http://localhost:3000/${urlPath}`, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email: formData }),
+  });
 };
 
 // export const handleSubmit = async (

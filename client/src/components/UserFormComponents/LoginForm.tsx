@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { FormContainer } from "./FormContainer";
 import { useNavigate } from "react-router-dom";
 import { fetchInfo } from "../../util/handleSubmit";
+import { useMutation } from "@tanstack/react-query";
 import useUserStore from "../../stores/store";
 
 const LoginForm = () => {
@@ -12,7 +13,6 @@ const LoginForm = () => {
   });
   const [loading, setLoading] = useState<boolean>(false);
   const [errorBanners, setErrorBanners] = useState<ErrorBannerData[]>([]);
-
   const authUser = useUserStore((state) => state.authUser);
   const navigate = useNavigate();
 
@@ -34,27 +34,27 @@ const LoginForm = () => {
   const handleSubmit = async () => {
     setLoading(false);
 
-    try {
-      const res = await fetch("http://localhost:3000/users/login", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+    // try {
+    //   const res = await fetch("http://localhost:3000/users/login", {
+    //     method: "POST",
+    //     credentials: "include",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(formData),
+    //   });
 
-      const response = await res.json();
+    //   const response = await res.json();
 
-      if (res.ok) {
-        authUser(response.flashcards);
-        navigate("/");
-      } else {
-        console.log("error");
-      }
-    } catch (err) {
-      console.log(err);
-    }
+    //   if (res.ok) {
+    //     authUser(response.flashcards);
+    //     navigate("/");
+    //   } else {
+    //     console.log("error");
+    //   }
+    // } catch (err) {
+    //   console.log(err);
+    // }
 
     setLoading(true);
   };
