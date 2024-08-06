@@ -6,6 +6,7 @@ import { FormContainer } from "./FormContainer";
 import { useState } from "react";
 import { fetchInfo } from "../../util/handleSubmit";
 import { UserFormProps } from "../../interfaces";
+import { checkErrors } from "../../util/checkErrors";
 
 const ForgotForm: React.FC<UserFormProps> = ({ addErrorBanner }) => {
   const [formData, setFormData] = useState<string>("");
@@ -27,16 +28,10 @@ const ForgotForm: React.FC<UserFormProps> = ({ addErrorBanner }) => {
     try {
       const res = await fetchInfo({
         urlPath: "/users/forgot-password",
-        formData: formData,
+        formData: { email: formData },
       });
 
-      const response = await res.json();
-
-      if (!res.ok) {
-        Array.isArray(response.errors)
-          ? addErrorBanner("Error resetting password!", response.errors[0].msg)
-          : addErrorBanner("Error resetting password!", response.errors);
-      }
+      checkErrors(res, "Error resetting password!", addErrorBanner);
     } catch (error) {
       console.log(error);
     }
@@ -47,20 +42,22 @@ const ForgotForm: React.FC<UserFormProps> = ({ addErrorBanner }) => {
   return (
     <FormContainer>
       <h1 className="user-form--header my-4">FORGOT PASSWORD</h1>
-      <FormControl>
-        <EmailInput
-          handleInput={handleInput}
-          email={formData}
-          id="forgot--email"
-        />
-        <UserFormButton handleSubmit={handleSubmit} loading={loading} />
-        <p className="italic font-semibold">
-          Return to{" "}
-          <Link to={"/login/"} className="text-violet-500 font-black">
-            LOG IN
-          </Link>
-        </p>
-      </FormControl>
+      <form onSubmit={handleSubmit}>
+        <FormControl>
+          <EmailInput
+            handleInput={handleInput}
+            email={formData}
+            id="forgot--email"
+          />
+          <UserFormButton handleSubmit={handleSubmit} loading={loading} />
+          <p className="italic font-semibold">
+            Return to{" "}
+            <Link to={"/login/"} className="text-violet-500 font-black">
+              LOG IN
+            </Link>
+          </p>
+        </FormControl>
+      </form>
     </FormContainer>
   );
 };

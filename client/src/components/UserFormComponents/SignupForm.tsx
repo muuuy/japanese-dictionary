@@ -7,6 +7,8 @@ import { EmailInput } from "./FormInputs/EmailInput";
 import { PasswordInput } from "./FormInputs/PasswordInput";
 import { VerifyPasswordInput } from "./FormInputs/VerifyPasswordInput";
 import { fetchInfo } from "../../util/handleSubmit";
+import { checkErrors } from "../../util/checkErrors";
+import { UserFormProps } from "../../interfaces";
 
 interface SignupData {
   email: string;
@@ -14,7 +16,7 @@ interface SignupData {
   verifyPassword: string;
 }
 
-const SignupForm = () => {
+const SignupForm: React.FC<UserFormProps> = ({ addErrorBanner }) => {
   const [formData, setFormData] = useState<SignupData>({
     email: "",
     password: "",
@@ -31,14 +33,12 @@ const SignupForm = () => {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:3000/users/signup", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+      const res = await fetchInfo({
+        urlPath: "/users/signup",
+        formData: formData,
       });
+
+      checkErrors(res, "Error signing up!", addErrorBanner);
 
       if (res.ok) {
         setFormData({ email: "", password: "", verifyPassword: "" });

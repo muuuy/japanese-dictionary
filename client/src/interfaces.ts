@@ -50,9 +50,13 @@ export interface LoginFormData {
   password: string;
 }
 
+export interface ForgotFormData {
+  email: string;
+}
+
 export interface FetchData {
   urlPath: string;
-  formData: string | LoginFormData;
+  formData: string | LoginFormData | ForgotFormData;
 }
 
 export interface FetchInfoResponse {

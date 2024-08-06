@@ -1,14 +1,10 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { FormControl } from "@chakra-ui/react";
-import { EmailInput } from "../components/UserFormComponents/FormInputs/EmailInput";
-import { UserFormButton } from "../components/UserFormComponents/UserFormButton";
-import { fetchInfo } from "../util/handleSubmit";
-import ForgotImage from "../assets/forgot_image.jpg";
+import { useState } from "react";
 import { UserFormContainer } from "../components/UserFormComponents/UserFormContainer";
 import { ForgotForm } from "../components/UserFormComponents/ForgotForm";
 import { ErrorBannerData } from "../interfaces";
 import { Skeleton } from "@chakra-ui/react";
+import { Errors } from "../components/Errors/Errors";
+import ForgotImage from "../assets/forgot_image.jpg";
 
 const ForgotPassword = () => {
   const [imageLoaded, setImageLoaded] = useState<boolean>(false);
@@ -39,6 +35,7 @@ const ForgotPassword = () => {
           onLoad={handleImageLoaded}
         />
       </UserFormContainer>
+      <Errors errorBanners={errorBanners} />
     </Skeleton>
   );
 };

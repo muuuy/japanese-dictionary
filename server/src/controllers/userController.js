@@ -20,6 +20,14 @@ exports.user_signup = [
   validateVerifyPassword,
   handleErrors,
   asyncHandler(async (req, res, next) => {
+    const email = req.body.email;
+
+    const userExists = await User.findOne({ email: email });
+
+    if (userExists) {
+      return res.status(409).json({ errors: "Email already in use." });
+    }
+
     const password = await bcrypt.hash(req.body.password, 13);
 
     const user = new User({
@@ -40,7 +48,9 @@ exports.user_login = [
   asyncHandler(async (req, res, next) => {
     const user = await User.findOne({ email: req.body.email });
 
-    if (!user) return res.status(401).json({ errors: "Invalid username." });
+    if (!user) {
+      return res.status(401).json({ errors: "Invalid username." });
+    }
 
     const match = await bcrypt.compare(req.body.password, user.password);
 
