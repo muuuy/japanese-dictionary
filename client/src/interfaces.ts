@@ -58,3 +58,7 @@ export interface FetchData {
 export interface FetchInfoResponse {
   flashcards: FlashcardData[];
 }
+
+export interface UserFormProps {
+  addErrorBanner: (title: string, description: string) => void;
+}

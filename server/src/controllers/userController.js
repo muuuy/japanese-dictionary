@@ -67,7 +67,7 @@ exports.forgot_password = [
 
     if (!user) {
       console.log("User not found.");
-      return res.status(404).json({ message: "Invalid email." });
+      return res.status(404).json({ errors: "Invalid email." });
     }
 
     const token = generateResetToken(user._id, user.password);

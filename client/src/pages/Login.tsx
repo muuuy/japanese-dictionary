@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { ErrorBannerData } from "../interfaces";
-import LoginImage from "../assets/login_image.jpg";
-import Errors from "../components/Errors/Errors";
+import { Errors } from "../components/Errors/Errors";
 import { Skeleton } from "@chakra-ui/react";
 import { LoginForm } from "../components/UserFormComponents/LoginForm";
 import { UserFormContainer } from "../components/UserFormComponents/UserFormContainer";
+import LoginImage from "../assets/login_image.jpg";
 
 const Login = () => {
   const [imageLoaded, setImageLoaded] = useState<boolean>(false);

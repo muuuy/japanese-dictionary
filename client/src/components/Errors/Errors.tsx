@@ -20,4 +20,4 @@ const Errors: React.FC<ErrorsData> = ({ errorBanners }) => {
   );
 };
 
-export default Errors;
+export { Errors };

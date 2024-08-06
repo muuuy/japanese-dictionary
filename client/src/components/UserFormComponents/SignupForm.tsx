@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { EmailInput } from "./FormInputs/EmailInput";
 import { PasswordInput } from "./FormInputs/PasswordInput";
 import { VerifyPasswordInput } from "./FormInputs/VerifyPasswordInput";
+import { fetchInfo } from "../../util/handleSubmit";
 
 interface SignupData {
   email: string;

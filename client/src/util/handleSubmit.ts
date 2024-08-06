@@ -3,8 +3,8 @@ import { FetchData, FetchInfoResponse } from "../interfaces";
 export const fetchInfo = async ({
   urlPath,
   formData,
-}: FetchData): Promise<FetchInfoResponse> => {
-  const res = await fetch(`http://localhost:3000${urlPath}`, {
+}: FetchData): Promise<Response> => {
+  return await fetch(`http://localhost:3000${urlPath}`, {
     method: "POST",
     credentials: "include",
     headers: {
@@ -12,17 +12,31 @@ export const fetchInfo = async ({
     },
     body: JSON.stringify(formData),
   });
+};
 
-  const response = await res.json();
+export const fetchQueryInfo = async ({
+  urlPath,
+  formData,
+}: FetchData): Promise<FetchInfoResponse> => {
+  let response;
 
-  if (!res.ok) {
-    console.log(response.errors);
+  try {
+    const res = await fetchInfo({ urlPath: urlPath, formData: formData });
 
-    if (Array.isArray(response.errors)) {
-      throw new Error(response.errors[0].msg);
-    } else {
-      throw new Error(response.errors);
+    response = await res.json();
+
+    if (!res.ok) {
+      console.log(response.errors);
+
+      if (Array.isArray(response.errors)) {
+        throw new Error(response.errors[0].msg);
+      } else {
+        throw new Error(response.errors);
+      }
     }
+  } catch (error) {
+    console.log(error);
+    throw error;
   }
 
   return response;

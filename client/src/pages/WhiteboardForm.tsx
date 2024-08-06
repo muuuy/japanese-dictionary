@@ -2,7 +2,7 @@ import JoinRoom from "../components/WhiteboardFormComponents/JoinRoom";
 import CreateRoom from "../components/WhiteboardFormComponents/CreateRoom";
 import { useState, useEffect } from "react";
 import { ErrorBannerData } from "../interfaces";
-import Errors from "../components/Errors/Errors";
+import { Errors } from "../components/Errors/Errors";
 
 const WhiteboardForm = () => {
   const [errorBanners, setErrorBanners] = useState<ErrorBannerData[]>([]);
@@ -39,12 +39,8 @@ const WhiteboardForm = () => {
           </h2>
         </div>
         <div className="flex flex-row order-4">
-          <CreateRoom
-            addErrorBanner={addErrorBanner}
-          />
-          <JoinRoom
-            addErrorBanner={addErrorBanner}
-          />
+          <CreateRoom addErrorBanner={addErrorBanner} />
+          <JoinRoom addErrorBanner={addErrorBanner} />
         </div>
       </div>
       <Errors errorBanners={errorBanners} />

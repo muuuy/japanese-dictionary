@@ -2,7 +2,7 @@ import { LoginFormData } from "../../interfaces";
 import { useState } from "react";
 import { FormContainer } from "./FormContainer";
 import { useNavigate } from "react-router-dom";
-import { fetchInfo } from "../../util/handleSubmit";
+import { fetchQueryInfo } from "../../util/handleSubmit";
 import { useMutation } from "@tanstack/react-query";
 import { FormControl } from "@chakra-ui/react";
 import { EmailInput } from "./FormInputs/EmailInput";
@@ -10,13 +10,10 @@ import { PasswordInput } from "./FormInputs/PasswordInput";
 import { Link } from "react-router-dom";
 import { UserFormButton } from "./UserFormButton";
 import { FetchData, FetchInfoResponse } from "../../interfaces";
+import { UserFormProps } from "../../interfaces";
 import useUserStore from "../../stores/store";
 
-interface LoginFormProps {
-  addErrorBanner: (title: string, description: string) => void;
-}
-
-const LoginForm: React.FC<LoginFormProps> = ({ addErrorBanner }) => {
+const LoginForm: React.FC<UserFormProps> = ({ addErrorBanner }) => {
   const [formData, setFormData] = useState<LoginFormData>({
     email: "",
     password: "",
@@ -26,12 +23,14 @@ const LoginForm: React.FC<LoginFormProps> = ({ addErrorBanner }) => {
   const navigate = useNavigate();
 
   const mutation = useMutation<FetchInfoResponse, Error, FetchData>({
-    mutationFn: (info: FetchData) => fetchInfo(info),
+    mutationFn: (info: FetchData) => fetchQueryInfo(info),
+
     onSuccess: (data) => {
       console.log("Login succesful:", data);
       authUser(data.flashcards);
       navigate("/");
     },
+
     onError: (error) => {
       addErrorBanner("Error logging in!", error.message);
     },
@@ -48,7 +47,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ addErrorBanner }) => {
       | React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault();
-
     setLoading(true);
 
     mutation.mutate({ urlPath: "/users/login", formData: formData });
