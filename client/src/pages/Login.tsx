@@ -39,7 +39,7 @@ const Login = () => {
       fadeDuration={1}
     >
       <UserFormContainer>
-        <LoginForm />
+        <LoginForm addErrorBanner={addErrorBanner} />
         <img
           src={LoginImage}
           className="user-form--image"

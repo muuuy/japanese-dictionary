@@ -12,7 +12,11 @@ import { UserFormButton } from "./UserFormButton";
 import { FetchData, FetchInfoResponse } from "../../interfaces";
 import useUserStore from "../../stores/store";
 
-const LoginForm = () => {
+interface LoginFormProps {
+  addErrorBanner: (title: string, description: string) => void;
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({ addErrorBanner }) => {
   const [formData, setFormData] = useState<LoginFormData>({
     email: "",
     password: "",
@@ -29,7 +33,7 @@ const LoginForm = () => {
       navigate("/");
     },
     onError: (error) => {
-      console.log("Login ERROR", error);
+      addErrorBanner("Error logging in!", error.message);
     },
   });
 

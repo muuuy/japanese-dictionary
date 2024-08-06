@@ -16,7 +16,13 @@ export const fetchInfo = async ({
   const response = await res.json();
 
   if (!res.ok) {
-    throw new Error("Problem logging in!");
+    console.log(response.errors);
+
+    if (Array.isArray(response.errors)) {
+      throw new Error(response.errors[0].msg);
+    } else {
+      throw new Error(response.errors);
+    }
   }
 
   return response;
