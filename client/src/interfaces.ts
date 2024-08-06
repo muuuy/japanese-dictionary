@@ -49,3 +49,12 @@ export interface LoginFormData {
   email: string;
   password: string;
 }
+
+export interface FetchData {
+  urlPath: string;
+  formData: string | LoginFormData;
+}
+
+export interface FetchInfoResponse {
+  flashcards: FlashcardData[];
+}

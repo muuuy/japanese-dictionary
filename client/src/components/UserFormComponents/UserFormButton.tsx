@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/react";
 
 interface UserFormButtonData {
-  handleSubmit: () => void;
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   loading: boolean;
 }
 

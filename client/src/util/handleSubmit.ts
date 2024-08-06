@@ -1,11 +1,10 @@
-import { LoginFormData } from "../interfaces";
-import { FlashcardData } from "../interfaces";
+import { FetchData, FetchInfoResponse } from "../interfaces";
 
-export const fetchInfo = async (
-  urlPath: string,
-  formData: string | LoginFormData
-): Promise<Response> => {
-  return await fetch(`http://localhost3000${urlPath}`, {
+export const fetchInfo = async ({
+  urlPath,
+  formData,
+}: FetchData): Promise<FetchInfoResponse> => {
+  const res = await fetch(`http://localhost:3000${urlPath}`, {
     method: "POST",
     credentials: "include",
     headers: {
@@ -14,21 +13,11 @@ export const fetchInfo = async (
     body: JSON.stringify(formData),
   });
 
-  // const res = await fetch(`http://localhost:3000/${urlPath}`, {
-  //   method: "POST",
-  //   credentials: "include",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   // body: JSON.stringify({ email: formData }),
-  //   body: JSON.stringify(formData),
-  // });
+  const response = await res.json();
 
-  // const response = await res.json();
+  if (!res.ok) {
+    throw new Error("Problem logging in!");
+  }
 
-  // if (!res.ok) {
-  //   throw new Error("Problem logging in!");
-  // }
-
-  // return response;
+  return response;
 };

@@ -1,5 +1,5 @@
-import { LoginFormData, ErrorBannerData } from "../../interfaces";
-import { useState, useEffect } from "react";
+import { LoginFormData } from "../../interfaces";
+import { useState } from "react";
 import { FormContainer } from "./FormContainer";
 import { useNavigate } from "react-router-dom";
 import { fetchInfo } from "../../util/handleSubmit";
@@ -9,6 +9,7 @@ import { EmailInput } from "./FormInputs/EmailInput";
 import { PasswordInput } from "./FormInputs/PasswordInput";
 import { Link } from "react-router-dom";
 import { UserFormButton } from "./UserFormButton";
+import { FetchData, FetchInfoResponse } from "../../interfaces";
 import useUserStore from "../../stores/store";
 
 const LoginForm = () => {
@@ -20,11 +21,12 @@ const LoginForm = () => {
   const authUser = useUserStore((state) => state.authUser);
   const navigate = useNavigate();
 
-  const mutation = useMutation({
-    mutationFn: () => fetchInfo("/users/login", formData),
+  const mutation = useMutation<FetchInfoResponse, Error, FetchData>({
+    mutationFn: (info: FetchData) => fetchInfo(info),
     onSuccess: (data) => {
       console.log("Login succesful:", data);
-      // authUser(data.flashcards);
+      authUser(data.flashcards);
+      navigate("/");
     },
     onError: (error) => {
       console.log("Login ERROR", error);
@@ -38,34 +40,9 @@ const LoginForm = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     setLoading(true);
 
-    mutation.mutate();
-
-    console.log(mutation);
-
-    // try {
-    //   const res = await fetch("http://localhost:3000/users/login", {
-    //     method: "POST",
-    //     credentials: "include",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(formData),
-    //   });
-
-    //   const response = await res.json();
-
-    //   if (res.ok) {
-    //     authUser(response.flashcards);
-    //     // navigate("/");
-    //   } else {
-    //     console.log("error");
-    //   }
-    // } catch (err) {
-    //   console.log(err);
-    // }
+    mutation.mutate({ urlPath: "/users/login", formData: formData });
 
     setLoading(false);
   };
