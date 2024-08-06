@@ -5,54 +5,30 @@ export const fetchInfo = async (
   urlPath: string,
   formData: string | LoginFormData
 ): Promise<Response> => {
-  return await fetch(`http://localhost:3000/${urlPath}`, {
+  return await fetch(`http://localhost3000${urlPath}`, {
     method: "POST",
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ email: formData }),
+    body: JSON.stringify(formData),
   });
+
+  // const res = await fetch(`http://localhost:3000/${urlPath}`, {
+  //   method: "POST",
+  //   credentials: "include",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  //   // body: JSON.stringify({ email: formData }),
+  //   body: JSON.stringify(formData),
+  // });
+
+  // const response = await res.json();
+
+  // if (!res.ok) {
+  //   throw new Error("Problem logging in!");
+  // }
+
+  // return response;
 };
-
-// export const handleSubmit = async (
-//   loading: boolean,
-//   setLoading: (value: boolean) => void,
-//   formData: LoginFormData,
-//   authUser: (flashcards: FlashcardData[]) => void,
-//   navigate: (path: string) => void,
-//   addErrorBanner: (title: string, message: string) => void
-// ) => {
-//   if (loading) {
-//     return;
-//   }
-
-//   setLoading(true);
-
-//   try {
-//     const res = await fetch("http://localhost:3000/users/login", {
-//       method: "POST",
-//       credentials: "include",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(formData),
-//     });
-
-//     if (res.ok) {
-//       const data = await res.json();
-//       authUser(data.flashcards);
-//       navigate("/");
-//     } else {
-//       setLoading(false);
-
-//       const response = await res.json();
-
-//       console.log(response);
-//       addErrorBanner("Error logging in!", response.errors[0].msg);
-//     }
-//   } catch (err) {
-//     console.log(err, "test");
-//     setLoading(false);
-//   }
-// };
