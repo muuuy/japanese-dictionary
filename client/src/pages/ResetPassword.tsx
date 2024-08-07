@@ -1,63 +1,33 @@
 import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { FormControl, FormLabel, Input } from "@chakra-ui/react";
-import { UserFormButton } from "../components/UserFormComponents/UserFormButton";
+import { useParams } from "react-router-dom";
+import { Skeleton } from "@chakra-ui/react";
+import { UserFormContainer } from "../components/UserFormComponents/UserFormContainer";
+import { ResetForm } from "../components/UserFormComponents/ResetForm";
 import ResetPasswordImage from "../assets/reset_password.jpg";
 
-interface ResetData {
-  password: string;
-}
-
 const ResetPassword = () => {
-  const [formData, setFormData] = useState<ResetData>({
-    password: "",
-  });
-  const [loading, setLoading] = useState<boolean>(false);
+  const [imageLoaded, setImageLoaded] = useState<boolean>(false);
   const token = useParams().token;
 
-  const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault();
-    setFormData({ ...formData, [event.target.name]: event.target.value });
+  const handleImageLoaded = () => {
+    setImageLoaded(true);
   };
 
-  const handleSubmit = () => {};
-
   return (
-    <div className="page--container">
-      <div className="user-form--container">
-        <div className="user-form--form-container">
-          <h1 className="user-form--header my-4">RESET PASSWORD</h1>
-          <FormControl className="text-center" isRequired>
-            <FormLabel htmlFor="reset--password">NEW PASSWORD</FormLabel>
-            <Input
-              id="reset--password"
-              name="password"
-              type="password"
-              placeholder="Password"
-              onChange={handleInput}
-            />
-            <FormLabel htmlFor="reset--verify-password" className="mt-4">
-              VERIFY NEW PASSWORD
-            </FormLabel>
-            <Input
-              id="reset--verify-password"
-              name="password"
-              type="password"
-              placeholder="Password"
-              onChange={handleInput}
-            />
-            <UserFormButton handleSubmit={handleSubmit} loading={loading} />
-            <p className="italic font-semibold">
-              Return to{" "}
-              <Link to={"/login/"} className="text-violet-500 font-black">
-                LOG IN
-              </Link>
-            </p>
-          </FormControl>
-        </div>
-        <img src={ResetPasswordImage} className="user-form--image" />
-      </div>
-    </div>
+    <Skeleton
+      className="page--container"
+      fadeDuration={1}
+      isLoaded={imageLoaded}
+    >
+      <UserFormContainer>
+        <ResetForm />
+        <img
+          src={ResetPasswordImage}
+          className="user-form--image"
+          onLoad={handleImageLoaded}
+        />
+      </UserFormContainer>
+    </Skeleton>
   );
 };
 

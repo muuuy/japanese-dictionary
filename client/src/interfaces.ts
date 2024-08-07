@@ -66,3 +66,8 @@ export interface FetchInfoResponse {
 export interface UserFormProps {
   addErrorBanner: (title: string, description: string) => void;
 }
+
+export interface ResetData {
+  password: string;
+  verifyPassword: string;
+}
