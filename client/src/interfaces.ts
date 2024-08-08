@@ -56,7 +56,7 @@ export interface ForgotFormData {
 
 export interface FetchData {
   urlPath: string;
-  formData: string | LoginFormData | ForgotFormData;
+  formData: string | LoginFormData | ForgotFormData | ResetFormData;
 }
 
 export interface FetchInfoResponse {
@@ -70,4 +70,10 @@ export interface UserFormProps {
 export interface ResetData {
   password: string;
   verifyPassword: string;
+}
+
+export interface ResetFormData {
+  password: string;
+  verifyPassword: string;
+  token: string;
 }

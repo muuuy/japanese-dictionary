@@ -115,7 +115,16 @@ exports.forgot_password = [
   }),
 ];
 
-exports.reset_password = [asyncHandler((req, res, next) => {})];
+exports.reset_password = [
+  asyncHandler((req, res, next) => {
+    const token = req.body.token;
+
+    console.log(token);
+    console.log(req.body);
+
+    return res.status(200).json({});
+  }),
+];
 
 exports.logout = [
   validateEmail,
