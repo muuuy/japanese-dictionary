@@ -4,13 +4,23 @@ import { Skeleton } from "@chakra-ui/react";
 import { UserFormContainer } from "../components/UserFormComponents/UserFormContainer";
 import { ResetForm } from "../components/UserFormComponents/ResetForm";
 import ResetPasswordImage from "../assets/reset_password.jpg";
+import { ErrorBannerData } from "../interfaces";
+import { Errors } from "../components/Errors/Errors";
 
 const ResetPassword = () => {
   const [imageLoaded, setImageLoaded] = useState<boolean>(false);
   const { token } = useParams<{ token: string }>();
+  const [errorBanners, setErrorBanners] = useState<ErrorBannerData[]>([]);
 
   const handleImageLoaded = () => {
     setImageLoaded(true);
+  };
+
+  const addErrorBanner = (title: string, description: string) => {
+    setErrorBanners((prev) => [
+      ...prev,
+      { title: title, description: description },
+    ]);
   };
 
   return (
@@ -22,13 +32,14 @@ const ResetPassword = () => {
           isLoaded={imageLoaded}
         >
           <UserFormContainer>
-            <ResetForm token={token} />
+            <ResetForm token={token} addErrorBanner={addErrorBanner} />
             <img
               src={ResetPasswordImage}
               className="user-form--image"
               onLoad={handleImageLoaded}
             />
           </UserFormContainer>
+          <Errors errorBanners={errorBanners} />
         </Skeleton>
       ) : (
         <div className="flex-1">

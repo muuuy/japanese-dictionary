@@ -7,12 +7,14 @@ import { useState } from "react";
 import { ResetFormData } from "../../interfaces";
 import { Link } from "react-router-dom";
 import { fetchInfo } from "../../util/handleSubmit";
+import { checkErrors } from "../../util/checkErrors";
 
 interface ResetFormProps {
   token: string;
+  addErrorBanner: (title: string, description: string, link?: string) => void;
 }
 
-const ResetForm: React.FC<ResetFormProps> = ({ token }) => {
+const ResetForm: React.FC<ResetFormProps> = ({ token, addErrorBanner }) => {
   const [formData, setFormData] = useState<ResetFormData>({
     password: "",
     verifyPassword: "",
@@ -33,14 +35,16 @@ const ResetForm: React.FC<ResetFormProps> = ({ token }) => {
     event.preventDefault();
     setLoading(true);
 
-    const res = await fetchInfo({
-      urlPath: `/users/reset-password`,
-      formData: formData,
-    });
+    try {
+      const res = await fetchInfo({
+        urlPath: `/users/reset-password`,
+        formData: formData,
+      });
 
-    const response = await res.json();
-
-    console.log(response);
+      checkErrors(res, "Error resetting password!", addErrorBanner);
+    } catch (error) {
+      console.log(error);
+    }
 
     setLoading(false);
   };
