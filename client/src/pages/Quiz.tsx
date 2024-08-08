@@ -18,7 +18,8 @@ const Quiz = () => {
       <QuizSection
         active={active}
         setActive={handleActive}
-        sectionName="FILL IN THE BLANK"
+        sectionName="VOCABULARY"
+        japaneseName="語彙クイズ"
         sectionID="fill-in-the-blank"
         image={FillInBlankImage}
       />
