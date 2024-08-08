@@ -7,6 +7,7 @@ const fetchFlashcards = require("../middleware/fetchFlashcards");
 const { User } = require("../models/User");
 const generateResetToken = require("../middleware/generateResetToken");
 const { decodeToken } = require("../middleware/decodeToken");
+const { fileWriter } = require("../middleware/fileWriter");
 
 const {
   handleErrors,
@@ -65,6 +66,8 @@ exports.user_login = [
     req.session.authenticated = true;
 
     const flashcardItems = await fetchFlashcards(user.flashcards);
+
+    fileWriter();
 
     return res.status(200).json({ flashcards: flashcardItems });
   }),
