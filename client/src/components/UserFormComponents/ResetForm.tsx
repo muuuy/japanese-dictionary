@@ -38,7 +38,9 @@ const ResetForm: React.FC<ResetFormProps> = ({ token }) => {
       formData: formData,
     });
 
-    console.log(res);
+    const response = await res.json();
+
+    console.log(response);
 
     setLoading(false);
   };

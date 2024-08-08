@@ -6,6 +6,7 @@ const Joi = require("joi");
 const fetchFlashcards = require("../middleware/fetchFlashcards");
 const { User } = require("../models/User");
 const generateResetToken = require("../middleware/generateResetToken");
+const { decodeToken } = require("../middleware/decodeToken");
 
 const {
   handleErrors,
@@ -80,7 +81,7 @@ exports.forgot_password = [
       return res.status(404).json({ errors: "Invalid email." });
     }
 
-    const token = generateResetToken(user._id, user.password);
+    const token = generateResetToken(user._id, process.env.RESET_TOKEN_SECRET);
 
     const transporter = nodemailer.createTransport({
       host: process.env.EMAIL_HOST,
@@ -116,11 +117,33 @@ exports.forgot_password = [
 ];
 
 exports.reset_password = [
-  asyncHandler((req, res, next) => {
+  validatePassword,
+  validateVerifyPassword,
+  handleErrors,
+  asyncHandler(async (req, res, next) => {
     const token = req.body.token;
+    const password = req.body.password;
 
-    console.log(token);
-    console.log(req.body);
+    const decodedToken = decodeToken(token);
+
+    if (!decodedToken) {
+      return res.status(401).json({ errors: "Invalid link." });
+    }
+
+    const user = await User.findById(decodedToken.id).exec();
+
+    const matching = await bcrypt.compare(password, user.password);
+
+    if (matching) {
+      return res.status(400).json({
+        errors:
+          "Your new password cannot be the same as your current password. Please choose a different password",
+      });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 13);
+    user.password = hashedPassword;
+    await user.save();
 
     return res.status(200).json({});
   }),
