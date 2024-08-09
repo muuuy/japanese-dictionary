@@ -1,16 +1,38 @@
 import Typewriter from "../Typewriter";
+import { useState } from "react";
 
 interface TutorialButtonData {
   handleTutorial: () => void;
 }
 
 const RulesButton: React.FC<TutorialButtonData> = ({ handleTutorial }) => {
+  const [active, setActive] = useState<boolean>(false);
+
+  const handleActive = () => {
+    setActive(true);
+  };
+
+  const handleInactive = () => {
+    setActive(false);
+  };
+
   return (
     <button
       onClick={handleTutorial}
-      className="border-2 border-black h-28 w-full -skew-x-6 bg-white relative transition text-red-600 duration-500 ease-in-out hover:bg-slate-300"
+      className={`${
+        active
+          ? "h-full z-10 bg-beige animate-expand--end-button text-red-600"
+          : "relative flex items-center justify-center border-r-2 border-black h-28 w-full text-red-600"
+      }`}
+      onMouseLeave={handleInactive}
     >
-      <span className="font-black text-5xl tracking-widest items-center mx-8">
+      <span className="absolute bottom-2 left-2 text-xl font-bold italic">
+        T
+      </span>
+      <span
+        className="font-black text-5xl tracking-widest"
+        onMouseEnter={handleActive}
+      >
         RULES
       </span>
       <Typewriter
@@ -18,9 +40,6 @@ const RulesButton: React.FC<TutorialButtonData> = ({ handleTutorial }) => {
         speed={100}
         style="font-semibold text-xs tracking-widest absolute left-1/2 bottom-2 -translate-x-1/2"
       />
-      <div className="w-10 h-10 border-2 border-black bg-red-500 absolute -right-4 -top-4 rounded-full flex items-center justify-center z-5 skew-x-0">
-        <p className="text-white font-black text-2xl">T</p>
-      </div>
     </button>
   );
 };

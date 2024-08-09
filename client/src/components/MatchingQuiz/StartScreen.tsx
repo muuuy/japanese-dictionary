@@ -52,11 +52,9 @@ const StartScreen: React.FC<StartScreenData> = ({ handleStart }) => {
         alt="Beautiful Japanese Scenery"
         className="h-4/6 w-full object-cover"
       /> */}
-      <div className="absolute bottom-0 -right-2">
-        <StartButton handleStart={handleStart} />
-      </div>
-      <div className="absolute bottom-0 -left-2">
+      <div className="flex flex-row w-full border-y-4 border-black relative">
         <RulesButton handleTutorial={handleTutorial} />
+        <StartButton handleStart={handleStart} />
       </div>
 
       {tutorial && (

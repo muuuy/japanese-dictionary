@@ -2,6 +2,7 @@
 import { transform } from "typescript";
 import { FadeOutKeyframes } from "./keyframes/FadeOutKeyframes";
 import { FadeOutAnimations } from "./animations/FadeOutAnimations";
+import { position } from "@chakra-ui/react";
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -27,6 +28,8 @@ module.exports = {
         "light-green": "#e7f1ea",
         "light-blue": "#e7e9f1",
         "light-pink": "#f1e7ee",
+        "dark-orange": "#ff7900",
+        navy: "#3f5277",
         beige: "#fff0db",
         teal: "#319795",
         border: "hsl(var(--border))",
@@ -162,6 +165,30 @@ module.exports = {
             transform: "translateX(-100%)",
           },
         },
+        expandStartButton: {
+          "0%": {
+            width: "50%",
+            position: "absolute",
+            right: 0,
+          },
+          "100%": {
+            width: "100%",
+            position: "absolute",
+            right: 0,
+          },
+        },
+        expandEndButton: {
+          "0%": {
+            width: "50%",
+            position: "absolute",
+            left: 0,
+          },
+          "100%": {
+            width: "100%",
+            position: "absolute",
+            left: 0,
+          },
+        },
         // FadeOutKeyframes,
       },
       animation: {
@@ -177,6 +204,8 @@ module.exports = {
         "navbar-close": "navbarClose 0.4s ease-in-out forwards",
         "open-flashcard-menu": "openFlashcardMenu 0.6s ease-out forwards",
         "matching-slide-x": "matchingSlideX 14s linear infinite",
+        "expand--start-button": "expandStartButton 0.5s linear forwards",
+        "expand--end-button": "expandEndButton 0.5s linear forwards",
       },
       borderWidth: {
         0.5: "0.5px",
