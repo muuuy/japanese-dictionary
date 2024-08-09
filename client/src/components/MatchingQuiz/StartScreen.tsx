@@ -32,19 +32,26 @@ const StartScreen: React.FC<StartScreenData> = ({ handleStart }) => {
 
   return (
     <>
-      <h1 className="text-7xl font-black text-center z-2 italic absolute top-8">
-        MATCHING
-        <br />
-        QUIZ
-      </h1>
-      <h2 className="absolute bottom-8 text-2xl font-black bg-red-500 text-white rounded-full px-4 py-2 border-2 border-black">
-        マッチングクイズ
-      </h2>
-      <img
+      <div className="absolute top-20 left-0 flex flex-col gap-4 w-full">
+        <h1 className="matching-quiz--header font-bold tracking-wider">
+          MATCHING QUIZ
+          <span className="matching-quiz--sub-header">
+            Practice your Japanese skills.
+          </span>
+        </h1>
+        <h2 className="matching-quiz--header font-black pt-12">
+          マッチングクイズ
+          <span className="matching-quiz--sub-header">
+            日本語のスキルを練習しましょう.
+          </span>
+        </h2>
+      </div>
+
+      {/* <img
         src={MatchingQuizImage}
         alt="Beautiful Japanese Scenery"
         className="h-4/6 w-full object-cover"
-      />
+      /> */}
       <div className="absolute bottom-0 -right-2">
         <StartButton handleStart={handleStart} />
       </div>

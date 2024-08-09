@@ -47,6 +47,14 @@
     @apply flex flex-col w-1/2 px-12;
   }
 
+  .matching-quiz--header {
+    @apply text-9xl border-b-4 border-black relative pb-2 pl-4;
+  }
+
+  .matching-quiz--sub-header {
+    @apply right-0 bottom-0 absolute pr-4 pb-2 text-3xl tracking-normal italic;
+  }
+
   .font-outline-2 {
     -webkit-text-stroke: 2px black;
   }
