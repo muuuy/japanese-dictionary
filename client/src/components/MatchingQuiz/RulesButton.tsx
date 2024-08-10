@@ -1,5 +1,5 @@
 import Typewriter from "../Typewriter";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface TutorialButtonData {
   handleTutorial: () => void;
@@ -7,6 +7,13 @@ interface TutorialButtonData {
 
 const RulesButton: React.FC<TutorialButtonData> = ({ handleTutorial }) => {
   const [active, setActive] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(true), 100);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleActive = () => {
     setActive(true);
@@ -19,10 +26,12 @@ const RulesButton: React.FC<TutorialButtonData> = ({ handleTutorial }) => {
   return (
     <button
       onClick={handleTutorial}
-      className={`${
+      className={`text-red-600 bg-beige ${
         active
-          ? "h-full z-10 bg-beige animate-expand--end-button text-red-600"
-          : "relative flex items-center justify-center border-r-2 border-black h-28 w-full text-red-600"
+          ? `h-full z-10  animate-expand--end-button`
+          : `relative flex items-center justify-center border-r-2 border-black h-28 w-1/2 ${
+              loading ? "" : "animate-shrink--end-button"
+            }`
       }`}
       onMouseLeave={handleInactive}
     >
@@ -30,7 +39,7 @@ const RulesButton: React.FC<TutorialButtonData> = ({ handleTutorial }) => {
         T
       </span>
       <span
-        className="font-black text-5xl tracking-widest"
+        className="font-black text-6xl tracking-widest"
         onMouseEnter={handleActive}
       >
         RULES

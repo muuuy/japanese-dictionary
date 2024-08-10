@@ -177,16 +177,44 @@ module.exports = {
             right: 0,
           },
         },
+        shrinkStartButton: {
+          "0%": {
+            width: "100%",
+            position: "absolute",
+            right: 0,
+          },
+          "100%": {
+            width: "50%",
+            position: "absolute",
+            right: 0,
+          },
+        },
         expandEndButton: {
           "0%": {
             width: "50%",
             position: "absolute",
             left: 0,
+            zIndex: "20",
           },
           "100%": {
             width: "100%",
             position: "absolute",
             left: 0,
+            zIndex: "20",
+          },
+        },
+        shrinkEndButton: {
+          "0%": {
+            width: "100%",
+            position: "absolute",
+            left: 0,
+            zIndex: "20",
+          },
+          "100%": {
+            width: "50%",
+            position: "absolute",
+            left: 0,
+            zIndex: "20",
           },
         },
         // FadeOutKeyframes,
@@ -205,7 +233,9 @@ module.exports = {
         "open-flashcard-menu": "openFlashcardMenu 0.6s ease-out forwards",
         "matching-slide-x": "matchingSlideX 14s linear infinite",
         "expand--start-button": "expandStartButton 0.5s linear forwards",
+        "shrink--start-button": "shrinkStartButton 0.5s linear",
         "expand--end-button": "expandEndButton 0.5s linear forwards",
+        "shrink--end-button": "shrinkEndButton 0.5s linear",
       },
       borderWidth: {
         0.5: "0.5px",

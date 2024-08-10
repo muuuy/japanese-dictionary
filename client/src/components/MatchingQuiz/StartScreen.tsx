@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Skeleton } from "@chakra-ui/react";
 import StartButton from "./StartButton";
 import RulesButton from "./RulesButton";
 import Rules from "./Rules";
@@ -31,7 +32,7 @@ const StartScreen: React.FC<StartScreenData> = ({ handleStart }) => {
   };
 
   return (
-    <>
+    <Skeleton>
       <div className="absolute top-20 left-0 flex flex-col gap-4 w-full">
         <h1 className="matching-quiz--header font-bold tracking-wider">
           MATCHING QUIZ
@@ -46,24 +47,22 @@ const StartScreen: React.FC<StartScreenData> = ({ handleStart }) => {
           </span>
         </h2>
       </div>
-
-      {/* <img
-        src={MatchingQuizImage}
-        alt="Beautiful Japanese Scenery"
-        className="h-4/6 w-full object-cover"
-      /> */}
       <div className="flex flex-row w-full border-y-4 border-black relative">
         <RulesButton handleTutorial={handleTutorial} />
         <StartButton handleStart={handleStart} />
       </div>
-
+      <img
+        src={MatchingQuizImage}
+        alt="Beautiful Japanese Scenery"
+        className="h-1/3 w-full object-cover absolute bottom-0"
+      />
       {tutorial && (
         <>
           <div className="fixed inset-0 bg-black opacity-50 z-10" />
           <Rules handleClose={handleClose} />
         </>
       )}
-    </>
+    </Skeleton>
   );
 };
 

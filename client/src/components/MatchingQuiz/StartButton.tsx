@@ -1,6 +1,6 @@
 import Typewriter from "../Typewriter";
 import { IoReturnDownBackSharp } from "react-icons/io5";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface StartButtonData {
   handleStart: () => void;
@@ -8,6 +8,13 @@ interface StartButtonData {
 
 const StartButton: React.FC<StartButtonData> = ({ handleStart }) => {
   const [active, setActive] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(true), 100);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleActive = () => {
     setActive(true);
@@ -20,10 +27,12 @@ const StartButton: React.FC<StartButtonData> = ({ handleStart }) => {
   return (
     <button
       onClick={handleStart}
-      className={`${
+      className={`bg-beige ${
         active
           ? "h-full z-10 bg-beige animate-expand--start-button text-dark-orange"
-          : "border-l-2 border-black h-28 w-full relative text-dark-orange"
+          : `border-l-2 border-black h-28 w-1/2 relative text-dark-orange ml-auto ${
+              loading ? "" : "animate-shrink--start-button"
+            }`
       }`}
       onMouseLeave={handleInactive}
     >
@@ -32,7 +41,7 @@ const StartButton: React.FC<StartButtonData> = ({ handleStart }) => {
       </span>
       <div>
         <h1
-          className="font-black text-5xl tracking-widest inline p-4"
+          className="font-black text-6xl tracking-widest inline p-4"
           onMouseEnter={handleActive}
         >
           START
