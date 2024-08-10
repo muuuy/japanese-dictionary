@@ -32,11 +32,7 @@ const MatchingQuiz = () => {
             //   backgroundImage: !start ? `url(${MatchingQuizImage})` : "",
             // }}
           >
-            {!start ? (
-              <StartScreen handleStart={handleStart} />
-            ) : (
-              <QuizScreen start={start} />
-            )}
+            <QuizScreen start={start} />
           </div>
         </DndContext>
       )}

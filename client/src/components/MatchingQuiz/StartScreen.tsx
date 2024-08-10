@@ -11,6 +11,7 @@ interface StartScreenData {
 
 const StartScreen: React.FC<StartScreenData> = ({ handleStart }) => {
   const [tutorial, setTutorial] = useState<boolean>(false);
+  const [imageLoaded, setImageLoaded] = useState<boolean>(false);
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
@@ -31,31 +32,44 @@ const StartScreen: React.FC<StartScreenData> = ({ handleStart }) => {
     setTutorial(false);
   };
 
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
+
   return (
-    <Skeleton>
-      <div className="absolute top-20 left-0 flex flex-col gap-4 w-full">
-        <h1 className="matching-quiz--header font-bold tracking-wider">
-          MATCHING QUIZ
-          <span className="matching-quiz--sub-header">
-            Practice your Japanese skills.
-          </span>
-        </h1>
-        <h2 className="matching-quiz--header font-black pt-12">
-          マッチングクイズ
-          <span className="matching-quiz--sub-header">
-            日本語のスキルを練習しましょう.
-          </span>
-        </h2>
-      </div>
-      <div className="flex flex-row w-full border-y-4 border-black relative">
-        <RulesButton handleTutorial={handleTutorial} />
-        <StartButton handleStart={handleStart} />
+    <Skeleton
+      className="flex flex-1 max-h-screen flex-col justify-center"
+      fadeDuration={1}
+      isLoaded={imageLoaded}
+    >
+      <div className="flex flex-col left-0 flex flex-col gap-4 w-full">
+        <div className="matching-quiz--header-container">
+          <h1 className="matching-quiz--header font-bold tracking-wider animate-header--fade-in">
+            MATCHING QUIZ
+            <span className="matching-quiz--sub-header">
+              Practice your Japanese skills.
+            </span>
+          </h1>
+        </div>
+        <div className="matching-quiz--header-container">
+          <h2 className="matching-quiz--header font-black pt-12 animate-header--fade-in">
+            マッチングクイズ
+            <span className="matching-quiz--sub-header">
+              日本語のスキルを練習しましょう.
+            </span>
+          </h2>
+        </div>
       </div>
       <img
         src={MatchingQuizImage}
         alt="Beautiful Japanese Scenery"
-        className="h-1/3 w-full object-cover absolute bottom-0"
+        className="h-3/5 w-full object-cover p-4"
+        onLoad={handleImageLoad}
       />
+      <div className="h-28 relative">
+        <RulesButton handleTutorial={handleTutorial} />
+        <StartButton handleStart={handleStart} />
+      </div>
       {tutorial && (
         <>
           <div className="fixed inset-0 bg-black opacity-50 z-10" />
@@ -66,4 +80,4 @@ const StartScreen: React.FC<StartScreenData> = ({ handleStart }) => {
   );
 };
 
-export default StartScreen;
+export { StartScreen };

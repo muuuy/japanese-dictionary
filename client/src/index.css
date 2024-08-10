@@ -48,7 +48,11 @@
   }
 
   .matching-quiz--header {
-    @apply text-9xl border-b-4 border-black relative pb-2 pl-4;
+    @apply text-9xl relative pb-2 pl-4;
+  }
+
+  .matching-quiz--header-container {
+    @apply border-b-4 border-black;
   }
 
   .matching-quiz--sub-header {
