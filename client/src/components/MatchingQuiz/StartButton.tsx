@@ -1,6 +1,7 @@
 import Typewriter from "../Typewriter";
 import { IoReturnDownBackSharp } from "react-icons/io5";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 interface StartButtonData {
   handleStart: () => void;
@@ -18,9 +19,9 @@ const StartButton: React.FC<StartButtonData> = ({ handleStart }) => {
   };
 
   return (
-    <button
-      onClick={handleStart}
-      className={` text-dark-orange border-y-4 border-black ${
+    <Link
+      to={"/quiz/matching-quiz/quiz"}
+      className={` text-dark-orange border-y-4 border-black flex justify-center items-center ${
         active
           ? "h-28 animate-expand--start-button bg-beige"
           : `border-l-2 h-28 w-1/2 absolute right-0 animate-shrink--start-button`
@@ -43,7 +44,7 @@ const StartButton: React.FC<StartButtonData> = ({ handleStart }) => {
         speed={100}
         style="font-semibold text-xs tracking-widest absolute left-1/2 bottom-2 -translate-x-1/2"
       />
-    </button>
+    </Link>
   );
 };
 

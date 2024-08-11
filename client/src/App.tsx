@@ -71,7 +71,10 @@ function App() {
                 path="/quiz/fill-in-the-blank-quiz"
                 element={<FillInTheBlankQuiz />}
               />
-              <Route path="/quiz/matching-quiz" element={<MatchingQuiz />} />
+              <Route
+                path="/quiz/matching-quiz/quiz"
+                element={<MatchingQuiz />}
+              />
               <Route
                 path="/quiz/matching-quiz/start"
                 element={<StartScreen handleStart={() => {}} />}
