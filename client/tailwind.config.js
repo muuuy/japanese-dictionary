@@ -6,6 +6,7 @@ import { background, position } from "@chakra-ui/react";
 
 import { headerAnimations } from "./animations/HeaderAnimation";
 import { matchingButtonAnimation } from "./animations/MatchingButtonAnimation";
+import { fadeInAnimation } from "./animations/FadeInAnimation";
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -170,6 +171,7 @@ module.exports = {
         },
         ...headerAnimations.keyframes,
         ...matchingButtonAnimation.keyframes,
+        ...fadeInAnimation.keyframes,
         // FadeOutKeyframes,
       },
       animation: {
@@ -187,6 +189,7 @@ module.exports = {
         "matching-slide-x": "matchingSlideX 14s linear infinite",
         ...headerAnimations.animation,
         ...matchingButtonAnimation.animation,
+        ...fadeInAnimation.animation,
       },
       borderWidth: {
         0.5: "0.5px",

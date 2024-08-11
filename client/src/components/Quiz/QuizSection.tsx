@@ -9,6 +9,9 @@ interface QuizSectionData {
   sectionID: string;
   image: string;
   japaneseName: string;
+  link: string;
+  handleImageLoaded: () => void;
+  animation: string;
 }
 
 const QuizSection: React.FC<QuizSectionData> = ({
@@ -18,21 +21,25 @@ const QuizSection: React.FC<QuizSectionData> = ({
   japaneseName,
   sectionID,
   image,
+  link,
+  handleImageLoaded,
+  animation,
 }) => {
   return (
     <div
-      className={`quiz--section-container ${
+      className={`quiz--section-container cursor-pointer ${animation} ${
         active === sectionID ? "h-5/6 w-2/12" : ""
       }`}
-      style={{ backgroundImage: `url(${image})` }}
       id={sectionID}
       onClick={(e) => setActive(e)}
     >
+      <img
+        src={image}
+        className="object-cover w-full h-full"
+        onLoad={handleImageLoaded}
+      />
       {active === sectionID ? (
-        <Link
-          to={"/quiz/matching-quiz"}
-          className="w-full absolute bottom-0 bg-black"
-        >
+        <Link to={link} className="w-full absolute bottom-0 bg-black">
           <div className="flex flex-row p-1 w-full justify-center items-center gap-4 p-2">
             <h2 className="font-black text-5xl text-white italic text-center">
               PLAY
@@ -54,4 +61,4 @@ const QuizSection: React.FC<QuizSectionData> = ({
   );
 };
 
-export default QuizSection;
+export { QuizSection };
