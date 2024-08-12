@@ -9,6 +9,8 @@ const generateResetToken = require("../middleware/generateResetToken");
 const { decodeToken } = require("../middleware/decodeToken");
 const { fileWriter } = require("../middleware/fileWriter");
 
+const pool = require("../config/postgresDB");
+
 const {
   handleErrors,
   validateEmail,
@@ -24,21 +26,23 @@ exports.user_signup = [
   asyncHandler(async (req, res, next) => {
     const email = req.body.email;
 
-    const userExists = await User.findOne({ email: email });
-
-    if (userExists) {
-      return res.status(409).json({ errors: "Email already in use." });
-    }
-
     const password = await bcrypt.hash(req.body.password, 13);
 
-    const user = new User({
-      email: req.body.email,
-      password: password,
-      flashcards: [],
-    });
+    try {
+      const result = await pool.query(
+        "INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *",
+        [email, password]
+      );
 
-    await user.save();
+      const newUser = result.rows[0];
+
+      console.log(newUser);
+    } catch (err) {
+      if (err.code === "23505") {
+        return res.status(409).json({ errors: "Email already in use." });
+      }
+    }
+
     return res.status(200).json({});
   }),
 ];
