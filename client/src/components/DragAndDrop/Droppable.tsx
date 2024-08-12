@@ -21,4 +21,4 @@ const Droppable: React.FC<DroppableData> = ({ children, id }) => {
   );
 };
 
-export default Droppable;
+export { Droppable };

@@ -44,4 +44,4 @@ const RulesButton: React.FC<TutorialButtonData> = ({ handleTutorial }) => {
   );
 };
 
-export default RulesButton;
+export { RulesButton };

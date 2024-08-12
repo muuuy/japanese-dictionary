@@ -77,4 +77,4 @@ const Timer = () => {
   );
 };
 
-export default Timer;
+export { Timer };

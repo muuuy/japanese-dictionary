@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { Skeleton } from "@chakra-ui/react";
-import StartButton from "./StartButton";
-import RulesButton from "./RulesButton";
-import Rules from "./Rules";
-import MatchingQuizImage from "../../assets/matching_quiz.jpg";
+import { StartButton } from "../components/MatchingQuiz/StartButton";
+import { RulesButton } from "../components/MatchingQuiz/RulesButton";
+import { Rules } from "../components/MatchingQuiz/Rules";
+import MatchingQuizImage from "../assets/matching_quiz.jpg";
 
 interface StartScreenData {
   handleStart: () => void;
 }
 
-const StartScreen: React.FC<StartScreenData> = ({ handleStart }) => {
+const MatchingQuizStart: React.FC<StartScreenData> = ({ handleStart }) => {
   const [tutorial, setTutorial] = useState<boolean>(false);
   const [imageLoaded, setImageLoaded] = useState<boolean>(false);
 
@@ -80,4 +80,4 @@ const StartScreen: React.FC<StartScreenData> = ({ handleStart }) => {
   );
 };
 
-export { StartScreen };
+export { MatchingQuizStart };

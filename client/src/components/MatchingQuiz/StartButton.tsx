@@ -48,4 +48,4 @@ const StartButton: React.FC<StartButtonData> = ({ handleStart }) => {
   );
 };
 
-export default StartButton;
+export { StartButton };

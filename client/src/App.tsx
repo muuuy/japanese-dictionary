@@ -17,7 +17,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
-import { StartScreen } from "./components/MatchingQuiz/StartScreen";
+import { MatchingQuizStart } from "./pages/MatchingQuizStart";
 
 const queryClient = new QueryClient();
 
@@ -77,7 +77,7 @@ function App() {
               />
               <Route
                 path="/quiz/matching-quiz/start"
-                element={<StartScreen handleStart={() => {}} />}
+                element={<MatchingQuizStart handleStart={() => {}} />}
               />
             </Routes>
           </div>

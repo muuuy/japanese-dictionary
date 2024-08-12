@@ -15,4 +15,4 @@ const Card: React.FC<CardData> = ({ flashcardItem, type }) => {
   );
 };
 
-export default Card;
+export { Card };

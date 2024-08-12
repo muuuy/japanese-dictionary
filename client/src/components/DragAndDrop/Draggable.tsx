@@ -34,4 +34,4 @@ const Draggable: React.FC<DraggableData> = ({ children, id }) => {
   );
 };
 
-export default Draggable;
+export { Draggable };

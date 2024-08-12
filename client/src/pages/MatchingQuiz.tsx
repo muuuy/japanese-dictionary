@@ -1,33 +1,64 @@
-import { useState } from "react";
-import { DndContext, DragEndEvent, UniqueIdentifier } from "@dnd-kit/core";
-import QuizScreen from "../components/MatchingQuiz/QuizScreen";
+import { Timer } from "../components/MatchingQuiz/Timer";
+import { Droppable } from "../components/DragAndDrop/Droppable";
+import { Draggable } from "../components/DragAndDrop/Draggable";
+import { Card } from "../components/MatchingQuiz/Card";
+import { useState, useEffect } from "react";
+import { DndContext } from "@dnd-kit/core";
 import useUserStore from "../stores/store";
-import StartScreen from "../components/MatchingQuiz/StartScreen";
 
-const MatchingQuiz = () => {
-  const auth = useUserStore((state) => state.auth);
-  const [parent, setParent] = useState<UniqueIdentifier | null>(null);
+interface CardData {
+  id: number;
+  flashcardItem: string;
+}
 
-  const handleDragEnd = (event: DragEndEvent) => {
-    const { over } = event;
+const QuizScreen = () => {
+  const flashcards = useUserStore((state) => state.flashcards);
 
-    setParent(over ? over.id : null);
-    console.log("dragged");
-  };
+  const [characterCards, setCharacterCards] = useState<CardData[]>([]);
+  const [definitionCards, setDefinitionCards] = useState<CardData[]>([]);
+
+  useEffect(() => {
+    const tempCharacters: CardData[] = [];
+    const tempDefinitions: CardData[] = [];
+
+    flashcards.map((flashcard, index) => {
+      tempCharacters.push({ id: index, flashcardItem: flashcard.character });
+      tempDefinitions.push({ id: index, flashcardItem: flashcard.definition });
+    });
+
+    setCharacterCards(tempCharacters);
+    setDefinitionCards(tempDefinitions);
+  }, [flashcards]);
 
   return (
-    <>
-      {!auth ? (
-        <p>Log in</p>
-      ) : (
-        <DndContext onDragEnd={handleDragEnd}>
-          <div className="flex flex-col flex-1 justify-center items-center  overflow-hidden relative max-h-screen bg-beige">
-            <QuizScreen />
+    <DndContext>
+      <div className="flex flex-col flex-1 justify-center items-center  overflow-hidden relative max-h-screen bg-beige">
+        <Timer />
+        <div className="flex flex-row gap-2">
+          <div>
+            {characterCards.map((card) => (
+              <Droppable
+                key={`character-card-${card.id}`}
+                id={`character-card-${card.id}`}
+              >
+                <Card flashcardItem={card.flashcardItem} type="character" />
+              </Droppable>
+            ))}
           </div>
-        </DndContext>
-      )}
-    </>
+          <div>
+            {definitionCards.map((card) => (
+              <Draggable
+                key={`definition-card-${card.id}`}
+                id={`definition-card-${card.id}`}
+              >
+                <Card flashcardItem={card.flashcardItem} type="definition" />
+              </Draggable>
+            ))}
+          </div>
+        </div>
+      </div>
+    </DndContext>
   );
 };
 
-export default MatchingQuiz;
+export default QuizScreen;

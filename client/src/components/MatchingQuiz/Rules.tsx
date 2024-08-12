@@ -58,4 +58,4 @@ const Rules: React.FC<RulesData> = ({ handleClose }) => {
   );
 };
 
-export default Rules;
+export { Rules };
