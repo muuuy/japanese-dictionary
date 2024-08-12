@@ -28,6 +28,9 @@ module.exports = {
       },
     },
     extend: {
+      boxShadow: {
+        "custom-dark": "0 4px 8px rgba(0, 0, 0, 0.4)",
+      },
       colors: {
         "light-gray": "#f1efe7",
         "light-green": "#e7f1ea",

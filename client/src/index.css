@@ -59,6 +59,14 @@
     @apply right-0 bottom-0 absolute pr-4 pb-2 text-3xl tracking-normal italic;
   }
 
+  .timer--number-label {
+    @apply absolute text-xs left-1/2 -translate-x-1/2 -top-5;
+  }
+
+  .timer--number-container {
+    @apply p-2 bg-white rounded-lg shadow-custom-dark;
+  }
+
   .font-outline-2 {
     -webkit-text-stroke: 2px black;
   }

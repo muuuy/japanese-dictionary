@@ -5,16 +5,12 @@ import Draggable from "../DragAndDrop/Draggable";
 import useUserStore from "../../stores/store";
 import React, { useState, useEffect } from "react";
 
-interface QuizData {
-  start: boolean;
-}
-
 interface CardData {
   id: number;
   flashcardItem: string;
 }
 
-const QuizScreen: React.FC<QuizData> = ({ start }) => {
+const QuizScreen = () => {
   const flashcards = useUserStore((state) => state.flashcards);
 
   const [characterCards, setCharacterCards] = useState<CardData[]>([]);
@@ -35,7 +31,7 @@ const QuizScreen: React.FC<QuizData> = ({ start }) => {
 
   return (
     <>
-      <Timer start={start} />
+      <Timer />
       <div className="flex flex-row gap-2">
         <div>
           {characterCards.map((card) => (

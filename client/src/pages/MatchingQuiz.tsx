@@ -6,12 +6,7 @@ import StartScreen from "../components/MatchingQuiz/StartScreen";
 
 const MatchingQuiz = () => {
   const auth = useUserStore((state) => state.auth);
-  const [start, setStart] = useState<boolean>(false);
   const [parent, setParent] = useState<UniqueIdentifier | null>(null);
-
-  const handleStart = () => {
-    setStart(true);
-  };
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { over } = event;
@@ -26,13 +21,8 @@ const MatchingQuiz = () => {
         <p>Log in</p>
       ) : (
         <DndContext onDragEnd={handleDragEnd}>
-          <div
-            className="flex flex-col flex-1 justify-center items-center  overflow-hidden relative max-h-screen bg-beige"
-            // style={{
-            //   backgroundImage: !start ? `url(${MatchingQuizImage})` : "",
-            // }}
-          >
-            <QuizScreen start={start} />
+          <div className="flex flex-col flex-1 justify-center items-center  overflow-hidden relative max-h-screen bg-beige">
+            <QuizScreen />
           </div>
         </DndContext>
       )}
