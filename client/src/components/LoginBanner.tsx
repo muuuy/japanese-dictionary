@@ -1,11 +1,17 @@
 import { Link } from "react-router-dom";
 import { Button } from "@chakra-ui/react";
+import clsx from "clsx";
 
 const LoginBanner = () => {
   return (
-    <>
-      <Link to={"/signup"} className="w-1/2">
-        <Button colorScheme="red" variant={"outline"} width={"100%"}>
+    <div className={clsx("flex gap-8 w-72", "sm:w-96")}>
+      <Link to={"/signup"} className={"w-1/2"}>
+        <Button
+          colorScheme="red"
+          variant={"outline"}
+          background={"white"}
+          width={"100%"}
+        >
           <span className="font-black">SIGN UP</span>
         </Button>
       </Link>
@@ -14,7 +20,7 @@ const LoginBanner = () => {
           <span className="font-black">LOG IN</span>
         </Button>
       </Link>
-    </>
+    </div>
   );
 };
 

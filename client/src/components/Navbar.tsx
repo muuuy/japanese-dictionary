@@ -1,10 +1,11 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { logout } from "../api/logout";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import { FaArrowRightToBracket } from "react-icons/fa6";
 import { FaArrowRightFromBracket } from "react-icons/fa6";
 import { HamburgerIcon } from "@chakra-ui/icons";
+import { DropdownDispatchContext } from "../contexts/DropdownContext";
 import Logo from "../assets/yu_kana.png";
 import useUserStore from "../stores/store";
 import clsx from "clsx";
@@ -14,6 +15,7 @@ const Navbar = () => {
   const unAuthUser = useUserStore((state) => state.unAuthUser);
   const sidebar = useRef<HTMLInputElement>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const dispatch = useContext(DropdownDispatchContext);
 
   const handleClick = () => {
     setIsOpen(!isOpen);
@@ -27,17 +29,25 @@ const Navbar = () => {
     }
   };
 
+  useEffect(() => {
+    if (dispatch !== undefined) {
+      isOpen ? dispatch({ type: "OPEN" }) : dispatch({ type: "CLOSE" });
+    }
+  }, [isOpen, dispatch]);
+
   return (
     <div className={clsx("sticky top-0 z-40")}>
       <HamburgerIcon
-        boxSize="40px"
-        className={clsx("ml-2 mt-4 cursor-pointer absolute z-50")}
-        // style={{ color: "white" }}
+        boxSize="45px"
+        className={clsx(
+          "ml-2 mt-4 cursor-pointer absolute z-50 bg-white rounded-full p-2",
+          "sm:bg-transparent"
+        )}
         onClick={handleClick}
       />
       <div
         className={`flex-col h-screen gap-4 items-center border-r-2 border-black relative bg-white  ${
-          isOpen ? "animate-navbar-open" : "animate-navbar-close"
+          isOpen ? "animate-navbar-open max-h-screen" : "animate-navbar-close"
         } ${isOpen ? "flex" : "hidden"}`}
         ref={sidebar}
       >
