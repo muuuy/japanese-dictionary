@@ -1,7 +1,7 @@
 import HomePageImage2 from "../../assets/homepage_img2.jpg";
 import { LoginBanner } from "../LoginBanner";
 import { SkeletonData } from "../../interfaces";
-import Typewriter from "../Typewriter";
+import { HomeTypewriter } from "./HomeTypewriter";
 import useUserStore from "../../stores/store";
 import clsx from "clsx";
 
@@ -9,20 +9,28 @@ const Header: React.FC<SkeletonData> = ({ imageLoaded, imagesLoaded }) => {
   const auth = useUserStore((state) => state.auth);
 
   return (
-    <section className="flex flex-row h-3/5 w-full justify-center items-center">
+    <section
+      className={clsx(
+        "flex flex-col h-full w-full justify-center items-center",
+        "sm:flex-row sm:h-3/5"
+      )}
+    >
       <div
-        className={`flex flex-col flex-1 justify-center items-center text-center bg-beige h-full -translate-x-full ${
-          imagesLoaded ? "animate-slide-in-from-left" : ""
-        }`}
+        className={clsx(
+          `flex flex-col flex-1 justify-center items-center text-center bg-beige h-full -translate-x-full order-2 ${
+            imagesLoaded ? "animate-slide-in-from-left" : ""
+          }`,
+          "sm:order-1"
+        )}
       >
         <h1 className="font-black">
-          <span className={clsx("lg:text-4xl", "sm:text-2xl")}>
+          <span className={clsx("text-base", "sm:text-2xl lg:text-4xl")}>
             STUDY AND LEARN
           </span>
           <br />
           <span
             className={clsx(
-              "text-red-600",
+              "text-3xl text-red-600",
               "sm:text-5xl md:text-6xl lg:text-7xl"
             )}
           >
@@ -31,30 +39,37 @@ const Header: React.FC<SkeletonData> = ({ imageLoaded, imagesLoaded }) => {
         </h1>
         <h2
           className={clsx(
-            "font-bold py-4 text-wrap p-2",
+            "font-bold py-4 text-wrap p-2 text-xs",
             "sm:text-xs md:text-base lg:text-base"
           )}
         >
           Explore and enhance your Japanese language skills by yourself or with
           friends!
         </h2>
-        <div className="flex flex-row gap-8 w-[400px] justify-center relative">
+        <div
+          className={clsx(
+            "flex text-nowrap justify-center relative",
+            "sm:gap-8"
+          )}
+        >
           {auth ? (
-            <div className="flex flex-col justify-center gap-4 absolute top-20">
+            <div
+              className={clsx(
+                "flex flex-row justify-center items-center gap-4",
+                "sm:top-20 sm:absolute sm:flex-col"
+              )}
+            >
               <h3
                 className={clsx(
-                  "font-black italic underline",
-                  "lg:text-4xl, sm:text-2xl"
+                  "font-black text-base italic",
+                  "sm:text-2xl sm:underline",
+                  "lg:text-4xl"
                 )}
               >
                 WELCOME BACK!
               </h3>
               <div>
-                <Typewriter
-                  text="日本語を勉強しよう！"
-                  speed={200}
-                  style="font-semibold italic text-red-600 text-2xl"
-                />
+                <HomeTypewriter text="日本語を勉強しよう" speed={200} />
               </div>
             </div>
           ) : (
@@ -66,10 +81,11 @@ const Header: React.FC<SkeletonData> = ({ imageLoaded, imagesLoaded }) => {
         src={HomePageImage2}
         onLoad={imageLoaded}
         className={clsx(
-          `w-3/5 h-full object-cover -translate-y-full ${
+          `w-full h-1/2 object-cover -translate-y-full order-1 ${
             imagesLoaded ? "animate-slide-in-from-top" : ""
           }`,
-          "sm:w-2/5 md:w-1/2 lg:w-3/5"
+          "sm:w-2/5 sm:h-full sm:order-2",
+          "md:w-1/2 lg:w-3/5"
         )}
       />
     </section>
