@@ -3,6 +3,7 @@ import LoginBanner from "../LoginBanner";
 import useUserStore from "../../stores/store";
 import { SkeletonData } from "../../interfaces";
 import Typewriter from "../Typewriter";
+import clsx from "clsx";
 
 const Header: React.FC<SkeletonData> = ({ imageLoaded, imagesLoaded }) => {
   const auth = useUserStore((state) => state.auth);
@@ -10,28 +11,41 @@ const Header: React.FC<SkeletonData> = ({ imageLoaded, imagesLoaded }) => {
   return (
     <section className="flex flex-row h-3/5 w-full justify-center items-center">
       <div
-        className={`flex flex-col flex-1 justify-center items-center text-center bg-white h-full -translate-x-full ${
+        className={`flex flex-col flex-1 justify-center items-center text-center bg-beige h-full -translate-x-full ${
           imagesLoaded ? "animate-slide-in-from-left" : ""
         }`}
       >
         <h1 className="font-black">
-          <span className="text-4xl">STUDY AND LEARN</span>
+          <span className={clsx("lg:text-4xl", "sm:text-2xl")}>
+            STUDY AND LEARN
+          </span>
           <br />
-          <span className="text-7xl text-red-600">JAPANESE</span>
+          <span
+            className={clsx(
+              "text-red-600",
+              "lg:text-7xl",
+              "md:text-6xl",
+              "sm:text-5xl"
+            )}
+          >
+            JAPANESE
+          </span>
         </h1>
-        <h2 className="font-bold w-[600px] py-4">
+        <h2 className="font-bold py-4 text-wrap">
           Explore and enhance your Japanese language skills by yourself or with
           friends!
         </h2>
         <div className="flex flex-row gap-8 w-[400px] justify-center relative">
           {auth ? (
             <div className="flex flex-col justify-center gap-4 absolute top-20">
-              <h3 className="text-4xl font-black italic underline">WELCOME BACK!</h3>
-              <div className="bg-red-500 rounded-full">
+              <h3 className="text-4xl font-black italic underline">
+                WELCOME BACK!
+              </h3>
+              <div>
                 <Typewriter
                   text="日本語を勉強しよう！"
                   speed={200}
-                  style="font-semibold italic text-white text-2xl"
+                  style="font-semibold italic text-red-600 text-2xl"
                 />
               </div>
             </div>

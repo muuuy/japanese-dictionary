@@ -52,7 +52,7 @@ const Functionality: React.FC<SkeletonData> = ({
         }`}
       />
       <div
-        className={`flex flex-row flex-1 justify-evenly bg-white relative translate-x-full ${
+        className={`flex flex-row flex-1 justify-evenly bg-beige relative translate-x-full ${
           imagesLoaded ? "animate-slide-in-from-right" : ""
         }`}
       >
