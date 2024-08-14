@@ -17,19 +17,13 @@ const FunctionalitySection: React.FC<SectionData> = ({
       <div
         className={clsx(
           "absolute",
-          "2xl:top-40",
-          "xl:top-36",
-          "lg:top-36",
-          "md:top-36",
-          "sm:top-40"
+          "sm:top-40 md:top-36 lg:top-36 xl:top-36 2xl:top-40"
         )}
       >
         <h3
           className={clsx(
             "text-3xl font-black",
-            "lg:text-3xl",
-            "md:text-2xl",
-            "sm:text-2xl"
+            "sm:text-2xl md:text-2xl lg:text-3xl"
           )}
         >
           {sectionName}
@@ -37,9 +31,7 @@ const FunctionalitySection: React.FC<SectionData> = ({
         <h4
           className={clsx(
             "font-black text-red-600 mb-4",
-            "lg:text-xl",
-            "md:text-base",
-            "sm:text-base"
+            "sm:text-base md:text-base lg:text-xl"
           )}
         >
           {japaneseName}
@@ -49,9 +41,7 @@ const FunctionalitySection: React.FC<SectionData> = ({
       <p
         className={clsx(
           "font-semibold text-xl",
-          "lg:text-xl",
-          "md:text-base",
-          "sm:text-sm"
+          "sm:text-sm md:text-base lg:text-xl"
         )}
       >
         {description}

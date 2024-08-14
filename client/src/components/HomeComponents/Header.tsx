@@ -1,8 +1,8 @@
 import HomePageImage2 from "../../assets/homepage_img2.jpg";
-import LoginBanner from "../LoginBanner";
-import useUserStore from "../../stores/store";
+import { LoginBanner } from "../LoginBanner";
 import { SkeletonData } from "../../interfaces";
 import Typewriter from "../Typewriter";
+import useUserStore from "../../stores/store";
 import clsx from "clsx";
 
 const Header: React.FC<SkeletonData> = ({ imageLoaded, imagesLoaded }) => {
@@ -23,22 +23,30 @@ const Header: React.FC<SkeletonData> = ({ imageLoaded, imagesLoaded }) => {
           <span
             className={clsx(
               "text-red-600",
-              "lg:text-7xl",
-              "md:text-6xl",
-              "sm:text-5xl"
+              "sm:text-5xl md:text-6xl lg:text-7xl"
             )}
           >
             JAPANESE
           </span>
         </h1>
-        <h2 className="font-bold py-4 text-wrap">
+        <h2
+          className={clsx(
+            "font-bold py-4 text-wrap p-2",
+            "sm:text-xs md:text-base lg:text-base"
+          )}
+        >
           Explore and enhance your Japanese language skills by yourself or with
           friends!
         </h2>
         <div className="flex flex-row gap-8 w-[400px] justify-center relative">
           {auth ? (
             <div className="flex flex-col justify-center gap-4 absolute top-20">
-              <h3 className="text-4xl font-black italic underline">
+              <h3
+                className={clsx(
+                  "font-black italic underline",
+                  "lg:text-4xl, sm:text-2xl"
+                )}
+              >
                 WELCOME BACK!
               </h3>
               <div>
@@ -57,9 +65,12 @@ const Header: React.FC<SkeletonData> = ({ imageLoaded, imagesLoaded }) => {
       <img
         src={HomePageImage2}
         onLoad={imageLoaded}
-        className={`w-3/5 h-full object-cover -translate-y-full ${
-          imagesLoaded ? "animate-slide-in-from-top" : ""
-        }`}
+        className={clsx(
+          `w-3/5 h-full object-cover -translate-y-full ${
+            imagesLoaded ? "animate-slide-in-from-top" : ""
+          }`,
+          "sm:w-2/5 md:w-1/2 lg:w-3/5"
+        )}
       />
     </section>
   );

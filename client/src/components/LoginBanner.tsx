@@ -18,4 +18,4 @@ const LoginBanner = () => {
   );
 };
 
-export default LoginBanner;
+export { LoginBanner };

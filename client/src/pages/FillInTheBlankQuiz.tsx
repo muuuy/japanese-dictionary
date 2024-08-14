@@ -7,7 +7,7 @@ import AnswerBar from "../components/FillInTheBlankQuiz/AnswerBar";
 import QuestionBox from "../components/FillInTheBlankQuiz/QuestionBox";
 import Restart from "../components/FillInTheBlankQuiz/Restart";
 import Results from "../components/FillInTheBlankQuiz/Results";
-import LoginBanner from "../components/LoginBanner";
+import { LoginBanner } from "../components/LoginBanner";
 
 import QuizTypewriter from "../components/FillInTheBlankQuiz/QuizTypewriter";
 
