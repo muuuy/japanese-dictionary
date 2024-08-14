@@ -1,11 +1,10 @@
-import HomePageImage from "../../assets/homepage_img.jpg";
-import FunctionalitySection from "./FunctionalitySection";
-
 import { FaPencilAlt, FaQuestion } from "react-icons/fa";
 import { IoIosFlash } from "react-icons/io";
-
 import { SectionData } from "../../interfaces";
 import { SkeletonData } from "../../interfaces";
+import { FunctionalitySection } from "./FunctionalitySection";
+import HomePageImage from "../../assets/homepage_img.jpg";
+import clsx from "clsx";
 
 const Functionality: React.FC<SkeletonData> = ({
   imageLoaded,
@@ -32,7 +31,7 @@ const Functionality: React.FC<SkeletonData> = ({
       iconType: <IoIosFlash />,
     },
     {
-      sectionName: "QUIZ",
+      sectionName: "QUIZZES",
       japaneseName: "クイズ",
       description: "Take a quiz using the flashcards you have created!",
       linkTo: "quiz",
@@ -43,18 +42,29 @@ const Functionality: React.FC<SkeletonData> = ({
   ];
 
   return (
-    <section className="flex flex-row flex-1 border-t-2 border-black flex-1 h-2/5">
+    <section
+      className={clsx(
+        "flex flex-col   flex-1 border-t-2 border-black flex-1 h-2/5",
+        "sm:flex-row"
+      )}
+    >
       <img
         src={HomePageImage}
         onLoad={imageLoaded}
-        className={`w-1/5 h-full object-cover translate-y-full  ${
-          imagesLoaded ? "animate-slide-in-from-bottom" : ""
-        }`}
+        className={clsx(
+          `w-full h-full rounded-b-3xl object-cover translate-y-full  ${
+            imagesLoaded ? "animate-slide-in-from-bottom" : ""
+          }`,
+          "sm:w-1/5 sm:h-full sm:rounded-none"
+        )}
       />
       <div
-        className={`flex flex-row flex-1 justify-evenly bg-beige relative translate-x-full ${
-          imagesLoaded ? "animate-slide-in-from-right" : ""
-        }`}
+        className={clsx(
+          `flex flex-row min-h-full justify-evenly bg-beige relative ${
+            imagesLoaded ? "animate-slide-in-from-right" : ""
+          }`,
+          "sm:flex-1"
+        )}
       >
         {sectionData.map((data, index) => (
           <FunctionalitySection

@@ -22,7 +22,7 @@ const Home = () => {
   return (
     <Skeleton
       isLoaded={imagesLoaded}
-      className="flex flex-1 flex-col max-h-screen w-full overflow-hidden"
+      className="flex flex-1 flex-col max-h-screen w-full"
     >
       <Header imageLoaded={handleImageOne} imagesLoaded={imagesLoaded} />
       <Functionality imageLoaded={handleImageTwo} imagesLoaded={imagesLoaded} />
