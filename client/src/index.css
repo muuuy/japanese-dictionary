@@ -4,7 +4,7 @@
 
 @layer components {
   .sidebar--button-text {
-    @apply tracking-[0.3em] indent-[0.3em] font-black text-xl;
+    @apply tracking-widest font-black text-xl;
   }
 
   .page--header {

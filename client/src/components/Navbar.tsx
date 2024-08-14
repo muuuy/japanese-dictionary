@@ -1,23 +1,18 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-
-import Logo from "../assets/yu_kana.png";
-
-import useUserStore from "../stores/store";
 import { logout } from "../api/logout";
-
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import { FaArrowRightToBracket } from "react-icons/fa6";
 import { FaArrowRightFromBracket } from "react-icons/fa6";
-
 import { HamburgerIcon } from "@chakra-ui/icons";
+import Logo from "../assets/yu_kana.png";
+import useUserStore from "../stores/store";
+import clsx from "clsx";
 
 const Navbar = () => {
   const auth = useUserStore((state) => state.auth);
   const unAuthUser = useUserStore((state) => state.unAuthUser);
-
   const sidebar = useRef<HTMLInputElement>(null);
-
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleClick = () => {
@@ -33,10 +28,11 @@ const Navbar = () => {
   };
 
   return (
-    <div className="sticky top-0 z-40">
+    <div className={clsx("sticky top-0 z-40")}>
       <HamburgerIcon
         boxSize="40px"
-        className="ml-2 mt-4 cursor-pointer absolute z-50"
+        className={clsx("ml-2 mt-4 cursor-pointer absolute z-50")}
+        // style={{ color: "white" }}
         onClick={handleClick}
       />
       <div
