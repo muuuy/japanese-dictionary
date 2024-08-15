@@ -11,7 +11,7 @@ import { LoginBanner } from "../components/LoginBanner";
 
 import QuizTypewriter from "../components/FillInTheBlankQuiz/QuizTypewriter";
 
-const FillInTheBlankQuiz = () => {
+const Vocabulary = () => {
   const flashcards: FlashcardData[] = useUserStore((state) => state.flashcards);
   const auth: boolean = useUserStore((state) => state.auth);
 
@@ -124,4 +124,4 @@ const FillInTheBlankQuiz = () => {
   );
 };
 
-export default FillInTheBlankQuiz;
+export { Vocabulary };

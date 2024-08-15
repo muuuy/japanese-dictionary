@@ -1,7 +1,9 @@
-import { useState, useReducer } from "react";
+import { useReducer } from "react";
 import { QuizSection } from "../components/Quiz/QuizSection";
 import { Skeleton } from "@chakra-ui/react";
-import FillInBlankImage from "../assets/Quiz/fill-blank_section.jpg";
+import { useQuizSectionState } from "../hooks/useQuizSectionState";
+import { QuizSectionDetails } from "../components/Quiz/QuizInterface";
+import VocabularyImage from "../assets/Quiz/fill-blank_section.jpg";
 import MatchingImage from "../assets/Quiz/matching_section.jpg";
 
 interface ImageState {
@@ -25,18 +27,11 @@ const reducer = (state: ImageState, action: ImageAction): ImageState => {
 };
 
 const Quiz = () => {
-  const [active, setActive] = useState<string | null>(null);
+  const activeSectionManager = useQuizSectionState();
   const [state, dispatch] = useReducer(reducer, {
     imageOneLoaded: false,
     imageTwoLoaded: false,
   });
-
-  const handleActive = (e: React.MouseEvent<HTMLDivElement>) => {
-    const id = e.currentTarget.getAttribute("id");
-
-    if (id === active) setActive(null);
-    else setActive(e.currentTarget.getAttribute("id"));
-  };
 
   const handleImageOneLoaded = () => {
     dispatch({ type: "LOAD_IMAGE_ONE" });
@@ -48,6 +43,23 @@ const Quiz = () => {
 
   const { imageOneLoaded, imageTwoLoaded } = state;
 
+  const sectionData: QuizSectionDetails[] = [
+    {
+      sectionID: "vocabulary",
+      sectionName: "VOCABULARY",
+      japaneseName: "語彙クイズ",
+      image: VocabularyImage,
+      link: "/quiz/vocabulary-quiz",
+    },
+    {
+      sectionID: "matching",
+      sectionName: "MATCHING",
+      japaneseName: "マッチング",
+      image: MatchingImage,
+      link: "/quiz/matching-quiz/start",
+    },
+  ];
+
   return (
     <Skeleton
       className="flex flex-1 flex-row justify-center items-center gap-12"
@@ -55,24 +67,14 @@ const Quiz = () => {
       isLoaded={imageOneLoaded && imageTwoLoaded}
     >
       <QuizSection
-        active={active}
-        setActive={handleActive}
-        sectionName="VOCABULARY"
-        japaneseName="語彙クイズ"
-        sectionID="fill-in-the-blank"
-        image={FillInBlankImage}
-        link="/quiz/fill-in-the-blank-quiz"
+        activeSectionManager={activeSectionManager}
+        sectionDetails={sectionData[0]}
         handleImageLoaded={handleImageOneLoaded}
         animation="animate-fade-in--right"
       />
       <QuizSection
-        active={active}
-        setActive={handleActive}
-        sectionName="MATCHING"
-        japaneseName="マッチング"
-        sectionID="matching"
-        image={MatchingImage}
-        link="/quiz/matching-quiz/start"
+        activeSectionManager={activeSectionManager}
+        sectionDetails={sectionData[1]}
         handleImageLoaded={handleImageTwoLoaded}
         animation="animate-fade-in--left"
       />

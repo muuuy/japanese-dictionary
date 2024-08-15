@@ -4,7 +4,7 @@ import clsx from "clsx";
 
 const LoginBanner = () => {
   return (
-    <div className={clsx("flex gap-8 w-72", "sm:w-96")}>
+    <div className={clsx("flex gap-8 w-72", "sm:w-80 m:w-96")}>
       <Link to={"/signup"} className={"w-1/2"}>
         <Button
           colorScheme="red"
