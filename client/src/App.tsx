@@ -10,7 +10,7 @@ import Home from "./pages/Home";
 import WhiteboardForm from "./pages/WhiteboardForm";
 import Whiteboard from "./pages/Whiteboard";
 import Flashcards from "./pages/Flashcards";
-import FillInTheBlankQuiz from "./pages/FillInTheBlankQuiz";
+import { Vocabulary } from "./pages/Vocabulary";
 import MatchingQuiz from "./pages/MatchingQuiz";
 import Quiz from "./pages/Quiz";
 import { Login } from "./pages/Login";
@@ -73,10 +73,7 @@ function App() {
               />
 
               <Route path="/quiz" element={<Quiz />} />
-              <Route
-                path="/quiz/fill-in-the-blank-quiz"
-                element={<FillInTheBlankQuiz />}
-              />
+              <Route path="/quiz/vocabulary-quiz" element={<Vocabulary />} />
               <Route
                 path="/quiz/matching-quiz/quiz"
                 element={<MatchingQuiz />}
