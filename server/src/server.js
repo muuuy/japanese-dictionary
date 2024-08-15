@@ -13,26 +13,6 @@ const { createServer } = require("node:http");
 const { join } = require("node:path");
 const { Server } = require("socket.io");
 
-// const Redis = require("ioredis");
-
-// const redisDemo = async () => {
-//   const redisClient = new Redis({
-//     host: "127.0.0.1",
-//     client: 6379,
-//   });
-
-//   await redisClient.set("myname", "Simon Prickett");
-
-//   // Get the value held at key "myname" and log it.
-//   const value = await redisClient.get("myname");
-//   console.log(value);
-
-//   // Disconnect from Redis.
-//   redisClient.quit();
-// };
-
-// redisDemo();
-
 require("dotenv").config();
 
 const app = express();

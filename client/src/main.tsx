@@ -7,6 +7,7 @@ import "./index.css";
 
 import { ChakraProvider } from "@chakra-ui/react";
 import { extendTheme } from "@chakra-ui/react";
+import { DropdownProvider } from "./contexts/DropdownContext.tsx";
 
 const colors = {
   brand: {
@@ -21,7 +22,9 @@ const theme = extendTheme({ colors });
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
-      <App />
+      <DropdownProvider>
+        <App />
+      </DropdownProvider>
     </ChakraProvider>
   </React.StrictMode>
 );

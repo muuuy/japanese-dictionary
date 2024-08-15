@@ -1,9 +1,3 @@
-/**
- * Context for whether drop-down is open or not
- * Mainly used to make it so that the app is unscrolalble once the drop-down is open
- * Done via overflow: hidden
- */
-
 import { createContext, useReducer } from "react";
 
 interface DropdownProviderData {
@@ -15,16 +9,27 @@ interface DropdownState {
 }
 
 interface ActionData {
-  type: "OPEN" | "CLOSE";
+  type: "OPEN_SIDEBAR" | "CLOSE_SIDEBAR";
 }
 
+/**
+ * Context-reducer for sidebar management.
+ * Handles state changes for a sidebar in relation to its opened or closed state.
+ *
+ * The state determines whether the user can scroll.
+ * Used to handle issues with visibility and behavior for smaller screen sizes.
+ */
 export const DropdownContext = createContext<DropdownState>({
   dropdownOpen: false,
 });
 export const DropdownDispatchContext = createContext<
-  React.Dispatch<ActionData> | undefined
->(undefined);
+  React.Dispatch<ActionData>
+>(() => {});
 
+/**
+ * Creates wrapper that wraps around the App. Allows the context and reducer
+ * to be used anywhere within the project.
+ */
 export const DropdownProvider: React.FC<DropdownProviderData> = ({
   children,
 }) => {
@@ -41,19 +46,28 @@ export const DropdownProvider: React.FC<DropdownProviderData> = ({
   );
 };
 
+/**
+ * Reducer function - Handles the state changes
+ * Processes the following actions:
+ * - 'OPEN_SIDEBAR' = User can't scroll down
+ * - 'CLOSE_SIDEBAR' = User can scroll down
+ *
+ * @param {DropdownState} state - Contains boolean dropdownOpen
+ * @param {ActionData} action - State depends on the action.type
+ * @returns
+ */
 function dropdownReducer(
   state: DropdownState,
   action: ActionData
 ): DropdownState {
   switch (action.type) {
-    case "OPEN": {
-      console.log("test");
+    case "OPEN_SIDEBAR": {
       return {
         ...state,
         dropdownOpen: true,
       };
     }
-    case "CLOSE": {
+    case "CLOSE_SIDEBAR": {
       return {
         ...state,
         dropdownOpen: false,
