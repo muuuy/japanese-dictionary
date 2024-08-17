@@ -9,7 +9,7 @@ const jwt = require("jsonwebtoken");
  * @returns {string} - The generated JWT.
  */
 const generateResetToken = (userID, password) => {
-  const token = jwt.sign({ id: userID }, password, {
+  const token = jwt.sign({ userID: userID }, password, {
     algorithm: process.env.JWT_ALGORITHM,
     expiresIn: process.env.RESET_TOKEN_EXPIRES,
   });
