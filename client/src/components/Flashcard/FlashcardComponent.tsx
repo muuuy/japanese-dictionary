@@ -28,13 +28,13 @@ const FlashcardComponent: React.FC<FlashcardComponentProps> = ({
   const handleDelete = async () => {
     try {
       const res = await axios.post(
-        `http://localhost:3000/flashcards/${flashcardData.id}`,
+        `http://localhost:3000/flashcards/${flashcardData.flashcard_id}`,
         null,
         { withCredentials: true }
       );
 
       if (res.status === 200) {
-        deleteFlashcard(flashcardData.id);
+        deleteFlashcard(flashcardData.flashcard_id);
       } else console.log("failure");
     } catch (err) {
       console.log(err);
@@ -60,7 +60,7 @@ const FlashcardComponent: React.FC<FlashcardComponentProps> = ({
             onClick={() =>
               handlePopup(
                 true,
-                flashcardData.id,
+                flashcardData.flashcard_id,
                 flashcardData.character,
                 flashcardData.definition
               )

@@ -28,14 +28,14 @@ const useUserStore = create<UserState>()(
       set((state) => ({
         flashcards: [
           ...state.flashcards.filter(
-            (flashcard) => flashcard.id !== flashcardID
+            (flashcard) => flashcard.flashcard_id !== flashcardID
           ),
         ],
       })),
     editFlashcard: (flashcardID, character, definition) =>
       set((state) => ({
         flashcards: state.flashcards.map((flashcard) =>
-          flashcard.id === flashcardID
+          flashcard.flashcard_id === flashcardID
             ? { ...flashcard, character: character, definition: definition }
             : flashcard
         ),

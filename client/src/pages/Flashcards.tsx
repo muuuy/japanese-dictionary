@@ -46,7 +46,7 @@ const Flashcards = () => {
       return flashcards.map((flashcard, index) => (
         <FlashcardComponent
           flashcardData={{
-            id: flashcard.id,
+            flashcard_id: flashcard.flashcard_id,
             character: flashcard.character,
             definition: flashcard.definition,
           }}
@@ -60,12 +60,12 @@ const Flashcards = () => {
         .map((flashcard) => (
           <FlashcardComponent
             flashcardData={{
-              id: flashcard.id,
+              flashcard_id: flashcard.flashcard_id,
               character: flashcard.character,
               definition: flashcard.definition,
             }}
             handlePopup={handlePopup}
-            key={`flashcard-${flashcard.id}`}
+            key={`flashcard-${flashcard.flashcard_id}`}
           />
         ));
     }

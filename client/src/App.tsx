@@ -19,6 +19,7 @@ import { ForgotPassword } from "./pages/ForgotPassword";
 import { ResetPassword } from "./pages/ResetPassword";
 import { MatchingQuizStart } from "./pages/MatchingQuizStart";
 import { DropdownContext } from "./contexts/DropdownContext";
+import { fetchAuthenticate } from "./util/fetchAuthenticate";
 
 const queryClient = new QueryClient();
 
@@ -29,16 +30,12 @@ function App() {
   useEffect(() => {
     const authenticateUser = async () => {
       try {
-        const res = await axios.post(
-          "http://localhost:3000/users/authenticate",
-          null,
-          {
-            withCredentials: true,
-          }
-        );
+        const res = await fetchAuthenticate();
 
-        if (res.status === 200) {
-          authUser(res.data.flashcards);
+        if (res.ok) {
+          const response = await res.json();
+
+          authUser(response.flashcards);
         }
       } catch (err) {
         console.log(err);

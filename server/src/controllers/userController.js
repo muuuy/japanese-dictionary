@@ -10,6 +10,11 @@ const { decodeToken } = require("../middleware/decodeToken");
 const { fileWriter } = require("../middleware/fileWriter");
 
 const pool = require("../config/postgresDB");
+const {
+  userQueryEmail,
+  userQueryID,
+  flashcardQuery,
+} = require("../middleware/userQueries");
 
 const {
   handleErrors,
@@ -52,23 +57,11 @@ exports.user_login = [
   validatePassword,
   handleErrors,
   asyncHandler(async (req, res, next) => {
-    // const user = await User.findOne({ email: req.body.email });
     const email = req.body.email;
     const password = req.body.password;
 
-    let user;
-    let flashcards;
-
     try {
-      const result = await pool.query("SELECT * FROM users WHERE email = $1", [
-        email,
-      ]);
-
-      if (result.rows.length === 0) {
-        return res.status(401).json({ errors: "Invalid email or password." });
-      }
-
-      user = result.rows[0];
+      const user = await userQueryEmail(email);
 
       const passwordMatch = await bcrypt.compare(password, user.password);
 
@@ -76,23 +69,16 @@ exports.user_login = [
         return res.status(401).json({ errors: "Invalid email or password." });
       }
 
-      const flashcardResult = await pool.query(
-        "SELECT f.* FROM flashcards f JOIN user_flashcards uf ON f.id = uf.flashcard_id WHERE uf.user_id = $1",
-        [user.id]
-      );
+      const flashcards = await flashcardQuery(user.user_id);
 
-      if (flashcardResult.rows.length === 0) {
-        flashcards = [];
-      } else {
-        flashcards = flashcardResult.rows;
-      }
-      console.log(flashcards);
       if (req.session.authenticated) {
         console.log("already auth");
-        return res.status(200).json({});
+        return res.status(200).json({ flashcards: [] });
       }
 
-      req.session.userID = user.id;
+      console.log(flashcards);
+
+      req.session.userID = user.user_id;
       req.session.authenticated = true;
 
       return res.status(200).json({ flashcards: flashcards });
@@ -201,10 +187,18 @@ exports.logout = [
 exports.authenticate = [
   asyncHandler(async (req, res, next) => {
     if (req.session.authenticated) {
-      const user = await User.findById(req.session.userID).exec();
-      const flashcardItems = await fetchFlashcards(user.flashcards);
+      const user_id = req.session.userID;
 
-      return res.status(200).json({ flashcards: flashcardItems });
+      try {
+        const flashcards = await flashcardQuery(user_id);
+
+        return res.status(200).json({ flashcards: flashcards });
+      } catch (error) {
+        console.log("Database error:", error);
+        return res
+          .status(500)
+          .json({ error: "An error occurred. Please try again later." });
+      }
     }
     return res.status(204).json({});
   }),
