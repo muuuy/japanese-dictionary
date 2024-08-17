@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Skeleton } from "@chakra-ui/react";
-import { UserFormContainer } from "../components/UserFormComponents/UserFormContainer";
-import { ResetForm } from "../components/UserFormComponents/ResetForm";
+import { UserFormContainer } from "../components/UserRegistrationComponents/UserFormContainer";
+import { ResetForm } from "../components/UserRegistrationComponents/ResetForm";
 import ResetPasswordImage from "../assets/reset_password.jpg";
 import { ErrorBannerData } from "../interfaces";
 import { Errors } from "../components/Errors/Errors";

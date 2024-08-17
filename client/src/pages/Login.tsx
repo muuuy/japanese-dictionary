@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { ErrorBannerData } from "../interfaces";
 import { Errors } from "../components/Errors/Errors";
 import { Skeleton } from "@chakra-ui/react";
-import { LoginForm } from "../components/UserFormComponents/LoginForm";
-import { UserFormContainer } from "../components/UserFormComponents/UserFormContainer";
+import { LoginForm } from "../components/UserRegistrationComponents/LoginForm";
+import { UserFormContainer } from "../components/UserRegistrationComponents/UserFormContainer";
 import LoginImage from "../assets/login_image.jpg";
 
 const Login = () => {

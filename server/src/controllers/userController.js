@@ -52,28 +52,58 @@ exports.user_login = [
   validatePassword,
   handleErrors,
   asyncHandler(async (req, res, next) => {
-    const user = await User.findOne({ email: req.body.email });
+    // const user = await User.findOne({ email: req.body.email });
+    const email = req.body.email;
+    const password = req.body.password;
 
-    if (!user) {
-      return res.status(401).json({ errors: "Invalid username." });
+    let user;
+    let flashcards;
+
+    try {
+      const result = await pool.query("SELECT * FROM users WHERE email = $1", [
+        email,
+      ]);
+
+      if (result.rows.length === 0) {
+        return res.status(401).json({ errors: "Invalid email or password." });
+      }
+
+      user = result.rows[0];
+
+      const passwordMatch = await bcrypt.compare(password, user.password);
+
+      if (!passwordMatch) {
+        return res.status(401).json({ errors: "Invalid email or password." });
+      }
+
+      const flashcardResult = await pool.query(
+        "SELECT f.* FROM flashcards f JOIN user_flashcards uf ON f.id = uf.flashcard_id WHERE uf.user_id = $1",
+        [user.id]
+      );
+
+      if (flashcardResult.rows.length === 0) {
+        flashcards = [];
+      } else {
+        flashcards = flashcardResult.rows;
+      }
+      console.log(flashcards);
+      if (req.session.authenticated) {
+        console.log("already auth");
+        return res.status(200).json({});
+      }
+
+      req.session.userID = user.id;
+      req.session.authenticated = true;
+
+      return res.status(200).json({ flashcards: flashcards });
+    } catch (err) {
+      console.error("Database error:", err);
+      return res
+        .status(500)
+        .json({ error: "An error occurred. Please try again later." });
     }
 
-    const match = await bcrypt.compare(req.body.password, user.password);
-
-    if (!match) {
-      return res.status(401).json({ errors: "Invalid password." });
-    }
-
-    if (req.session.authenticated) return res.status(200).json({});
-
-    req.session.userID = user._id;
-    req.session.authenticated = true;
-
-    const flashcardItems = await fetchFlashcards(user.flashcards);
-
-    fileWriter();
-
-    return res.status(200).json({ flashcards: flashcardItems });
+    // fileWriter();
   }),
 ];
 

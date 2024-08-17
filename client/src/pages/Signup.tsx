@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Skeleton } from "@chakra-ui/react";
-import { UserFormContainer } from "../components/UserFormComponents/UserFormContainer";
-import { SignupForm } from "../components/UserFormComponents/SignupForm";
+import { UserFormContainer } from "../components/UserRegistrationComponents/UserFormContainer";
+import { SignupForm } from "../components/UserRegistrationComponents/SignupForm";
 import { ErrorBannerData } from "../interfaces";
 import { Errors } from "../components/Errors/Errors";
 import SignupImage from "../assets/signup_image.jpg";

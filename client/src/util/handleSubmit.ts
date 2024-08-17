@@ -25,6 +25,8 @@ export const fetchQueryInfo = async ({
 
     response = await res.json();
 
+    console.log("response", response);
+
     if (!res.ok) {
       console.log(response.errors);
 

@@ -27,6 +27,9 @@ const LoginForm: React.FC<UserFormProps> = ({ addErrorBanner }) => {
 
     onSuccess: (data) => {
       console.log("Login succesful:", data);
+
+      console.log(data);
+
       authUser(data.flashcards);
       navigate("/");
     },

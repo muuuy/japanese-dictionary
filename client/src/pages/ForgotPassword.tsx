@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { UserFormContainer } from "../components/UserFormComponents/UserFormContainer";
-import { ForgotForm } from "../components/UserFormComponents/ForgotForm";
+import { UserFormContainer } from "../components/UserRegistrationComponents/UserFormContainer";
+import { ForgotForm } from "../components/UserRegistrationComponents/ForgotForm";
 import { ErrorBannerData } from "../interfaces";
 import { Skeleton } from "@chakra-ui/react";
 import { Errors } from "../components/Errors/Errors";
