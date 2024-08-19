@@ -28,6 +28,7 @@ const AnswerBar: React.FC<AnswerBarData> = ({ handleSubmit }) => {
         value={input}
         onChange={handleInput}
         name="quiz-input"
+        className=""
         isRequired
       />
       <IconButton

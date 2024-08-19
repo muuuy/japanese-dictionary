@@ -75,10 +75,7 @@ function App() {
                 path="/quiz/vocabulary-quiz/start"
                 element={<VocabularyQuizStart />}
               />
-              <Route
-                path="/quiz/matching-quiz/quiz"
-                element={<MatchingQuiz />}
-              />
+              <Route path="/quiz/matching-quiz" element={<MatchingQuiz />} />
               <Route
                 path="/quiz/matching-quiz/start"
                 element={<MatchingQuizStart />}

@@ -10,6 +10,7 @@ const QuizStartScreen: React.FC<StartScreenData> = ({
   linkTo,
   image,
   titles,
+  rulesType,
 }) => {
   const [imageLoaded, setImageLoaded] = useState<boolean>(false);
   const [tutorial, setTutorial] = useState<boolean>(false);
@@ -82,7 +83,7 @@ const QuizStartScreen: React.FC<StartScreenData> = ({
       {tutorial && (
         <>
           <div className="fixed inset-0 bg-black opacity-50 z-10" />
-          <Rules handleClose={handleClose} />
+          <Rules handleClose={handleClose} ruleType={rulesType} />
         </>
       )}
     </Skeleton>

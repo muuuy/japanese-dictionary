@@ -1,12 +1,27 @@
 import { CloseIcon } from "@chakra-ui/icons";
 import { useRef, useEffect } from "react";
+import { VocabularyRules } from "../Rules/VocabularyRules";
+import { MatchingRules } from "../Rules/MatchingRules";
+import { RuleTypes } from "./StartInterface";
 
 interface RulesData {
   handleClose: () => void;
+  ruleType: string;
 }
 
-const Rules: React.FC<RulesData> = ({ handleClose }) => {
+const Rules: React.FC<RulesData> = ({ handleClose, ruleType }) => {
   const rulesRef = useRef<HTMLDivElement | null>(null);
+
+  const renderRules = (): React.ReactNode | null => {
+    switch (ruleType) {
+      case RuleTypes.VOCAB:
+        return <VocabularyRules />;
+      case RuleTypes.MATCHING:
+        return <MatchingRules />;
+      default:
+        return null;
+    }
+  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -29,31 +44,7 @@ const Rules: React.FC<RulesData> = ({ handleClose }) => {
         onClick={handleClose}
       />
       <h3 className="font-black text-4xl text-red-500 italic">RULES</h3>
-      <ul>
-        <span className="rules--list-header">OBJECTIVE</span>
-        <li>The goal is to match pairs of related items correctly.</li>
-      </ul>
-      <ul>
-        <span className="rules--list-header">GAMEPLAY</span>
-        <li>Each term can be paired with only one match.</li>
-        <li>
-          The player selects a term and then drags it to its corresponding
-          match.
-        </li>
-      </ul>
-      <ul>
-        <span className="rules--list-header">ATTEMPTS</span>
-        <li>The number of attempts per item is unlimited.</li>
-      </ul>
-      <ul>
-        <span className="rules--list-header">TIMER</span>
-        <li>
-          A timer starts tracking the time it takes for the user to complete the
-          quiz.
-          <br />
-          The timer starts once the user presses the <b>START QUIZ</b> button.
-        </li>
-      </ul>
+      {renderRules()}
     </div>
   );
 };

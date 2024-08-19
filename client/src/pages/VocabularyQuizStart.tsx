@@ -1,5 +1,6 @@
 import { QuizStartScreen } from "../components/QuizStartScreen/QuizStartScreen";
 import { StartScreenTitles } from "../components/QuizStartScreen/StartInterface";
+import { RuleTypes } from "../components/QuizStartScreen/StartInterface";
 import VocabStartImage from "../assets/vocab-start.jpg";
 
 const VocabularyQuizStart = () => {
@@ -13,6 +14,7 @@ const VocabularyQuizStart = () => {
       linkTo="/quiz/vocabulary-quiz"
       image={VocabStartImage}
       titles={titles}
+      rulesType={RuleTypes.VOCAB}
     />
   );
 };

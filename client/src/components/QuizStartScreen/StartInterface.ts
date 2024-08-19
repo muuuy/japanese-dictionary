@@ -7,4 +7,10 @@ export interface StartScreenData {
   linkTo: string;
   image: string;
   titles: StartScreenTitles;
+  rulesType: RuleTypes;
+}
+
+export enum RuleTypes {
+  VOCAB = "vocab=rules",
+  MATCHING = "matching-rules",
 }
