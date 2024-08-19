@@ -49,7 +49,7 @@ const Quiz = () => {
       sectionName: "VOCABULARY",
       japaneseName: "語彙クイズ",
       image: VocabularyImage,
-      link: "/quiz/vocabulary-quiz",
+      link: "/quiz/vocabulary-quiz/start",
     },
     {
       sectionID: "matching",

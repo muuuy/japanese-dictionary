@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 import useUserStore from "../stores/store";
 import { FlashcardData } from "../interfaces";
 
-import AnswerBar from "../components/FillInTheBlankQuiz/AnswerBar";
-import QuestionBox from "../components/FillInTheBlankQuiz/QuestionBox";
-import Restart from "../components/FillInTheBlankQuiz/Restart";
-import Results from "../components/FillInTheBlankQuiz/Results";
+import AnswerBar from "../components/VocabularyQuiz/AnswerBar";
+import QuestionBox from "../components/VocabularyQuiz/QuestionBox";
+import Restart from "../components/VocabularyQuiz/Restart";
+import Results from "../components/VocabularyQuiz/Results";
 import { LoginBanner } from "../components/LoginBanner";
 
-import QuizTypewriter from "../components/FillInTheBlankQuiz/QuizTypewriter";
+import QuizTypewriter from "../components/VocabularyQuiz/QuizTypewriter";
 
 const Vocabulary = () => {
   const flashcards: FlashcardData[] = useUserStore((state) => state.flashcards);

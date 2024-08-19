@@ -1,30 +1,41 @@
 import { useEffect, useState } from "react";
 import { Skeleton } from "@chakra-ui/react";
-import { StartButton } from "../components/MatchingQuiz/StartButton";
-import { RulesButton } from "../components/MatchingQuiz/RulesButton";
-import { Rules } from "../components/MatchingQuiz/Rules";
+import { StartButton } from "./StartButton";
+import { RulesButton } from "./RulesButton";
 import { useNavigate } from "react-router-dom";
-import MatchingQuizImage from "../assets/matching_quiz.jpg";
+import { StartScreenData } from "./StartInterface";
+import { Rules } from "./Rules";
 
-const MatchingQuizStart = () => {
-  const [tutorial, setTutorial] = useState<boolean>(false);
+const QuizStartScreen: React.FC<StartScreenData> = ({
+  linkTo,
+  image,
+  titles,
+}) => {
   const [imageLoaded, setImageLoaded] = useState<boolean>(false);
+  const [tutorial, setTutorial] = useState<boolean>(false);
   const navigate = useNavigate();
 
+  const { englishTitle, japaneseTitle } = titles;
+
+  //Handle key press ("Enter" || "t")
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
       if (event.key === "Enter") {
-        navigate("/quiz/matching-quiz/quiz");
+        navigate(linkTo);
       }
       if (event.key === "t") {
-        setTutorial((prev) => !prev);
+        handleTutorial();
       }
     };
 
     window.addEventListener("keypress", handleKeyPress);
 
     return () => window.removeEventListener("keypress", handleKeyPress);
-  }, [navigate]);
+  }, [navigate, linkTo]);
+
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
 
   const handleTutorial = () => {
     setTutorial((prev) => !prev);
@@ -32,10 +43,6 @@ const MatchingQuizStart = () => {
 
   const handleClose = () => {
     setTutorial(false);
-  };
-
-  const handleImageLoad = () => {
-    setImageLoaded(true);
   };
 
   return (
@@ -47,7 +54,7 @@ const MatchingQuizStart = () => {
       <div className="flex flex-col left-0 flex flex-col gap-4 w-full">
         <div className="matching-quiz--header-container">
           <h1 className="matching-quiz--header font-bold tracking-wider animate-header--fade-in">
-            MATCHING QUIZ
+            {englishTitle}
             <span className="matching-quiz--sub-header">
               Practice your Japanese skills.
             </span>
@@ -55,7 +62,7 @@ const MatchingQuizStart = () => {
         </div>
         <div className="matching-quiz--header-container">
           <h2 className="matching-quiz--header font-black pt-12 animate-header--fade-in">
-            マッチングクイズ
+            {japaneseTitle}
             <span className="matching-quiz--sub-header">
               日本語のスキルを練習しましょう.
             </span>
@@ -63,14 +70,14 @@ const MatchingQuizStart = () => {
         </div>
       </div>
       <img
-        src={MatchingQuizImage}
+        src={image}
         alt="Beautiful Japanese Scenery"
         className="h-3/5 w-full object-cover p-4"
         onLoad={handleImageLoad}
       />
       <div className="h-28 relative">
         <RulesButton handleTutorial={handleTutorial} />
-        <StartButton />
+        <StartButton linkTo={linkTo} />
       </div>
       {tutorial && (
         <>
@@ -82,4 +89,4 @@ const MatchingQuizStart = () => {
   );
 };
 
-export { MatchingQuizStart };
+export { QuizStartScreen };

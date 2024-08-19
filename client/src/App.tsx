@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useEffect, useContext } from "react";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import axios from "axios";
 import useUserStore from "./stores/store";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Home";
@@ -20,6 +19,7 @@ import { ResetPassword } from "./pages/ResetPassword";
 import { MatchingQuizStart } from "./pages/MatchingQuizStart";
 import { DropdownContext } from "./contexts/DropdownContext";
 import { fetchAuthenticate } from "./util/fetchAuthenticate";
+import { VocabularyQuizStart } from "./pages/VocabularyQuizStart";
 
 const queryClient = new QueryClient();
 
@@ -72,12 +72,16 @@ function App() {
               <Route path="/quiz" element={<Quiz />} />
               <Route path="/quiz/vocabulary-quiz" element={<Vocabulary />} />
               <Route
+                path="/quiz/vocabulary-quiz/start"
+                element={<VocabularyQuizStart />}
+              />
+              <Route
                 path="/quiz/matching-quiz/quiz"
                 element={<MatchingQuiz />}
               />
               <Route
                 path="/quiz/matching-quiz/start"
-                element={<MatchingQuizStart handleStart={() => {}} />}
+                element={<MatchingQuizStart />}
               />
             </Routes>
           </div>

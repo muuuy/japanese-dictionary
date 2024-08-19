@@ -3,7 +3,11 @@ import { IoReturnDownBackSharp } from "react-icons/io5";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const StartButton = () => {
+interface StartButtonData {
+  linkTo: string;
+}
+
+const StartButton: React.FC<StartButtonData> = ({ linkTo }) => {
   const [active, setActive] = useState<boolean>(false);
 
   const handleActive = () => {
@@ -16,7 +20,7 @@ const StartButton = () => {
 
   return (
     <Link
-      to={"/quiz/matching-quiz/quiz"}
+      to={linkTo}
       className={` text-dark-orange border-y-4 border-black flex justify-center items-center ${
         active
           ? "h-28 animate-expand--start-button bg-beige"
