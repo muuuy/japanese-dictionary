@@ -8,6 +8,7 @@ const passport = require("./config/passport.js");
 
 const usersRouter = require("./routes/user");
 const flashcardRouter = require("./routes/flashcards.js");
+const vocabRouter = require("./routes/vocab.js");
 
 const { createServer } = require("node:http");
 const { join } = require("node:path");
@@ -42,6 +43,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/users", usersRouter);
 app.use("/flashcards", flashcardRouter);
+app.use("/vocab", vocabRouter);
 
 app.use((err, req, res, next) => {
   console.error(err);

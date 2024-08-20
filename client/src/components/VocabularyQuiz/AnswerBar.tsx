@@ -21,24 +21,27 @@ const AnswerBar: React.FC<AnswerBarData> = ({ handleSubmit }) => {
 
   return (
     <form
-      className="flex flex-row gap-4"
+      className="flex flex-row gap-4 relative"
       onSubmit={(event) => handleSubmit(event, input)}
     >
       <Input
         value={input}
         onChange={handleInput}
         name="quiz-input"
-        className=""
+        background={"white"}
+        borderColor={"black"}
         isRequired
       />
-      <IconButton
-        aria-label="submit-button"
-        icon={<FaCheck />}
-        type="submit"
-        colorScheme="red"
-        variant={"outline"}
-        isRound
-      />
+      <div className="absolute -right-12">
+        <IconButton
+          aria-label="submit-button"
+          icon={<FaCheck />}
+          type="submit"
+          colorScheme="red"
+          variant={"outline"}
+          isRound
+        />
+      </div>
     </form>
   );
 };
