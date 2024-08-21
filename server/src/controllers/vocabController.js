@@ -15,21 +15,41 @@ exports.validate_answer = [
     try {
       const result = await userFlashcardQuery(userID, flashcardID);
 
-      if (result.length === 0 || result[0].user_id === null) {
+      // Invalid query (Either user ID is wrong or flashcard ID is)
+      if (result.length !== 1 || result[0].user_id === null) {
         console.log("Not verified");
         return res
           .status(500)
           .json({ error: "An error occurred. Please try again later." });
       }
 
-      console.log(result);
+      const flashcardCharacter = result[0].character;
+      const flashcardDefinition = result[0].definition;
+
+      const clientCharacter = req.body.flashcard.character;
+      const clientDefinition = req.body.flashcard.definition;
+
+      if (
+        flashcardCharacter === clientCharacter &&
+        flashcardDefinition === clientDefinition
+      ) {
+        console.log("TRUE");
+      } else {
+        console.log("FALSE");
+      }
+
+      const userInput = req.body.input;
+
+      if (flashcardDefinition === userInput) {
+        return res.status(200).json({ isCorrect: true });
+      } else {
+        return res.status(200).json({ isCorrect: false });
+      }
     } catch (error) {
       console.log("Database error:", error);
       return res
         .status(500)
         .json({ error: "An error occurred. Please try again later." });
     }
-
-    return res.status(200).json({});
   }),
 ];

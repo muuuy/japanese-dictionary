@@ -54,8 +54,14 @@ const Vocabulary = () => {
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify({
+          flashcard: unAnsweredQuestions[currentQuestionIndex],
+          input: input,
+        }),
       }
     );
+
+    console.log(await res.json());
 
     if (input === unAnsweredQuestions[currentQuestionIndex].character) {
       console.log("test");
