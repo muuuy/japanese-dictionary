@@ -40,14 +40,27 @@ const Vocabulary = () => {
     setCurrentQuestionIndex(randomIndex);
   }, [unAnsweredQuestions]);
 
-  const handleSubmit = (
+  const handleSubmit = async (
     event: React.FormEvent<HTMLFormElement>,
     input: string
   ) => {
     event.preventDefault();
 
-    if (input === unAnsweredQuestions[currentQuestionIndex].character)
-      handleCorrect();
+    const res = await fetch(
+      `http://localhost:3000/vocab/${unAnsweredQuestions[currentQuestionIndex].flashcard_id}`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (input === unAnsweredQuestions[currentQuestionIndex].character) {
+      console.log("test");
+    }
+    // handleCorrect();
     else setNumWrong((prev) => prev + 1);
   };
 

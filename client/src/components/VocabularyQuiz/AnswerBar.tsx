@@ -13,10 +13,21 @@ interface AnswerBarData {
 
 const AnswerBar: React.FC<AnswerBarData> = ({ handleSubmit }) => {
   const [input, setInput] = useState<string>("");
+  const [id, setId] = useState<string>("");
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     setInput(event.target.value);
+  };
+
+  const validateInput = async () => {
+    const res = await fetch(`http://localhost:3000/vocab/${id}`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   };
 
   return (
