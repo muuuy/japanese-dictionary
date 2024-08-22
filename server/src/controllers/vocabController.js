@@ -30,12 +30,13 @@ exports.validate_answer = [
       const clientDefinition = req.body.flashcard.definition;
 
       if (
-        flashcardCharacter === clientCharacter &&
-        flashcardDefinition === clientDefinition
+        flashcardCharacter !== clientCharacter ||
+        flashcardDefinition !== clientDefinition
       ) {
-        console.log("TRUE");
-      } else {
-        console.log("FALSE");
+        console.log("Invalid flashcard");
+        return res
+          .status(500)
+          .json({ error: "An error occurred. Please try again later." });
       }
 
       const userInput = req.body.input;
