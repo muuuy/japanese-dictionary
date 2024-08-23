@@ -9,7 +9,7 @@ import { EmailInput } from "./FormInputs/EmailInput";
 import { PasswordInput } from "./FormInputs/PasswordInput";
 import { Link } from "react-router-dom";
 import { UserFormButton } from "./UserFormButton";
-import { FetchData, FetchInfoResponse } from "../../interfaces";
+import { FetchData, FetchInfoResponse } from "../../util/UtilInterfaces";
 import { UserFormProps } from "../../interfaces";
 import useUserStore from "../../stores/store";
 
@@ -23,7 +23,7 @@ const LoginForm: React.FC<UserFormProps> = ({ addErrorBanner }) => {
   const navigate = useNavigate();
 
   const mutation = useMutation<FetchInfoResponse, Error, FetchData>({
-    mutationFn: (info: FetchData) => fetchQueryInfo(info),
+    mutationFn: async (info: FetchData) => await fetchQueryInfo(info),
 
     onSuccess: (data) => {
       console.log("Login succesful:", data);

@@ -1,19 +1,41 @@
 import { useEffect, useState } from "react";
-
 import useUserStore from "../stores/store";
 import { FlashcardData } from "../interfaces";
-
 import AnswerBar from "../components/VocabularyQuiz/AnswerBar";
 import QuestionBox from "../components/VocabularyQuiz/QuestionBox";
 import Restart from "../components/VocabularyQuiz/Restart";
 import Results from "../components/VocabularyQuiz/Results";
 import { LoginBanner } from "../components/LoginBanner";
+import { useMutation } from "@tanstack/react-query";
+import { validateVocab } from "../util/validateVocab";
+import { ValidateVocabData } from "../util/UtilInterfaces";
 
 import QuizTypewriter from "../components/VocabularyQuiz/QuizTypewriter";
 
 const Vocabulary = () => {
   const flashcards: FlashcardData[] = useUserStore((state) => state.flashcards);
   const auth: boolean = useUserStore((state) => state.auth);
+
+  const mutation = useMutation<boolean, Error, ValidateVocabData>({
+    mutationFn: async ({ flashcard, input }) => {
+      return await validateVocab(flashcard, input);
+    },
+
+    onSuccess: (data) => {
+      if (data) {
+        console.log("yep = true");
+        setNumCorrect((prev) => prev + 1);
+      } else {
+        console.log("yep = false");
+        setNumWrong((prev) => prev + 1);
+      }
+    },
+
+    onError: () => {
+      //add error banner
+      console.log("nope");
+    },
+  });
 
   const [answeredQuestions, setAnsweredQuestions] = useState<FlashcardData[]>(
     []
@@ -46,28 +68,10 @@ const Vocabulary = () => {
   ) => {
     event.preventDefault();
 
-    const res = await fetch(
-      `http://localhost:3000/vocab/${unAnsweredQuestions[currentQuestionIndex].flashcard_id}`,
-      {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          flashcard: unAnsweredQuestions[currentQuestionIndex],
-          input: input,
-        }),
-      }
-    );
-
-    console.log(await res.json());
-
-    if (input === unAnsweredQuestions[currentQuestionIndex].character) {
-      console.log("test");
-    }
-    // handleCorrect();
-    else setNumWrong((prev) => prev + 1);
+    mutation.mutate({
+      flashcard: unAnsweredQuestions[currentQuestionIndex],
+      input: input,
+    });
   };
 
   const handleCorrect = () => {

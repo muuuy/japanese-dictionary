@@ -54,15 +54,6 @@ export interface ForgotFormData {
   email: string;
 }
 
-export interface FetchData {
-  urlPath: string;
-  formData: string | LoginFormData | ForgotFormData | ResetFormData;
-}
-
-export interface FetchInfoResponse {
-  flashcards: FlashcardData[];
-}
-
 export interface UserFormProps {
   addErrorBanner: (title: string, description: string) => void;
 }

@@ -1,4 +1,4 @@
-import { FetchData, FetchInfoResponse } from "../interfaces";
+import { FetchData, FetchInfoResponse } from "./UtilInterfaces";
 
 export const fetchInfo = async ({
   urlPath,

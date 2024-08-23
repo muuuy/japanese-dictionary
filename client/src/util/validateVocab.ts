@@ -1,9 +1,9 @@
 import { FlashcardData } from "../interfaces";
 
-export const validateVoacb = async (
+export const validateVocab = async (
   flashcard: FlashcardData,
   input: string
-): boolean => {
+): Promise<boolean> => {
   try {
     const res = await fetch(
       `http://localhost:3000/vocab/${flashcard.flashcard_id}`,
@@ -20,10 +20,21 @@ export const validateVoacb = async (
       }
     );
 
-    const result = await res.json();
+    const response = await res.json();
 
-    return true;
+    if (!res.ok) {
+      if (Array.isArray(response.errors)) {
+        throw new Error(response.errors[0].msg);
+      } else {
+        throw new Error(response.errors);
+      }
+    }
+
+    const isCorrect = response.isCorrect;
+
+    return isCorrect;
   } catch (error) {
-    return false;
+    console.error("Error validating vocabulary:", error);
+    throw error;
   }
 };
