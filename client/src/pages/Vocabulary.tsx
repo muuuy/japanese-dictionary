@@ -15,8 +15,18 @@ import QuizTypewriter from "../components/VocabularyQuiz/QuizTypewriter";
 const Vocabulary = () => {
   const flashcards: FlashcardData[] = useUserStore((state) => state.flashcards);
   const auth: boolean = useUserStore((state) => state.auth);
+  const [answeredQuestions, setAnsweredQuestions] = useState<FlashcardData[]>(
+    []
+  );
+  const [unAnsweredQuestions, setUnansweredQuestions] = useState<
+    FlashcardData[]
+  >(useUserStore((state) => state.flashcards));
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(-1);
+  const [numCorrect, setNumCorrect] = useState<number>(0);
+  const [numWrong, setNumWrong] = useState<number>(0);
 
   const mutation = useMutation<boolean, Error, ValidateVocabData>({
+    mutationKey: ["vocab-quiz", numCorrect],
     mutationFn: async ({ flashcard, input }) => {
       return await validateVocab(flashcard, input);
     },
@@ -36,17 +46,6 @@ const Vocabulary = () => {
       console.log("nope");
     },
   });
-
-  const [answeredQuestions, setAnsweredQuestions] = useState<FlashcardData[]>(
-    []
-  );
-  const [unAnsweredQuestions, setUnansweredQuestions] = useState<
-    FlashcardData[]
-  >(useUserStore((state) => state.flashcards));
-
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(-1);
-  const [numCorrect, setNumCorrect] = useState<number>(0);
-  const [numWrong, setNumWrong] = useState<number>(0);
 
   const [typewriterLoading, setTypewriterLoading] = useState<boolean>(false);
 
