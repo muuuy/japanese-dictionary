@@ -9,6 +9,8 @@ import { LoginBanner } from "../components/LoginBanner";
 import { useMutation } from "@tanstack/react-query";
 import { validateVocab } from "../util/validateVocab";
 import { ValidateVocabData } from "../util/UtilInterfaces";
+import { VocabGraph } from "../components/VocabularyQuiz/VocabGraph";
+import { ResultData } from "../components/VocabularyQuiz/VocabInterface";
 
 import QuizTypewriter from "../components/VocabularyQuiz/QuizTypewriter";
 
@@ -22,11 +24,15 @@ const Vocabulary = () => {
     FlashcardData[]
   >(useUserStore((state) => state.flashcards));
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(-1);
-  const [numCorrect, setNumCorrect] = useState<number>(0);
-  const [numWrong, setNumWrong] = useState<number>(0);
+
+  const [results, setResutls] = useState<ResultData>({
+    correct: 0,
+    wrong: 0,
+    skipped: 0,
+  });
 
   const mutation = useMutation<boolean, Error, ValidateVocabData>({
-    mutationKey: ["vocab-quiz", numCorrect],
+    mutationKey: ["vocab-quiz"],
     mutationFn: async ({ flashcard, input }) => {
       return await validateVocab(flashcard, input);
     },
@@ -34,10 +40,10 @@ const Vocabulary = () => {
     onSuccess: (data) => {
       if (data) {
         console.log("yep = true");
-        setNumCorrect((prev) => prev + 1);
+        setResutls((prev) => ({ ...prev, correct: prev.correct + 1 }));
       } else {
         console.log("yep = false");
-        setNumWrong((prev) => prev + 1);
+        setResutls((prev) => ({ ...prev, wrong: prev.wrong + 1 }));
       }
     },
 
@@ -73,24 +79,11 @@ const Vocabulary = () => {
     });
   };
 
-  const handleCorrect = () => {
-    setAnsweredQuestions((prev) => [
-      ...prev,
-      unAnsweredQuestions[currentQuestionIndex],
-    ]);
-
-    const filteredQuestions = [...unAnsweredQuestions];
-    filteredQuestions.splice(currentQuestionIndex, 1);
-    setUnansweredQuestions([...filteredQuestions]);
-    setNumCorrect((prev) => prev + 1);
-  };
-
   const handleReset = () => {
     setUnansweredQuestions([...flashcards]);
     setAnsweredQuestions([]);
     setCurrentQuestionIndex(-1);
-    setNumCorrect(0);
-    setNumWrong(0);
+    setResutls({ correct: 0, wrong: 0, skipped: 0 });
   };
 
   const handleLoading = () => {
@@ -139,7 +132,12 @@ const Vocabulary = () => {
               <AnswerBar handleSubmit={handleSubmit} />
             </>
           )}
-          <Results numCorrect={numCorrect} numWrong={numWrong} />
+          <Results numCorrect={results.correct} numWrong={results.wrong} />
+          <VocabGraph
+            correct={results.correct}
+            wrong={results.wrong}
+            skipped={results.skipped}
+          />
         </>
       )}
     </div>
