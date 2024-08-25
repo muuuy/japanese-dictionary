@@ -1,14 +1,11 @@
 import { Button } from "@chakra-ui/react";
 import React from "react";
 
-
 interface RestartData {
   handleRestart: () => void;
 }
 
-const Restart: React.FC<RestartData> = ({
-  handleRestart,
-}) => {
+const Restart: React.FC<RestartData> = ({ handleRestart }) => {
   return (
     <div className="text-center">
       <p className="text-5xl italic tracking-widest my-4">FINISHED</p>
@@ -19,4 +16,4 @@ const Restart: React.FC<RestartData> = ({
   );
 };
 
-export default Restart;
+export { Restart };

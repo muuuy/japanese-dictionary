@@ -8,6 +8,7 @@ import { headerAnimations } from "./animations/HeaderAnimation";
 import { matchingButtonAnimation } from "./animations/MatchingButtonAnimation";
 import { fadeInAnimation } from "./animations/FadeInAnimation";
 import { rulesAnimation } from "./animations/RulesAnimation";
+import { LoginPromptFadeIn } from "./animations/LoginPromptFadeIn";
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -177,6 +178,7 @@ module.exports = {
         ...matchingButtonAnimation.keyframes,
         ...fadeInAnimation.keyframes,
         ...rulesAnimation.keyframes,
+        ...LoginPromptFadeIn.keyframes,
         // FadeOutKeyframes,
       },
       animation: {
@@ -196,6 +198,7 @@ module.exports = {
         ...matchingButtonAnimation.animation,
         ...fadeInAnimation.animation,
         ...rulesAnimation.animation,
+        ...LoginPromptFadeIn.animation,
       },
       borderWidth: {
         0.5: "0.5px",

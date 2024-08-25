@@ -3,16 +3,18 @@ import useUserStore from "../stores/store";
 import { FlashcardData } from "../interfaces";
 import AnswerBar from "../components/VocabularyQuiz/AnswerBar";
 import QuestionBox from "../components/VocabularyQuiz/QuestionBox";
-import Restart from "../components/VocabularyQuiz/Restart";
+import { Restart } from "../components/VocabularyQuiz/Restart";
 import Results from "../components/VocabularyQuiz/Results";
-import { LoginBanner } from "../components/LoginBanner";
 import { useMutation } from "@tanstack/react-query";
 import { validateVocab } from "../util/validateVocab";
 import { ValidateVocabData } from "../util/UtilInterfaces";
 import { VocabGraph } from "../components/VocabularyQuiz/VocabGraph";
 import { ResultData } from "../components/VocabularyQuiz/VocabInterface";
-
-import QuizTypewriter from "../components/VocabularyQuiz/QuizTypewriter";
+import { LoginPromt } from "../components/LoginPrompt/LoginPrompt";
+import { Timer } from "../components/MatchingQuiz/Timer";
+import { SubmitButton } from "../components/VocabularyQuiz/SubmitButton";
+import { SkipButton } from "../components/VocabularyQuiz/SkipButton";
+import clsx from "clsx";
 
 const Vocabulary = () => {
   const flashcards: FlashcardData[] = useUserStore((state) => state.flashcards);
@@ -22,7 +24,7 @@ const Vocabulary = () => {
   );
   const [unAnsweredQuestions, setUnansweredQuestions] = useState<
     FlashcardData[]
-  >(useUserStore((state) => state.flashcards));
+  >([...flashcards]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(-1);
 
   const [results, setResutls] = useState<ResultData>({
@@ -53,11 +55,8 @@ const Vocabulary = () => {
     },
   });
 
-  const [typewriterLoading, setTypewriterLoading] = useState<boolean>(false);
-
-  useEffect(() => {
-    setUnansweredQuestions([...flashcards]);
-  }, [flashcards]);
+  console.log("1st len", flashcards.length);
+  console.log("len", unAnsweredQuestions.length);
 
   useEffect(() => {
     const randomIndex: number = Math.floor(
@@ -86,58 +85,53 @@ const Vocabulary = () => {
     setResutls({ correct: 0, wrong: 0, skipped: 0 });
   };
 
-  const handleLoading = () => {
-    setTypewriterLoading(true);
-  };
-
   return (
     <div className="flex flex-1 flex-col justify-center items-center">
-      <h1 className="page--header">QUIZ</h1>
       {!auth ? (
-        <>
-          <div className="flex flex-col text-center my-8 gap-2">
-            <QuizTypewriter
-              text="Please log in or sign up to proceed further."
-              speed={50}
-              setLoading={handleLoading}
-              fontWeight="semibold"
-            />
-            {typewriterLoading && (
-              <QuizTypewriter
-                text="ありがとうございます。"
-                speed={100}
-                fontWeight="normal"
-              />
-            )}
-          </div>
-          <div className="flex flex-row gap-4 w-96">
-            <LoginBanner />
-          </div>
-        </>
+        <LoginPromt title="VOCAB QUIZ" />
       ) : (
         <>
-          {unAnsweredQuestions.length === 0 ? (
-            <Restart handleRestart={handleReset} />
-          ) : (
-            <>
-              <p className="font-black my-2">
-                <span className="text-green-500">
-                  {answeredQuestions.length}
-                </span>{" "}
-                / <span className="text-red-500">{flashcards.length}</span>
-              </p>
-              <QuestionBox
-                currentQuestion={unAnsweredQuestions[currentQuestionIndex]}
-              />
-              <AnswerBar handleSubmit={handleSubmit} />
-            </>
-          )}
-          <Results numCorrect={results.correct} numWrong={results.wrong} />
-          <VocabGraph
-            correct={results.correct}
-            wrong={results.wrong}
-            skipped={results.skipped}
-          />
+          <div
+            className={clsx(
+              "flex flex-col items-center px-20 pb-20 border-black border-4 rounded-2xl bg-white shadow-2xl relative"
+            )}
+          >
+            {unAnsweredQuestions.length === 0 ? (
+              <Restart handleRestart={handleReset} />
+            ) : (
+              <>
+                <h1 className="page--header mb-16 mt-8">VOCAB QUIZ</h1>
+                <QuestionBox
+                  currentQuestion={unAnsweredQuestions[currentQuestionIndex]}
+                />
+                <AnswerBar handleSubmit={handleSubmit} />
+                <div className="flex flex-row justify-between items-center w-full absolute bottom-4 px-4">
+                  <div className="flex flex-row gap-4 my-2 text-xl">
+                    <p className="flex flex-row justify-center items-center gap-2 font-black text-base">
+                      <span className="text-dark-orange bg-slate-200 p-1 rounded-full">
+                        {answeredQuestions.length}
+                      </span>{" "}
+                      of{" "}
+                      <span className="text-dark-orange bg-slate-200 p-1 rounded-full">
+                        {flashcards.length}
+                      </span>
+                    </p>
+                  </div>
+                  <div className="flex flex-row gap-4">
+                    <SubmitButton />
+                    <SkipButton />
+                  </div>
+                </div>
+              </>
+            )}
+            <Results numCorrect={results.correct} numWrong={results.wrong} />
+            <VocabGraph
+              correct={results.correct}
+              wrong={results.wrong}
+              skipped={results.skipped}
+            />
+          </div>
+          <Timer />
         </>
       )}
     </div>
