@@ -1,7 +1,15 @@
 import { IconButton } from "@chakra-ui/react";
 import { FaCheck } from "react-icons/fa6";
 
-const SubmitButton = () => {
+interface SubmitData {
+  handleSubmit: (
+    event:
+      | React.FormEvent<HTMLFormElement>
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => void;
+}
+
+const SubmitButton: React.FC<SubmitData> = ({ handleSubmit }) => {
   return (
     <IconButton
       aria-label="submit-button"
@@ -11,7 +19,7 @@ const SubmitButton = () => {
       variant={"outline"}
       background={"white"}
       isRound
-     
+      onClick={(event) => handleSubmit(event)}
     />
   );
 };

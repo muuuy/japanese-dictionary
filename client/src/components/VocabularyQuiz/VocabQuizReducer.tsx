@@ -22,29 +22,35 @@ export function vocabReducer(
   action: VoacbQuizReducerAction
 ): QuizReducerData {
   switch (action.type) {
-    //Create the flashcard deck for the quiz
+    //Create the flashcard deck for the quiz or Restart the quiz
     case "CREATE":
+    case "RESTART": {
       if (action.intialFlashcards) {
         const flashcards: FlashcardData[] = shuffleFlashcards([
           ...action.intialFlashcards,
         ]);
         const currQuestion: FlashcardData = flashcards[0];
 
-        console.log("reducer", state.unansweredQuestions);
-
         return {
           ...state,
-          unansweredQuestions: flashcards.slice(1),
+          unansweredQuestions: flashcards,
+          answeredQuestions: [],
           currentQuestion: currQuestion,
-          numQuestions: flashcards.length + 1,
+          numCorrect: 0,
+          numWrong: 0,
+          numSkipped: 0,
+          numQuestions: flashcards.length,
         };
       } else {
         return state;
       }
+    }
 
-    case "CORRECT":
+    //Correct answer for quiz
+    case "CORRECT": {
       const previousQuestion: FlashcardData = state.currentQuestion!;
-      const currentQuestion: FlashcardData = state.unansweredQuestions.shift()!;
+      const currentQuestion: FlashcardData | null =
+        state.unansweredQuestions.shift() || null;
 
       return {
         ...state,
@@ -52,12 +58,28 @@ export function vocabReducer(
         currentQuestion: currentQuestion,
         answeredQuestions: [...state.answeredQuestions, previousQuestion],
       };
+    }
 
-    case "WRONG":
-      return state;
-    case "SKIP":
-      return state;
-    case "RESTART":
-      return state;
+    //Wrong answer for quiz
+    case "WRONG": {
+      return {
+        ...state,
+        numWrong: state.numWrong + 1,
+      };
+    }
+
+    //Skip the current question
+    case "SKIP": {
+      const previousQuestion: FlashcardData = state.currentQuestion!;
+      const currentQuestion: FlashcardData | null =
+        state.unansweredQuestions.shift() || null;
+
+      return {
+        ...state,
+        numSkipped: state.numSkipped + 1,
+        currentQuestion: currentQuestion,
+        answeredQuestions: [...state.answeredQuestions, previousQuestion],
+      };
+    }
   }
 }
