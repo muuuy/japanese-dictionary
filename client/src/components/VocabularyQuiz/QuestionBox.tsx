@@ -12,4 +12,4 @@ const QuestionBox: React.FC<QuestionBoxData> = ({ currentQuestion }) => {
   );
 };
 
-export default QuestionBox;
+export { QuestionBox };

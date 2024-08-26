@@ -33,4 +33,4 @@ const AnswerBar: React.FC<AnswerBarData> = ({ handleSubmit }) => {
   );
 };
 
-export default AnswerBar;
+export { AnswerBar };
