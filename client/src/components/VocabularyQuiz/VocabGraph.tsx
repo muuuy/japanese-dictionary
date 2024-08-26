@@ -4,7 +4,6 @@ import { ResultData, GraphOptions } from "./VocabInterface";
 const options: GraphOptions = {
   title: "Vocab Quiz Results",
   is3D: true,
-  backgroundColor: "#FFF0DB",
 };
 
 const VocabGraph: React.FC<ResultData> = ({ correct, wrong, skipped }) => {

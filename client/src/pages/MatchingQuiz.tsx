@@ -1,4 +1,4 @@
-import { Timer } from "../components/MatchingQuiz/Timer";
+import { Timer } from "../components/Timer";
 import { Droppable } from "../components/DragAndDrop/Droppable";
 import { Draggable } from "../components/DragAndDrop/Draggable";
 import { Card } from "../components/MatchingQuiz/Card";

@@ -5,13 +5,14 @@ import { SkipButton } from "./SkipButton";
 import { Restart } from "./Restart";
 import { Results } from "./Results";
 import { VocabGraph } from "./VocabGraph";
-import { Timer } from "../MatchingQuiz/Timer";
+import { Timer } from "../Timer";
 import { useState, useEffect, useReducer } from "react";
 import { vocabReducer, vocabInitialState } from "./VocabQuizReducer";
 import { FlashcardData } from "../../interfaces";
 import { useMutation } from "@tanstack/react-query";
 import { validateVocab } from "../../util/validateVocab";
 import { ValidateVocabData } from "../../util/UtilInterfaces";
+import { InfoOutlineIcon } from "@chakra-ui/icons";
 import useUserStore from "../../stores/store";
 import clsx from "clsx";
 
@@ -33,6 +34,7 @@ const Quiz = () => {
     onSuccess: (data) => {
       if (data) {
         dispatch({ type: "CORRECT" });
+        setInput("");
       } else {
         dispatch({ type: "WRONG" });
       }
@@ -74,7 +76,7 @@ const Quiz = () => {
     <>
       <div
         className={clsx(
-          "flex flex-col items-center px-20 pb-20 border-black border-4 rounded-2xl bg-white shadow-2xl relative"
+          "flex flex-col items-center px-20 pb-20 rounded-2xl bg-white shadow-custom-dark relative"
         )}
       >
         {state.currentQuestion === null ? (
@@ -83,7 +85,11 @@ const Quiz = () => {
           <>
             <h1 className="page--header mb-16 mt-8">VOCAB QUIZ</h1>
             <QuestionBox currentQuestion={state.currentQuestion} />
-            <AnswerBar handleSubmit={handleSubmit} handleInput={handleInput} />
+            <AnswerBar
+              handleSubmit={handleSubmit}
+              handleInput={handleInput}
+              input={input}
+            />
             <div className="flex flex-row justify-between items-center w-full absolute bottom-4 px-4">
               <div className="flex flex-row gap-4 my-2 text-xl">
                 <p className="flex flex-row justify-center items-center gap-2 font-black text-base">
@@ -103,6 +109,7 @@ const Quiz = () => {
             </div>
           </>
         )}
+        <InfoOutlineIcon className="absolute top-2 right-2 cursor-pointer" />
         <Results
           numCorrect={state.numCorrect}
           numWrong={state.numWrong}

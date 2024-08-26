@@ -9,7 +9,6 @@ export interface ResultData {
 export interface GraphOptions {
   title: string;
   is3D: boolean;
-  backgroundColor: string;
 }
 
 export interface QuizReducerData {

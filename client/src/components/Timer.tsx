@@ -1,4 +1,4 @@
-import { useTimer } from "../../hooks/useTimer";
+import { useTimer } from "../hooks/useTimer";
 import { useState } from "react";
 import { IconButton } from "@chakra-ui/react";
 import { FaPlay, FaPause } from "react-icons/fa";
