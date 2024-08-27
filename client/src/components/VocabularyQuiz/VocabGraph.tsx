@@ -1,5 +1,6 @@
 import { Chart } from "react-google-charts";
 import { ResultData } from "./VocabInterface";
+import clsx from "clsx";
 
 const VocabGraph: React.FC<ResultData> = ({ correct, wrong, skipped }) => {
   const data = [
@@ -10,9 +11,14 @@ const VocabGraph: React.FC<ResultData> = ({ correct, wrong, skipped }) => {
   ];
 
   return (
-    <>  
+    <>
       <h1 className="pt-12 font-black text-4xl">VOCAB QUIZ RESULTS</h1>
-      <div className="flex justify-center items-center">
+      <div
+        className={clsx(
+          "flex justify-center items-center",
+          "animate-vocab--fade-in"
+        )}
+      >
         <Chart
           chartType="PieChart"
           data={data}
