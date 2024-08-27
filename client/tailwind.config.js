@@ -31,7 +31,9 @@ module.exports = {
     },
     extend: {
       boxShadow: {
-        "custom-dark": "0 4px 8px rgba(0, 0, 0, 0.4)",
+        "custom-dark": "0 4px 8px rgba(0, 0, 0, 0.6)",
+        "custom-red": "0 4px 8px rgba(255, 0, 0, 1)",
+        "custom-green": "0 4px 8px rgba(0, 255, 0, 1)",
       },
       colors: {
         "light-gray": "#f1efe7",
