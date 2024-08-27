@@ -7,8 +7,10 @@ interface RestartData {
 
 const Restart: React.FC<RestartData> = ({ handleRestart }) => {
   return (
-    <div className="text-center">
-      <p className="text-5xl italic tracking-widest my-4">FINISHED</p>
+    <div className="flex flex-col items-center justify-center gap-12 text-center">
+      <p className="text-5xl font-black italic tracking-widest my-4 pt-16">
+        FINISHED
+      </p>
       <Button onClick={handleRestart} colorScheme="red">
         RETRY QUIZ
       </Button>

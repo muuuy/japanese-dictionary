@@ -5,7 +5,6 @@ import { SkipButton } from "./SkipButton";
 import { Restart } from "./Restart";
 import { Results } from "./Results";
 import { VocabGraph } from "./VocabGraph";
-import { Timer } from "../Timer";
 import { useState, useEffect, useReducer } from "react";
 import { vocabReducer, vocabInitialState } from "./VocabQuizReducer";
 import { FlashcardData } from "../../interfaces";
@@ -20,10 +19,8 @@ const Quiz = () => {
   const flashcards: FlashcardData[] = useUserStore((state) => state.flashcards);
   const [state, dispatch] = useReducer(vocabReducer, vocabInitialState);
   const [input, setInput] = useState<string>("");
-
-  useEffect(() => {
-    dispatch({ type: "CREATE", intialFlashcards: [...flashcards] });
-  }, [flashcards]);
+  const [displayGraph, setDisplayGraph] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const mutation = useMutation<boolean, Error, ValidateVocabData>({
     mutationKey: ["vocab-quiz"],
@@ -45,6 +42,11 @@ const Quiz = () => {
       console.log("nope");
     },
   });
+
+  useEffect(() => {
+    dispatch({ type: "CREATE", intialFlashcards: [...flashcards] });
+    setLoading(false);
+  }, [flashcards]);
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -72,6 +74,10 @@ const Quiz = () => {
     dispatch({ type: "SKIP" });
   };
 
+  const handleDisplayGraph = () => {
+    setDisplayGraph((prev) => !prev);
+  };
+
   return (
     <>
       <div
@@ -83,45 +89,52 @@ const Quiz = () => {
           <Restart handleRestart={handleReset} />
         ) : (
           <>
-            <h1 className="page--header mb-16 mt-8">VOCAB QUIZ</h1>
-            <QuestionBox currentQuestion={state.currentQuestion} />
-            <AnswerBar
-              handleSubmit={handleSubmit}
-              handleInput={handleInput}
-              input={input}
-            />
-            <div className="flex flex-row justify-between items-center w-full absolute bottom-4 px-4">
-              <div className="flex flex-row gap-4 my-2 text-xl">
-                <p className="flex flex-row justify-center items-center gap-2 font-black text-base">
-                  <span className="text-red-500 bg-slate-200 p-1 rounded-full">
-                    {state.answeredQuestions.length}
-                  </span>{" "}
-                  of{" "}
-                  <span className="text-red-500 bg-slate-200 p-1 rounded-full">
-                    {state.numQuestions}
-                  </span>
-                </p>
-              </div>
-              <div className="flex flex-row gap-4">
-                <SubmitButton handleSubmit={handleSubmit} />
-                <SkipButton handleSkip={handleSkip} />
-              </div>
-            </div>
+            {!displayGraph ? (
+              <>
+                <h1 className="page--header mb-16 mt-8">VOCAB QUIZ</h1>
+                <QuestionBox currentQuestion={state.currentQuestion} />
+                <AnswerBar
+                  handleSubmit={handleSubmit}
+                  handleInput={handleInput}
+                  input={input}
+                />
+                <div className="flex flex-row justify-between items-center w-full absolute bottom-4 px-4">
+                  <div className="flex flex-row gap-4 my-2 text-xl">
+                    <p className="flex flex-row justify-center items-center gap-2 font-black text-base">
+                      <span className="text-red-500 bg-slate-200 p-1 rounded-full">
+                        {state.answeredQuestions.length}
+                      </span>{" "}
+                      of{" "}
+                      <span className="text-red-500 bg-slate-200 p-1 rounded-full">
+                        {state.numQuestions}
+                      </span>
+                    </p>
+                  </div>
+                  <div className="flex flex-row gap-4">
+                    <SubmitButton handleSubmit={handleSubmit} />
+                    <SkipButton handleSkip={handleSkip} />
+                  </div>
+                </div>
+              </>
+            ) : (
+              <VocabGraph
+                correct={state.numCorrect}
+                wrong={state.numWrong}
+                skipped={state.numSkipped}
+              />
+            )}
           </>
         )}
-        <InfoOutlineIcon className="absolute top-2 right-2 cursor-pointer" />
+        <InfoOutlineIcon
+          className="absolute top-2 right-2 cursor-pointer"
+          onClick={handleDisplayGraph}
+        />
         <Results
           numCorrect={state.numCorrect}
           numWrong={state.numWrong}
           numSkipped={state.numSkipped}
         />
-        <VocabGraph
-          correct={state.numCorrect}
-          wrong={state.numWrong}
-          skipped={state.numSkipped}
-        />
       </div>
-      <Timer />
     </>
   );
 };
