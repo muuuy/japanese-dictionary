@@ -12,7 +12,7 @@ const {
   userQueryEmail,
   userQueryID,
   flashcardQuery,
-} = require("../middleware/userQueries");
+} = require("../queries/userQueries");
 
 const {
   handleErrors,

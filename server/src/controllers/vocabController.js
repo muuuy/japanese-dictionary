@@ -1,5 +1,5 @@
 const asyncHandler = require("express-async-handler");
-const { userFlashcardQuery } = require("../middleware/vocabQueries");
+const { userFlashcardQuery } = require("../queries/vocabQueries");
 
 const pool = require("../config/postgresDB");
 

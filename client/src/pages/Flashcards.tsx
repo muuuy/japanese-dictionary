@@ -99,7 +99,7 @@ const Flashcards = () => {
       <div className="flex flex-col gap-2 mt-4 w-96 items-center">
         <Input onChange={handleChange} value={input} name="add_flashcard" />
         <Button
-          onClick={() => handlePopup(false, "", "test", "test")}
+          onClick={() => handlePopup(false, "", "", "")}
           colorScheme="red"
           width={"200px"}
         >

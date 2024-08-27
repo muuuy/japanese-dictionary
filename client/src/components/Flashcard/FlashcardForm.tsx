@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import useUserStore from "../../stores/store";
 
-import { FormControl, FormLabel, FormErrorMessage } from "@chakra-ui/react";
+import { FormControl, FormLabel } from "@chakra-ui/react";
 import { Input, Button } from "@chakra-ui/react";
 
 interface AddFlashcardProps {
@@ -37,7 +37,6 @@ const FlashcardForm: React.FC<AddFlashcardProps> = ({
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
-
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
@@ -96,7 +95,7 @@ const FlashcardForm: React.FC<AddFlashcardProps> = ({
   };
 
   return (
-    <div className="bg-white border-2 border-red-600 p-8 rounded-xl">
+    <div className="bg-white border-2 border-red-600 shadow-custom-red p-8 rounded-xl">
       <h1 className="text-4xl font-black text-center mb-8 tracking-widest">
         {isEdit ? "EDIT" : "ADD"} FLASHCARD
       </h1>

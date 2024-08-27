@@ -42,7 +42,7 @@ const FlashcardComponent: React.FC<FlashcardComponentProps> = ({
   };
 
   return (
-    <div className="flex flex-row gap-4 w-96 p-5 border-2 border-red-600 rounded-xl cursor-pointer hover:scale-105 ease-out	duration-300 relative">
+    <div className="flex flex-row gap-4 w-96 p-5 shadow-custom-red rounded-xl bg-white cursor-pointer hover:scale-105 ease-out	duration-300 relative">
       <p className="w-1/3 font-black text-xl">{flashcardData.character}</p>
       <p className="text-lg text-wrap truncate max-h-40">
         {flashcardData.definition}

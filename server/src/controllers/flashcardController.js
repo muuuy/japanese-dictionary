@@ -1,6 +1,9 @@
 const asyncHandler = require("express-async-handler");
 const { validationResult, body } = require("express-validator");
 
+const { userQueryID } = require("../queries/userQueries");
+const { insertFlashcardQuery } = require("../queries/flashcardQueries");
+
 const {
   validateCharacter,
   validateDefinition,
@@ -9,6 +12,7 @@ const {
 const Flashcard = require("../models/Flashcard");
 const User = require("../models/User");
 
+//Create flashcard --> '/'
 exports.create = [
   validateCharacter,
   validateDefinition,
@@ -16,27 +20,46 @@ exports.create = [
   body("character").trim(),
   body("definition").trim(),
   asyncHandler(async (req, res, next) => {
-    if (!req.session.authenticated)
+    if (!req.session.authenticated) {
       return res.status(401).json({ errors: "Not logged in." });
+    }
 
-    const flashcard = new Flashcard({
-      character: req.body.character,
-      definition: req.body.definition,
-    });
-    await flashcard.save();
+    try {
+      const user = await userQueryID(req.session.userID);
 
-    const user = await User.findById(req.session.userID).exec();
-    user.flashcards.push(flashcard._id);
-    await user.save();
+      const character = req.body.character;
+      const definition = req.body.definition;
 
-    console.log(user);
+      const flashcard = await insertFlashcardQuery(
+        character,
+        definition,
+        user.user_id
+      );
+    } catch (error) {
+      console.log("Database error", error);
+      return res
+        .status(500)
+        .json({ error: "An error occurred. Please try again later." });
+    }
+
+    // const flashcard = new Flashcard({
+    //   character: req.body.character,
+    //   definition: req.body.definition,
+    // });
+    // await flashcard.save();
+
+    // const user = await User.findById(req.session.userID).exec();
+    // user.flashcards.push(flashcard._id);
+    // await user.save();
+
+    // console.log(user);
 
     return res.status(200).json({
-      flashcard: {
-        id: flashcard._id,
-        character: flashcard.character,
-        definition: flashcard.definition,
-      },
+      // flashcard: {
+      //   id: flashcard._id,
+      //   character: flashcard.character,
+      //   definition: flashcard.definition,
+      // },
     });
   }),
 ];
