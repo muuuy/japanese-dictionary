@@ -1,5 +1,14 @@
 const pool = require("../config/postgresDB");
+const { DatabaseError } = require("../models/DatabaseError");
 
+/**
+ * Insert a new flashcard and user-flashcard into the db.
+ *
+ * @param {string} character
+ * @param {string} definition
+ * @param {string} userId
+ * @returns
+ */
 const insertFlashcardQuery = async (character, definition, userId) => {
   try {
     const insertFlashcard = await pool.query(
@@ -24,4 +33,40 @@ const insertFlashcardQuery = async (character, definition, userId) => {
   }
 };
 
-module.exports = { insertFlashcardQuery };
+/**
+ * Deletes a flashcard and user-flashcard from the db.
+ *
+ * @param {string} userId
+ * @param {string} flashcardId
+ */
+const deleteFlashcardQuery = async (userId, flashcardId) => {
+  try {
+    const deleteUserFlashcard = await pool.query(
+      "DELETE FROM user_flashcards WHERE user_id = $1 AND flashcard_id = $2",
+      [userId, flashcardId]
+    );
+
+    if (deleteUserFlashcard.rowCount === 0) {
+      throw new DatabaseError("User Flashcard not found, deletion failed.");
+    }
+
+    const deleteFlashcard = await pool.query(
+      "DELETE FROM flashcards WHERE flashcard_id = $1",
+      [flashcardId]
+    );
+
+    if (deleteFlashcard.rowCount === 0) {
+      throw new DatabaseError("Flashcard not found, deletion failed.");
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
+const editFlashcardQuery = async () => {};
+
+module.exports = {
+  insertFlashcardQuery,
+  deleteFlashcardQuery,
+  editFlashcardQuery,
+};

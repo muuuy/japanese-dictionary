@@ -85,6 +85,7 @@ const FlashcardForm: React.FC<AddFlashcardProps> = ({
 
       if (res.ok) {
         const data = await res.json();
+        console.log(data);
         addFlashcard(data.flashcard);
         setFormData({ character: "", definition: "" });
         return;
@@ -101,20 +102,26 @@ const FlashcardForm: React.FC<AddFlashcardProps> = ({
       </h1>
       <form onSubmit={handleSubmit}>
         <FormControl isRequired className="mb-4">
-          <FormLabel>character (漢字)</FormLabel>
+          <FormLabel>
+            <span className="font-black text-xl">CHARACTER (漢字)</span>
+          </FormLabel>
           <Input
             name="character"
             onChange={handleChange}
             value={formData.character}
+            borderColor={"black"}
             className="text-xs"
           />
         </FormControl>
         <FormControl isRequired>
-          <FormLabel>definition (定義)</FormLabel>
+          <FormLabel>
+            <span className="font-black text-xl">DEFINITION (定義)</span>
+          </FormLabel>
           <Input
             name="definition"
             onChange={handleChange}
             value={formData.definition}
+            borderColor={"black"}
             className="text-xs"
           />
         </FormControl>

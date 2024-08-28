@@ -97,13 +97,19 @@ const Flashcards = () => {
         Create, study, update, and delete flashcards.
       </h2>
       <div className="flex flex-col gap-2 mt-4 w-96 items-center">
-        <Input onChange={handleChange} value={input} name="add_flashcard" />
+        <Input
+          onChange={handleChange}
+          value={input}
+          borderColor={"black"}
+          backgroundColor={"white"}
+          name="add_flashcard"
+        />
         <Button
           onClick={() => handlePopup(false, "", "", "")}
           colorScheme="red"
           width={"200px"}
         >
-          ADD
+          <span className="font-black text-2xl">ADD</span>
         </Button>
       </div>
       <div className="flex flex-row flex-wrap justify-center items-center gap-8 mx-1 mt-8">
