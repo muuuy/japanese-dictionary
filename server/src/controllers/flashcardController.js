@@ -49,7 +49,7 @@ exports.create = [
   }),
 ];
 
-//Delete flashcard -> POST '/:id'
+//Delete flashcard -> DELETE '/:id'
 exports.delete = [
   asyncHandler(async (req, res, next) => {
     if (!req.session.authenticated) {
@@ -62,7 +62,7 @@ exports.delete = [
 
       await deleteFlashcardQuery(userId, flashcardId);
 
-      return res.status(200).json({});
+      return res.status(200).json({ flashcardId: flashcardId });
     } catch (error) {
       if (error instanceof DatabaseError) {
         console.log("Database error", error);

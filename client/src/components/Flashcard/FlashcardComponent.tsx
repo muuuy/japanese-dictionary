@@ -1,10 +1,9 @@
 import { useState } from "react";
-import axios from "axios";
-
 import { FlashcardData } from "../../interfaces";
-import useUserStore from "../../stores/store";
-
 import { FaPencilAlt, FaTrash, FaEllipsisH } from "react-icons/fa";
+import { useMutation } from "@tanstack/react-query";
+import { deleteFlashcard } from "../../api/flashcard";
+import useUserStore from "../../stores/store";
 
 interface FlashcardComponentProps {
   flashcardData: FlashcardData;
@@ -20,25 +19,44 @@ const FlashcardComponent: React.FC<FlashcardComponentProps> = ({
   flashcardData,
   handlePopup,
 }) => {
-  const deleteFlashcard = useUserStore((state) => state.deleteFlashcard);
-  const flashcards = useUserStore((state) => state.flashcards);
+  const deleteFlashcardStore = useUserStore((state) => state.deleteFlashcard);
 
   const [openDropdown, setOpenDropdown] = useState<boolean>(false);
 
-  const handleDelete = async () => {
-    try {
-      const res = await axios.post(
-        `http://localhost:3000/flashcards/${flashcardData.flashcard_id}`,
-        null,
-        { withCredentials: true }
-      );
+  const mutation = useMutation({
+    mutationKey: ["delete-flashcard"],
+    mutationFn: async ({ flashcardId }: { flashcardId: string }) => {
+      return await deleteFlashcard(flashcardId);
+    },
 
-      if (res.status === 200) {
-        deleteFlashcard(flashcardData.flashcard_id);
-      } else console.log("failure");
-    } catch (err) {
-      console.log(err);
-    }
+    onSuccess: (data: string) => {
+      console.log("flashcardID", data);
+      deleteFlashcardStore(data);
+    },
+
+    onError: () => {
+      console.log("Error");
+    },
+  });
+
+  const handleDelete = async () => {
+    const flashcardId = flashcardData.flashcard_id;
+
+    mutation.mutate({ flashcardId: flashcardId });
+
+    // try {
+    //   const res = await axios.post(
+    //     `http://localhost:3000/flashcards/${flashcardData.flashcard_id}`,
+    //     null,
+    //     { withCredentials: true }
+    //   );
+
+    //   if (res.status === 200) {
+    //     deleteFlashcard(flashcardData.flashcard_id);
+    //   } else console.log("failure");
+    // } catch (err) {
+    //   console.log(err);
+    // }
   };
 
   return (

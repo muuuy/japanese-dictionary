@@ -20,10 +20,14 @@ const useUserStore = create<UserState>()(
   devtools((set) => ({
     auth: false,
     flashcards: [],
+
     authUser: (flashcards) => set({ auth: true, flashcards: [...flashcards] }),
+
     unAuthUser: () => set({ auth: false, flashcards: [] }),
+
     addFlashcard: (newFlashcard) =>
       set((state) => ({ flashcards: [...state.flashcards, newFlashcard] })),
+
     deleteFlashcard: (flashcardID) =>
       set((state) => ({
         flashcards: [
@@ -32,6 +36,7 @@ const useUserStore = create<UserState>()(
           ),
         ],
       })),
+
     editFlashcard: (flashcardID, character, definition) =>
       set((state) => ({
         flashcards: state.flashcards.map((flashcard) =>
