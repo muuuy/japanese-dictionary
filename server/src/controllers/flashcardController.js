@@ -5,8 +5,8 @@ const { userQueryID } = require("../queries/userQueries");
 const {
   insertFlashcardQuery,
   deleteFlashcardQuery,
+  editFlashcardQuery,
 } = require("../queries/flashcardQueries");
-
 const {
   validateCharacter,
   validateDefinition,
@@ -79,20 +79,23 @@ exports.delete = [
 //Edit flashcard -> Put '/:id'
 exports.edit = [
   asyncHandler(async (req, res, next) => {
-    if (!req.session.authenticated)
+    if (!req.session.authenticated) {
       return res.status(401).json({ errors: "Not logged in." });
+    }
 
     const searchID = req.params.id;
     const character = req.body.character;
     const definition = req.body.definition;
 
-    const flashcard = await Flashcard.findById(searchID).exec();
+    try {
+      await editFlashcardQuery(searchID, character, definition);
 
-    if (flashcard.character !== character) flashcard.character = character;
-    if (flashcard.definition !== definition) flashcard.definition = definition;
-
-    await flashcard.save();
-
-    return res.status(200).json({});
+      return res.status(200).json({});
+    } catch (error) {
+      console.log("Database error", error);
+      return res
+        .status(500)
+        .json({ error: "An error occurred. Please try again later." });
+    }
   }),
 ];

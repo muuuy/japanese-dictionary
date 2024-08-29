@@ -63,7 +63,29 @@ const deleteFlashcardQuery = async (userId, flashcardId) => {
   }
 };
 
-const editFlashcardQuery = async () => {};
+/**
+ * Updates the user's flashcard
+ *
+ * @param {string} flashcardId
+ * @param {string} character
+ * @param {string} definition
+ */
+const editFlashcardQuery = async (flashcardId, character, definition) => {
+  try {
+    const flashcard = await pool.query(
+      "UPDATE flashcards SET character = $1, definition = $2 WHERE flashcard_id = $3",
+      [character, definition, flashcardId]
+    );
+
+    if (flashcard.rowCount === 0) {
+      throw new DatabaseError("Flashcard not found, edit failed.");
+    }
+
+    console.log(flashcard);
+  } catch (error) {
+    throw error;
+  }
+};
 
 module.exports = {
   insertFlashcardQuery,
