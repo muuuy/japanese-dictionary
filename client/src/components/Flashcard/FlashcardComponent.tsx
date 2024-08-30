@@ -9,7 +9,7 @@ interface FlashcardComponentProps {
   flashcardData: FlashcardData;
   handlePopup: (
     isEdit: boolean,
-    id: string,
+    id: number,
     character: string,
     definition: string
   ) => void;
@@ -25,12 +25,11 @@ const FlashcardComponent: React.FC<FlashcardComponentProps> = ({
 
   const mutation = useMutation({
     mutationKey: ["delete-flashcard"],
-    mutationFn: async ({ flashcardId }: { flashcardId: string }) => {
+    mutationFn: async ({ flashcardId }: { flashcardId: number }) => {
       return await deleteFlashcard(flashcardId);
     },
 
-    onSuccess: (data: string) => {
-      console.log("flashcardID", data);
+    onSuccess: (data: number) => {
       deleteFlashcardStore(data);
     },
 
@@ -43,20 +42,6 @@ const FlashcardComponent: React.FC<FlashcardComponentProps> = ({
     const flashcardId = flashcardData.flashcard_id;
 
     mutation.mutate({ flashcardId: flashcardId });
-
-    // try {
-    //   const res = await axios.post(
-    //     `http://localhost:3000/flashcards/${flashcardData.flashcard_id}`,
-    //     null,
-    //     { withCredentials: true }
-    //   );
-
-    //   if (res.status === 200) {
-    //     deleteFlashcard(flashcardData.flashcard_id);
-    //   } else console.log("failure");
-    // } catch (err) {
-    //   console.log(err);
-    // }
   };
 
   return (

@@ -1,10 +1,11 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState, useMemo, useRef } from "react";
 import useUserStore from "../stores/store";
 
 import { Input, Button } from "@chakra-ui/react";
 
 import FlashcardComponent from "../components/Flashcard/FlashcardComponent";
-import FlashcardForm from "../components/Flashcard/FlashcardForm";
+import { FlashcardForm } from "../components/Flashcard/FlashcardForm";
+import { FlashcardData } from "../interfaces";
 
 const Flashcards = () => {
   const flashcards = useUserStore((state) => state.flashcards);
@@ -16,7 +17,12 @@ const Flashcards = () => {
   const addFlashcardPopup = useRef<HTMLDivElement>(null);
 
   const [popupIsEdit, setPopupIsEdit] = useState<boolean>(false);
-  const [popupID, setPopupID] = useState<string>("");
+  const [popupData, setPopupData] = useState<FlashcardData>({
+    flashcard_id: -1,
+    character: "",
+    definition: "'",
+  });
+  const [popupID, setPopupID] = useState<number>(-1);
   const [popupCharacter, setPopupCharacter] = useState<string>("");
   const [popupDefinition, setPopupDefinition] = useState<string>("");
 
@@ -41,7 +47,22 @@ const Flashcards = () => {
     return () => document.removeEventListener("mousedown", handleClick);
   }, [displayPopup]);
 
-  const populateDisplayCards = useCallback(() => {
+  const handlePopup = (
+    isEdit: boolean,
+    id: number,
+    character: string,
+    definition: string
+  ) => {
+    setDisplayPopup(true);
+
+    if (popupIsEdit !== isEdit) setPopupIsEdit(isEdit);
+
+    setPopupID(id);
+    setPopupCharacter(character);
+    setPopupDefinition(definition);
+  };
+
+  const populateDisplayCards = useMemo(() => {
     if (input === "") {
       return flashcards.map((flashcard, index) => (
         <FlashcardComponent
@@ -71,23 +92,8 @@ const Flashcards = () => {
     }
   }, [flashcards, input]);
 
-  const handlePopup = (
-    isEdit: boolean,
-    id: string,
-    character: string,
-    definition: string
-  ) => {
-    setDisplayPopup(true);
-
-    if (popupIsEdit !== isEdit) setPopupIsEdit(isEdit);
-
-    setPopupID(id);
-    setPopupCharacter(character);
-    setPopupDefinition(definition);
-  };
-
   useEffect(() => {
-    setDisplayCards(populateDisplayCards());
+    setDisplayCards(populateDisplayCards);
   }, [populateDisplayCards]);
 
   return (
@@ -105,7 +111,7 @@ const Flashcards = () => {
           name="add_flashcard"
         />
         <Button
-          onClick={() => handlePopup(false, "", "", "")}
+          onClick={() => handlePopup(false, -1, "", "")}
           colorScheme="red"
           width={"200px"}
         >

@@ -80,8 +80,6 @@ const editFlashcardQuery = async (flashcardId, character, definition) => {
     if (flashcard.rowCount === 0) {
       throw new DatabaseError("Flashcard not found, edit failed.");
     }
-
-    console.log(flashcard);
   } catch (error) {
     throw error;
   }

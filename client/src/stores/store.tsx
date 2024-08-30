@@ -8,9 +8,9 @@ interface UserState {
   authUser: (flashcards: FlashcardData[]) => void;
   unAuthUser: () => void;
   addFlashcard: (newFlashcard: FlashcardData) => void;
-  deleteFlashcard: (flashcardID: string) => void;
+  deleteFlashcard: (flashcardID: number) => void;
   editFlashcard: (
-    flashcardID: string,
+    flashcardID: number,
     character: string,
     definition: string
   ) => void;

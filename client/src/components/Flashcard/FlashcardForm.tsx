@@ -1,21 +1,20 @@
 import { useState, useEffect } from "react";
-
-import useUserStore from "../../stores/store";
-
 import { FormControl, FormLabel } from "@chakra-ui/react";
 import { Input, Button } from "@chakra-ui/react";
+import {
+  FlashcardFormData,
+  EditFlashcardMutationData,
+} from "./FlashcardInterface";
+import { useMutation } from "@tanstack/react-query";
+import { editFlashcard } from "../../api/flashcard";
+import useUserStore from "../../stores/store";
 
 interface AddFlashcardProps {
   isEdit: boolean;
-  id: string;
+  id: number;
   character: string;
   definition: string;
 }
-
-type FormData = {
-  character: string;
-  definition: string;
-};
 
 const FlashcardForm: React.FC<AddFlashcardProps> = ({
   isEdit,
@@ -24,11 +23,24 @@ const FlashcardForm: React.FC<AddFlashcardProps> = ({
   definition,
 }) => {
   const addFlashcard = useUserStore((state) => state.addFlashcard);
-  const editFlashcard = useUserStore((state) => state.editFlashcard);
-
-  const [formData, setFormData] = useState<FormData>({
+  const editFlashcardStore = useUserStore((state) => state.editFlashcard);
+  const [formData, setFormData] = useState<FlashcardFormData>({
     character: character,
     definition: definition,
+  });
+
+  const editFlashcardMutation = useMutation({
+    mutationKey: ["edit-flashcard"],
+    mutationFn: async ({
+      flashcard_id,
+      formData,
+    }: EditFlashcardMutationData) => {
+      return await editFlashcard(flashcard_id, formData);
+    },
+
+    onSuccess: () => {},
+
+    onError: () => {},
   });
 
   useEffect(() => {
@@ -44,8 +56,7 @@ const FlashcardForm: React.FC<AddFlashcardProps> = ({
     event.preventDefault();
 
     if (formData.character === "" || formData.definition === "") {
-      console.log("empty");
-      return;
+      throw new Error("Missing info for the flashcard form");
     }
 
     isEdit ? await handleEdit() : await handleAdd();
@@ -63,7 +74,7 @@ const FlashcardForm: React.FC<AddFlashcardProps> = ({
       });
 
       if (res.ok) {
-        editFlashcard(id, formData.character, formData.definition);
+        editFlashcardStore(id, formData.character, formData.definition);
         setFormData({ character: "", definition: "" });
         return;
       } else console.log("failure");
@@ -85,7 +96,6 @@ const FlashcardForm: React.FC<AddFlashcardProps> = ({
 
       if (res.ok) {
         const data = await res.json();
-        console.log(data);
         addFlashcard(data.flashcard);
         setFormData({ character: "", definition: "" });
         return;
@@ -133,4 +143,4 @@ const FlashcardForm: React.FC<AddFlashcardProps> = ({
   );
 };
 
-export default FlashcardForm;
+export { FlashcardForm };
