@@ -23,58 +23,65 @@ const Header: React.FC<SkeletonData> = ({ imageLoaded, imagesLoaded }) => {
           "sm:order-1"
         )}
       >
-        <h1 className="font-black">
-          <span className={clsx("text-base", "sm:text-2xl lg:text-4xl")}>
-            STUDY AND LEARN
-          </span>
-          <br />
-          <span
-            className={clsx(
-              "text-3xl text-red-600",
-              "sm:text-5xl md:text-6xl lg:text-7xl"
-            )}
-          >
-            JAPANESE
-          </span>
-        </h1>
-        <h2
-          className={clsx(
-            "font-bold py-4 text-wrap p-2 text-xs",
-            "sm:text-xs md:text-base lg:text-base"
-          )}
-        >
-          Explore and enhance your Japanese language skills by yourself or with
-          friends!
-        </h2>
         <div
           className={clsx(
-            "flex text-nowrap justify-center relative",
-            "sm:gap-8"
+            "bg-white p-8 rounded-lg shadow-custom-dark w-11/12 h-5/6 flex flex-col items-center justify-center",
+            "sm:h-auto 2xl:w-auto"
           )}
         >
-          {auth ? (
-            <div
+          <h1 className="font-black">
+            <span className={clsx("text-base", "sm:text-2xl lg:text-4xl")}>
+              STUDY AND LEARN
+            </span>
+            <br />
+            <span
               className={clsx(
-                "flex flex-row justify-center items-center gap-4",
-                "sm:top-20 sm:absolute sm:flex-col"
+                "text-3xl text-red-600",
+                "sm:text-4xl md:text-5xl lg:text-6xl"
               )}
             >
-              <h3
+              JAPANESE
+            </span>
+          </h1>
+          <h2
+            className={clsx(
+              "font-bold py-4 text-wrap p-2 text-xs",
+              "sm:text-xs md:text-base lg:text-base"
+            )}
+          >
+            Explore and enhance your Japanese language skills by yourself or
+            with friends!
+          </h2>
+          <div
+            className={clsx(
+              "flex text-nowrap justify-center relative",
+              "sm:gap-8"
+            )}
+          >
+            {auth ? (
+              <div
                 className={clsx(
-                  "font-black text-base italic",
-                  "sm:text-2xl sm:underline",
-                  "lg:text-4xl"
+                  "flex flex-row justify-center items-center gap-4",
+                  "sm:top-20 sm:absolute sm:flex-col"
                 )}
               >
-                WELCOME BACK!
-              </h3>
-              <div>
-                <HomeTypewriter text="日本語を勉強しよう" speed={200} />
+                <h3
+                  className={clsx(
+                    "font-black text-base italic",
+                    "sm:text-2xl sm:underline",
+                    "lg:text-4xl"
+                  )}
+                >
+                  WELCOME BACK!
+                </h3>
+                <div>
+                  <HomeTypewriter text="日本語を勉強しよう" speed={200} />
+                </div>
               </div>
-            </div>
-          ) : (
-            <LoginBanner />
-          )}
+            ) : (
+              <LoginBanner />
+            )}
+          </div>
         </div>
       </div>
       <img
