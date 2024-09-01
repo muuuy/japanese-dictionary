@@ -3,12 +3,13 @@ import { FlashcardData } from "../../interfaces";
 import { FaPencilAlt, FaTrash, FaEllipsisH } from "react-icons/fa";
 import { useMutation } from "@tanstack/react-query";
 import { deleteFlashcard } from "../../api/flashcard";
+import { FlashcardFormType } from "./FlashcardInterface";
 import useUserStore from "../../stores/store";
 
 interface FlashcardComponentProps {
   flashcardData: FlashcardData;
   handlePopup: (
-    isEdit: boolean,
+    isEdit: FlashcardFormType,
     id: number,
     character: string,
     definition: string
