@@ -60,3 +60,31 @@ export const editFlashcard = async (
     throw error;
   }
 };
+
+//API call to add flashcard (POST)
+export const addFlashcard = async (formData: FlashcardFormData) => {
+  try {
+    const res = await fetch(`http://localhost:3000/flashcards`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    const response = await res.json();
+
+    if (!res.ok) {
+      if (Array.isArray(response.errors)) {
+        throw new Error(response.errors[0].msg);
+      } else {
+        throw new Error(response.errors);
+      }
+    }
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};

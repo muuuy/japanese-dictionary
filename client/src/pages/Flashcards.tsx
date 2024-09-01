@@ -4,8 +4,9 @@ import useUserStore from "../stores/store";
 import { Input, Button } from "@chakra-ui/react";
 
 import FlashcardComponent from "../components/Flashcard/FlashcardComponent";
-import { FlashcardForm } from "../components/Flashcard/FlashcardForm";
+import { EditFlashcardForm } from "../components/Flashcard/EditFlashcardForm";
 import { FlashcardData } from "../interfaces";
+import { AddFlashcardForm } from "../components/Flashcard/AddFlashcardForm";
 
 const Flashcards = () => {
   const flashcards = useUserStore((state) => state.flashcards);
@@ -125,12 +126,16 @@ const Flashcards = () => {
         className={`absolute z-50 ${displayPopup ? "block" : "hidden"}`}
         ref={addFlashcardPopup}
       >
-        <FlashcardForm
-          isEdit={popupIsEdit}
-          id={popupID}
-          character={popupCharacter}
-          definition={popupDefinition}
-        />
+        {popupIsEdit ? (
+          <EditFlashcardForm
+            isEdit={popupIsEdit}
+            id={popupID}
+            character={popupCharacter}
+            definition={popupDefinition}
+          />
+        ) : (
+          <AddFlashcardForm />
+        )}
       </div>
       <div
         className={`absolute inset-0 bg-black opacity-50 z-0 ${
