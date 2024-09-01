@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-import { FormControl, FormLabel } from "@chakra-ui/react";
-import { Input, Button } from "@chakra-ui/react";
 import {
   FlashcardFormData,
   EditFlashcardMutationData,
@@ -12,20 +10,17 @@ import useUserStore from "../../stores/store";
 
 interface AddFlashcardProps {
   flashcard_id: number;
-  character: string;
-  definition: string;
+  formData: FlashcardFormData;
 }
 
 const EditFlashcardForm: React.FC<AddFlashcardProps> = ({
   flashcard_id,
-  character,
-  definition,
+  formData,
 }) => {
   const addFlashcard = useUserStore((state) => state.addFlashcard);
   const editFlashcardStore = useUserStore((state) => state.editFlashcard);
-  const [formData, setFormData] = useState<FlashcardFormData>({
-    character: character,
-    definition: definition,
+  const [editFormData, setEditFormData] = useState<FlashcardFormData>({
+    ...formData,
   });
 
   const editFlashcardMutation = useMutation({
@@ -38,60 +33,58 @@ const EditFlashcardForm: React.FC<AddFlashcardProps> = ({
     },
 
     onSuccess: () => {
-      editFlashcardStore(flashcard_id, formData.character, formData.definition);
-      setFormData({ character: "", definition: "" });
+      editFlashcardStore(
+        flashcard_id,
+        editFormData.character,
+        editFormData.definition
+      );
+      setEditFormData({ character: "", definition: "" });
     },
 
     onError: () => {},
   });
 
   useEffect(() => {
-    setFormData({ character: character, definition: definition });
-  }, [character, definition]);
+    setEditFormData({ ...formData });
+  }, [formData]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    editFlashcardMutation.mutate({
-      flashcard_id: flashcard_id,
-      formData: formData,
-    });
-  };
-
-  // const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-
-  //   if (formData.character === "" || formData.definition === "") {
-  //     throw new Error("Missing info for the flashcard form");
-  //   }
-
-  //   isEdit ? await handleEdit() : await handleAdd();
-  // };
-
-  const handleEdit = async () => {
-    try {
-      const res = await fetch(`http://localhost:3000/flashcards/${id}`, {
-        method: "PUT",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+    if (editFormData.character === "" || editFormData.definition === "") {
+      throw new Error("Edit Flashcard: Missing information.");
+    } else {
+      editFlashcardMutation.mutate({
+        flashcard_id: flashcard_id,
+        formData: editFormData,
       });
-
-      if (res.ok) {
-        editFlashcardStore(
-          flashcard_id,
-          formData.character,
-          formData.definition
-        );
-        setFormData({ character: "", definition: "" });
-        return;
-      } else console.log("failure");
-    } catch (err) {
-      console.log(err);
     }
   };
+
+  // const handleEdit = async () => {
+  //   try {
+  //     const res = await fetch(`http://localhost:3000/flashcards/${id}`, {
+  //       method: "PUT",
+  //       credentials: "include",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(formData),
+  //     });
+
+  //     if (res.ok) {
+  //       editFlashcardStore(
+  //         flashcard_id,
+  //         formData.character,
+  //         formData.definition
+  //       );
+  //       setFormData({ character: "", definition: "" });
+  //       return;
+  //     } else console.log("failure");
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   // const handleAdd = async () => {
   //   try {
@@ -120,7 +113,7 @@ const EditFlashcardForm: React.FC<AddFlashcardProps> = ({
       <h1 className="text-4xl font-black text-center mb-8 tracking-widest">
         EDIT FLASHCARD
       </h1>
-      <FlashcardForm handleSubmit={handleSubmit} />
+      <FlashcardForm handleSubmit={handleSubmit} popupData={editFormData} />
     </div>
   );
 };

@@ -6,13 +6,18 @@ import { FlashcardFormData } from "./FlashcardInterface";
 
 interface FormData {
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  popupData?: FlashcardFormData;
 }
 
-const FlashcardForm: React.FC<FormData> = ({ handleSubmit }) => {
-  const [formData, setFormData] = useState<FlashcardFormData>({
-    character: "",
-    definition: "",
-  });
+const FlashcardForm: React.FC<FormData> = ({ handleSubmit, popupData }) => {
+  const [formData, setFormData] = useState<FlashcardFormData>(
+    popupData
+      ? { ...popupData }
+      : {
+          character: "",
+          definition: "",
+        }
+  );
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();

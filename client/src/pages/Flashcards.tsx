@@ -5,7 +5,7 @@ import { Input, Button } from "@chakra-ui/react";
 
 import FlashcardComponent from "../components/Flashcard/FlashcardComponent";
 import { EditFlashcardForm } from "../components/Flashcard/EditFlashcardForm";
-import { FlashcardData } from "../interfaces";
+import { FlashcardFormData } from "../components/Flashcard/FlashcardInterface";
 import { AddFlashcardForm } from "../components/Flashcard/AddFlashcardForm";
 
 const Flashcards = () => {
@@ -18,14 +18,11 @@ const Flashcards = () => {
   const addFlashcardPopup = useRef<HTMLDivElement>(null);
 
   const [popupIsEdit, setPopupIsEdit] = useState<boolean>(false);
-  const [popupData, setPopupData] = useState<FlashcardData>({
-    flashcard_id: -1,
+  const [formData, setFormData] = useState<FlashcardFormData>({
     character: "",
     definition: "'",
   });
   const [popupID, setPopupID] = useState<number>(-1);
-  const [popupCharacter, setPopupCharacter] = useState<string>("");
-  const [popupDefinition, setPopupDefinition] = useState<string>("");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -56,11 +53,12 @@ const Flashcards = () => {
   ) => {
     setDisplayPopup(true);
 
-    if (popupIsEdit !== isEdit) setPopupIsEdit(isEdit);
+    if (popupIsEdit !== isEdit) {
+      setPopupIsEdit(isEdit);
+    }
 
     setPopupID(id);
-    setPopupCharacter(character);
-    setPopupDefinition(definition);
+    setFormData({ character: character, definition: definition });
   };
 
   const populateDisplayCards = useMemo(() => {
@@ -127,12 +125,7 @@ const Flashcards = () => {
         ref={addFlashcardPopup}
       >
         {popupIsEdit ? (
-          <EditFlashcardForm
-            isEdit={popupIsEdit}
-            id={popupID}
-            character={popupCharacter}
-            definition={popupDefinition}
-          />
+          <EditFlashcardForm flashcard_id={popupID} formData={formData} />
         ) : (
           <AddFlashcardForm />
         )}
