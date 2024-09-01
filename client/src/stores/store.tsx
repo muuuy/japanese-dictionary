@@ -9,11 +9,7 @@ interface UserState {
   unAuthUser: () => void;
   addFlashcard: (newFlashcard: FlashcardData) => void;
   deleteFlashcard: (flashcardID: number) => void;
-  editFlashcard: (
-    flashcardID: number,
-    character: string,
-    definition: string
-  ) => void;
+  editFlashcard: (flashcardData: FlashcardData) => void;
 }
 
 const useUserStore = create<UserState>()(
@@ -37,14 +33,20 @@ const useUserStore = create<UserState>()(
         ],
       })),
 
-    editFlashcard: (flashcardID, character, definition) =>
+    editFlashcard: (flashcardData) => {
       set((state) => ({
         flashcards: state.flashcards.map((flashcard) =>
-          flashcard.flashcard_id === flashcardID
-            ? { ...flashcard, character: character, definition: definition }
+          flashcard.flashcard_id === flashcardData.flashcard_id
+            ? {
+                ...flashcard,
+                character: flashcardData.character,
+                definition: flashcardData.definition,
+              }
             : flashcard
         ),
       })),
+        console.log("zustand:", flashcardData);
+    },
   }))
 );
 

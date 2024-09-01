@@ -33,8 +33,8 @@ const FlashcardComponent: React.FC<FlashcardComponentProps> = ({
       deleteFlashcardStore(data);
     },
 
-    onError: () => {
-      console.log("Error");
+    onError: (error: Error) => {
+      console.log("Delete Flashcard: Error", error);
     },
   });
 

@@ -29,6 +29,7 @@ const Flashcards = () => {
     setInput(event.target.value);
   };
 
+  //Click outside of popup -> Close popup
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
       if (
@@ -125,7 +126,7 @@ const Flashcards = () => {
         ref={addFlashcardPopup}
       >
         {popupIsEdit ? (
-          <EditFlashcardForm flashcard_id={popupID} formData={formData} />
+          <EditFlashcardForm flashcard_id={popupID} editFormData={formData} />
         ) : (
           <AddFlashcardForm />
         )}

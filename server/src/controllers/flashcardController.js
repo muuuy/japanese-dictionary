@@ -90,13 +90,11 @@ exports.edit = [
     try {
       await editFlashcardQuery(searchID, character, definition);
 
-      return res
-        .status(200)
-        .json({
-          flashcard_id: searchID,
-          character: character,
-          definition: definition,
-        });
+      return res.status(200).json({
+        flashcard_id: searchID,
+        character: character,
+        definition: definition,
+      });
     } catch (error) {
       console.log("Database error", error);
       return res

@@ -55,7 +55,15 @@ export const editFlashcard = async (
       }
     }
 
-    return response;
+    const flashcard_id = parseInt(response.flashcard_id);
+    const character = response.character;
+    const definition = response.definition;
+
+    return {
+      flashcard_id: flashcard_id,
+      character: character,
+      definition: definition,
+    };
   } catch (error) {
     throw error;
   }
@@ -83,7 +91,7 @@ export const addFlashcard = async (formData: FlashcardFormData) => {
       }
     }
 
-    return response;
+    return response.flashcard;
   } catch (error) {
     throw error;
   }
