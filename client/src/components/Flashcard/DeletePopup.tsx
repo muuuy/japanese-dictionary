@@ -5,9 +5,13 @@ import useUserStore from "../../stores/store";
 
 interface DeletePopupData {
   flashcard_id: number;
+  closePopup: () => void;
 }
 
-const DeletePopup: React.FC<DeletePopupData> = ({ flashcard_id }) => {
+const DeletePopup: React.FC<DeletePopupData> = ({
+  flashcard_id,
+  closePopup,
+}) => {
   const deleteFlashcardStore = useUserStore((state) => state.deleteFlashcard);
 
   const deleteFlashcardMutation = useMutation({
@@ -18,6 +22,7 @@ const DeletePopup: React.FC<DeletePopupData> = ({ flashcard_id }) => {
 
     onSuccess: (data: number) => {
       deleteFlashcardStore(data);
+      closePopup();
     },
 
     onError: (error: Error) => {

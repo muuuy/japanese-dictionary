@@ -11,11 +11,13 @@ import useUserStore from "../../stores/store";
 interface AddFlashcardProps {
   flashcard_id: number;
   editFormData: FlashcardFormData;
+  closePopup: () => void;
 }
 
 const EditFlashcardForm: React.FC<AddFlashcardProps> = ({
   flashcard_id,
   editFormData,
+  closePopup,
 }) => {
   const editFlashcardStore = useUserStore((state) => state.editFlashcard);
 
@@ -30,6 +32,7 @@ const EditFlashcardForm: React.FC<AddFlashcardProps> = ({
 
     onSuccess: (data: FlashcardData) => {
       editFlashcardStore(data);
+      closePopup();
     },
 
     onError: (error: Error) => {

@@ -69,6 +69,10 @@ const Flashcards = () => {
     setPopupType(FlashcardFormType.ADD);
   };
 
+  const closePopup = () => {
+    setDisplayPopup(false);
+  };
+
   const populateDisplayCards = useMemo(() => {
     if (input === "") {
       return flashcards.map((flashcard, index) => (
@@ -125,11 +129,15 @@ const Flashcards = () => {
         ref={addFlashcardPopup}
       >
         {popupType === FlashcardFormType.EDIT ? (
-          <EditFlashcardForm flashcard_id={popupID} editFormData={formData} />
+          <EditFlashcardForm
+            flashcard_id={popupID}
+            editFormData={formData}
+            closePopup={closePopup}
+          />
         ) : popupType === FlashcardFormType.ADD ? (
-          <AddFlashcardForm />
+          <AddFlashcardForm closePopup={closePopup} />
         ) : (
-          <DeletePopup flashcard_id={popupID} />
+          <DeletePopup flashcard_id={popupID} closePopup={closePopup} />
         )}
       </div>
       <div

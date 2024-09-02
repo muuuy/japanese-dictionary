@@ -5,7 +5,11 @@ import { addFlashcard } from "../../api/flashcard";
 import useUserStore from "../../stores/store";
 import { FlashcardData } from "../../interfaces";
 
-const AddFlashcardForm = () => {
+interface FlashcardAddFormData {
+  closePopup: () => void;
+}
+
+const AddFlashcardForm: React.FC<FlashcardAddFormData> = ({ closePopup }) => {
   const addFlashcardStore = useUserStore((state) => state.addFlashcard);
 
   const addFlashcardMutation = useMutation({
@@ -15,6 +19,7 @@ const AddFlashcardForm = () => {
 
     onSuccess: (data: FlashcardData) => {
       addFlashcardStore(data);
+      closePopup();
     },
 
     onError: (error: Error) => {
