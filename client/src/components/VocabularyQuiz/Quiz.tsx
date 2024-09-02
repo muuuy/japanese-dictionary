@@ -46,6 +46,10 @@ const Quiz = () => {
     dispatch({ type: "CREATE", intialFlashcards: [...flashcards] });
   }, [flashcards]);
 
+  useEffect(() => {
+    console.log(state);
+  }, [state]);
+
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     setInput(event.target.value);
@@ -106,7 +110,7 @@ const Quiz = () => {
                 <div className="flex flex-row gap-4 my-2 text-xl">
                   <p className="flex flex-row justify-center items-center gap-2 font-black text-base">
                     <span className="text-red-500 bg-slate-200 p-1 rounded-full">
-                      {state.answeredQuestions.length}
+                      {state.questionsAnswered}
                     </span>{" "}
                     of{" "}
                     <span className="text-red-500 bg-slate-200 p-1 rounded-full">

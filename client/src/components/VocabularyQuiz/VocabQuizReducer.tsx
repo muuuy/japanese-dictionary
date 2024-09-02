@@ -8,13 +8,13 @@ interface VoacbQuizReducerAction {
 }
 
 export const vocabInitialState: QuizReducerData = {
-  unansweredQuestions: [],
-  answeredQuestions: [],
+  questions: [],
   currentQuestion: null,
   numCorrect: 0,
   numWrong: 0,
   numSkipped: 0,
   numQuestions: 0,
+  questionsAnswered: 0,
 };
 
 export function vocabReducer(
@@ -33,13 +33,13 @@ export function vocabReducer(
 
         return {
           ...state,
-          unansweredQuestions: flashcards,
-          answeredQuestions: [],
+          questions: flashcards,
           currentQuestion: currQuestion,
           numCorrect: 0,
           numWrong: 0,
           numSkipped: 0,
           numQuestions: flashcards.length,
+          questionsAnswered: 0,
         };
       } else {
         return state;
@@ -48,15 +48,20 @@ export function vocabReducer(
 
     //Correct answer for quiz
     case "CORRECT": {
-      const previousQuestion: FlashcardData = state.currentQuestion!;
-      const currentQuestion: FlashcardData | null =
-        state.unansweredQuestions.shift() || null;
+      // const currentQuestion: FlashcardData | null =
+      //   state.unansweredQuestions.shift() || null;
+
+      const numCorrect = state.numCorrect + 1;
+      const numAnswered = state.questionsAnswered + 1;
 
       return {
         ...state,
-        numCorrect: state.numCorrect + 1,
-        currentQuestion: currentQuestion,
-        answeredQuestions: [...state.answeredQuestions, previousQuestion],
+        numCorrect: numCorrect,
+        questionsAnswered: numAnswered,
+        currentQuestion:
+          numAnswered < state.numQuestions
+            ? state.questions[numAnswered]
+            : null,
       };
     }
 
@@ -70,15 +75,17 @@ export function vocabReducer(
 
     //Skip the current question
     case "SKIP": {
-      const previousQuestion: FlashcardData = state.currentQuestion!;
-      const currentQuestion: FlashcardData | null =
-        state.unansweredQuestions.shift() || null;
+      const numSkipped = state.numSkipped + 1;
+      const numAnswered = state.questionsAnswered + 1;
 
       return {
         ...state,
-        numSkipped: state.numSkipped + 1,
-        currentQuestion: currentQuestion,
-        answeredQuestions: [...state.answeredQuestions, previousQuestion],
+        numSkipped: numSkipped,
+        questionsAnswered: numAnswered,
+        currentQuestion:
+          numAnswered < state.numQuestions
+            ? state.questions[numAnswered]
+            : null,
       };
     }
   }

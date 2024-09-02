@@ -12,11 +12,11 @@ export interface GraphOptions {
 }
 
 export interface QuizReducerData {
-  unansweredQuestions: FlashcardData[];
-  answeredQuestions: FlashcardData[];
+  questions: FlashcardData[];
   currentQuestion: FlashcardData | null;
   numCorrect: number;
   numWrong: number;
   numSkipped: number;
   numQuestions: number;
+  questionsAnswered: number;
 }
