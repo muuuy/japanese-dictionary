@@ -25,6 +25,7 @@ const JoinRoomForm: React.FC<WhiteBoardFormData> = ({ addErrorBanner }) => {
           type="text"
           mb={4}
           autoComplete="true"
+          backgroundColor={"white"}
           onChange={handleChange}
           focusBorderColor="black"
         />
@@ -35,6 +36,7 @@ const JoinRoomForm: React.FC<WhiteBoardFormData> = ({ addErrorBanner }) => {
           name="roomCode"
           placeholder="Enter room code"
           type="text"
+          backgroundColor={"white"}
           onChange={handleChange}
           focusBorderColor="black"
         />

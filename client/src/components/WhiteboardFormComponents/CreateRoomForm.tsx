@@ -35,6 +35,7 @@ const CreateRoomForm: React.FC<WhiteBoardFormData> = ({ addErrorBanner }) => {
           type="text"
           autoComplete="true"
           mb={4}
+          backgroundColor={"white"}
           onChange={handleChange}
           focusBorderColor="black"
           isRequired
@@ -47,6 +48,7 @@ const CreateRoomForm: React.FC<WhiteBoardFormData> = ({ addErrorBanner }) => {
             name="roomCode"
             placeholder="Generate room code"
             type="text"
+            backgroundColor={"white"}
             onChange={handleChange}
             focusBorderColor="black"
             value={formData.roomCode}
@@ -60,6 +62,7 @@ const CreateRoomForm: React.FC<WhiteBoardFormData> = ({ addErrorBanner }) => {
               colorScheme="red"
               variant="outline"
               rounded="none"
+              backgroundColor={"white"}
               onClick={handleCopy}
             >
               COPY

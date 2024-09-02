@@ -47,6 +47,7 @@ const Whiteboard = () => {
           icon={<FaPencilAlt />}
           onClick={() => changeColor("black", 8)}
           isActive={activeButton === "black"}
+          backgroundColor={"white"}
         ></IconButton>
         <IconButton
           aria-label="Eraser"
@@ -56,6 +57,7 @@ const Whiteboard = () => {
           icon={<FaEraser />}
           onClick={() => changeColor("white", 32)}
           isActive={activeButton === "white"}
+          backgroundColor={"white"}
         ></IconButton>
       </div>
       {connectionType !== "" && roomCode !== "" && (

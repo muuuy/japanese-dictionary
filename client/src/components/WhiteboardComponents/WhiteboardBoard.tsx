@@ -152,12 +152,13 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
         colorScheme="red"
         variant="outline"
         className="mt-4"
+        backgroundColor={"white"}
         onClick={clearCanvas}
       >
         CLEAR BOARD
       </Button>
       <canvas
-        className="border-2 border-black my-8"
+        className="border-2 border-black my-8 bg-white"
         ref={canvas}
         height={1000}
         width={1000}
