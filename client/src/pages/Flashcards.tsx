@@ -1,23 +1,21 @@
-import React, { useEffect, useState, useMemo, useRef } from "react";
-import useUserStore from "../stores/store";
-
+import { useEffect, useState, useMemo, useRef } from "react";
 import { Input, Button } from "@chakra-ui/react";
-
-import FlashcardComponent from "../components/Flashcard/FlashcardComponent";
+import { FlashcardComponent } from "../components/Flashcard/FlashcardComponent";
 import { EditFlashcardForm } from "../components/Flashcard/EditFlashcardForm";
 import { FlashcardFormData } from "../components/Flashcard/FlashcardInterface";
 import { AddFlashcardForm } from "../components/Flashcard/AddFlashcardForm";
+import { FlashcardFormType } from "../components/Flashcard/FlashcardInterface";
+import { DeletePopup } from "../components/Flashcard/DeletePopup";
+import useUserStore from "../stores/store";
 
 const Flashcards = () => {
   const flashcards = useUserStore((state) => state.flashcards);
-
   const [input, setInput] = useState<string>("");
-  const [displayCards, setDisplayCards] = useState<JSX.Element[]>([]);
-
   const [displayPopup, setDisplayPopup] = useState<boolean>(false);
   const addFlashcardPopup = useRef<HTMLDivElement>(null);
-
-  const [popupIsEdit, setPopupIsEdit] = useState<boolean>(false);
+  const [popupType, setPopupType] = useState<FlashcardFormType>(
+    FlashcardFormType.ADD
+  );
   const [formData, setFormData] = useState<FlashcardFormData>({
     character: "",
     definition: "'",
@@ -46,20 +44,29 @@ const Flashcards = () => {
     return () => document.removeEventListener("mousedown", handleClick);
   }, [displayPopup]);
 
+  //For DELETE and EDIT popup
   const handlePopup = (
-    isEdit: boolean,
+    formType: FlashcardFormType,
     id: number,
-    character: string,
-    definition: string
+    character?: string,
+    definition?: string
   ) => {
     setDisplayPopup(true);
 
-    if (popupIsEdit !== isEdit) {
-      setPopupIsEdit(isEdit);
+    if (popupType !== formType) {
+      setPopupType(formType);
+    }
+
+    if (character && definition) {
+      setFormData({ character: character, definition: definition });
     }
 
     setPopupID(id);
-    setFormData({ character: character, definition: definition });
+  };
+
+  const handleAdd = () => {
+    setDisplayPopup(true);
+    setPopupType(FlashcardFormType.ADD);
   };
 
   const populateDisplayCards = useMemo(() => {
@@ -92,10 +99,6 @@ const Flashcards = () => {
     }
   }, [flashcards, input]);
 
-  useEffect(() => {
-    setDisplayCards(populateDisplayCards);
-  }, [populateDisplayCards]);
-
   return (
     <div className="flex flex-col flex-1 justify-center items-center">
       <h1 className="page--header">FLASHCARDS</h1>
@@ -110,25 +113,23 @@ const Flashcards = () => {
           backgroundColor={"white"}
           name="add_flashcard"
         />
-        <Button
-          onClick={() => handlePopup(false, -1, "", "")}
-          colorScheme="red"
-          width={"200px"}
-        >
+        <Button onClick={handleAdd} colorScheme="red" width={"200px"}>
           <span className="font-black text-2xl">ADD</span>
         </Button>
       </div>
       <div className="flex flex-row flex-wrap justify-center items-center gap-8 mx-1 mt-8">
-        {displayCards}
+        {populateDisplayCards}
       </div>
       <div
         className={`absolute z-50 ${displayPopup ? "block" : "hidden"}`}
         ref={addFlashcardPopup}
       >
-        {popupIsEdit ? (
+        {popupType === FlashcardFormType.EDIT ? (
           <EditFlashcardForm flashcard_id={popupID} editFormData={formData} />
-        ) : (
+        ) : popupType === FlashcardFormType.ADD ? (
           <AddFlashcardForm />
+        ) : (
+          <DeletePopup flashcard_id={popupID} />
         )}
       </div>
       <div

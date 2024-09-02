@@ -33,8 +33,9 @@ const DeletePopup: React.FC<DeletePopupData> = ({ flashcard_id }) => {
 
   return (
     <div className="bg-white border-2 border-red-600 shadow-custom-red p-8 rounded-xl">
+      <h1 className="text-center font-black text-2xl">DELETE FLASHCARD?</h1>
       <Button onClick={handleClick} className="mt-8 w-96" colorScheme="red">
-        DELETE
+        <span className="font-black text-2xl">CONFIRM</span>
       </Button>
     </div>
   );
