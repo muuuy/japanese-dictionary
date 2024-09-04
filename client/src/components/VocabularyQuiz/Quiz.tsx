@@ -24,7 +24,12 @@ const Quiz = () => {
   const mutation = useMutation<boolean, Error, ValidateVocabData>({
     mutationKey: ["vocab-quiz"],
     mutationFn: async ({ flashcard, input }) => {
-      return await validateVocab(flashcard, input);
+      return await validateVocab(
+        flashcard.flashcard_id,
+        flashcard.character,
+        flashcard.definition,
+        input
+      );
     },
 
     onSuccess: (data) => {

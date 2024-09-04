@@ -1,9 +1,17 @@
 const asyncHandler = require("express-async-handler");
 const { userFlashcardQuery } = require("../queries/vocabQueries");
+const {
+  validateCharacter,
+  validateDefinition,
+  handleErrors,
+} = require("../middleware/validate");
 
 const pool = require("../config/postgresDB");
 
 exports.validate_answer = [
+  validateCharacter,
+  validateDefinition,
+  handleErrors,
   asyncHandler(async (req, res, next) => {
     if (!req.session.authenticated) {
       return res.status(401).json({ errors: "You must be logged in." });
@@ -26,8 +34,8 @@ exports.validate_answer = [
       const flashcardCharacter = result[0].character;
       const flashcardDefinition = result[0].definition;
 
-      const clientCharacter = req.body.flashcard.character;
-      const clientDefinition = req.body.flashcard.definition;
+      const clientCharacter = req.body.character;
+      const clientDefinition = req.body.definition;
 
       if (
         flashcardCharacter !== clientCharacter ||
@@ -39,13 +47,18 @@ exports.validate_answer = [
           .json({ error: "An error occurred. Please try again later." });
       }
 
-      const userInput = req.body.input;
+      //Vocab Quiz --> Has input --> Skip if matching quiz
+      if (req.body.input) {
+        const userInput = req.body.input;
 
-      if (flashcardDefinition === userInput) {
-        return res.status(200).json({ isCorrect: true });
-      } else {
-        return res.status(200).json({ isCorrect: false });
+        if (flashcardDefinition === userInput) {
+          return res.status(200).json({ isCorrect: true });
+        } else {
+          return res.status(200).json({ isCorrect: false });
+        }
       }
+
+      return res.status(200).json({ isCorrect: true });
     } catch (error) {
       console.log("Database error:", error);
       return res

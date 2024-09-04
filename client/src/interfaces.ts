@@ -68,3 +68,10 @@ export interface ResetFormData {
   verifyPassword: string;
   token: string;
 }
+
+export interface ValidateBodyData {
+  flashcard_id: number;
+  character: string;
+  definition: string;
+  input?: string;
+}

@@ -1,24 +1,30 @@
-import { FlashcardData } from "../interfaces";
+import { ValidateBodyData } from "../interfaces";
 
 export const validateVocab = async (
-  flashcard: FlashcardData,
-  input: string
+  flashcard_id: number,
+  character: string,
+  definition: string,
+  input?: string
 ): Promise<boolean> => {
+  const bodyInfo: ValidateBodyData = {
+    flashcard_id: flashcard_id,
+    character: character,
+    definition: definition,
+  };
+
+  if (input) {
+    bodyInfo.input = input;
+  }
+
   try {
-    const res = await fetch(
-      `http://localhost:3000/vocab/${flashcard.flashcard_id}`,
-      {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          flashcard: flashcard,
-          input: input,
-        }),
-      }
-    );
+    const res = await fetch(`http://localhost:3000/vocab/${flashcard_id}`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(bodyInfo),
+    });
 
     const response = await res.json();
 

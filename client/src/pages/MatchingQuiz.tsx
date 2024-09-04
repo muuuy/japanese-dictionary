@@ -5,28 +5,58 @@ import { Card } from "../components/MatchingQuiz/Card";
 import { useState, useEffect } from "react";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { CardData } from "../components/MatchingQuiz/MatchingInterface";
+import { useMutation } from "@tanstack/react-query";
+import { validateVocab } from "../util/validateVocab";
+import { ValidateBodyData } from "../interfaces";
 import useUserStore from "../stores/store";
 
 const QuizScreen = () => {
   const flashcards = useUserStore((state) => state.flashcards);
-
   const [characterCards, setCharacterCards] = useState<CardData[]>([]);
   const [definitionCards, setDefinitionCards] = useState<CardData[]>([]);
   const [matches, setMatches] = useState<{ [key: string]: string | null }>({});
 
+  const mutation = useMutation({
+    mutationKey: ["mutation-validate"],
+    mutationFn: async ({
+      flashcard_id,
+      character,
+      definition,
+    }: ValidateBodyData) => {
+      return await validateVocab(flashcard_id, character, definition);
+    },
+
+    onSuccess: () => {},
+
+    onError: () => {},
+  });
+
+  //populate character cards and definition cards
   useEffect(() => {
     const tempCharacters: CardData[] = [];
     const tempDefinitions: CardData[] = [];
 
     flashcards.map((flashcard, index) => {
-      tempCharacters.push({ id: index, flashcardItem: flashcard.character });
-      tempDefinitions.push({ id: index, flashcardItem: flashcard.definition });
+      tempCharacters.push({
+        id: index,
+        flashcardItem: flashcard.character,
+      });
+      tempDefinitions.push({
+        id: index,
+        flashcardItem: flashcard.definition,
+      });
     });
 
     setCharacterCards(tempCharacters);
     setDefinitionCards(tempDefinitions);
   }, [flashcards]);
 
+  //Checks if card is already a match in matches object
+  const checkMatch = (id: number) => {
+    return Object.values(matches).includes(`definition-${id}`);
+  };
+
+  //handle when definition card is dragged over character card
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
 
@@ -35,8 +65,13 @@ const QuizScreen = () => {
       active.id.toString().startsWith("definition-") &&
       over.id.toString().startsWith("character-")
     ) {
-      const definitionId = active.id.toString().split("-")[1];
-      const characterId = over.id.toString().split("-")[1];
+      const definitionId: number = parseInt(active.id.toString().split("-")[1]);
+      const characterId: number = parseInt(over.id.toString().split("-")[1]);
+
+      //Already a match
+      if (checkMatch(definitionId)) {
+        return;
+      }
 
       if (definitionId === characterId) {
         setMatches((prev) => ({
@@ -77,7 +112,7 @@ const QuizScreen = () => {
                 key={`definition-${card.id}`}
                 id={`definition-${card.id}`}
               >
-                {!Object.values(matches).includes(`definition-${card.id}`) && (
+                {checkMatch(card.id) === false && (
                   <Card flashcardItem={card.flashcardItem} type="definition" />
                 )}
               </Draggable>

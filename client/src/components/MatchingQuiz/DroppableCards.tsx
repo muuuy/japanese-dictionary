@@ -1,6 +1,6 @@
 import { CardData } from "./MatchingInterface";
 import { Droppable } from "../DragAndDrop/Droppable";
-import { Card } from "@chakra-ui/react";
+import { Card } from "./Card";
 
 interface DroppableCardsData {
   characterCards: CardData[];
