@@ -1,16 +1,13 @@
 import { useEffect, useState } from "react";
+import { CardData } from "./MatchingInterface";
 import useUserStore from "../../stores/store";
-
-interface CardData {
-  id: number;
-  flashcardItem: string;
-}
 
 const MatchingQuizContent = () => {
   const flashcards = useUserStore((state) => state.flashcards);
 
   const [charCards, setCharCards] = useState<CardData[]>([]);
   const [defCards, setDefCards] = useState<CardData[]>([]);
+  const [matches, setMatches] = useState<{ [key: string]: string | null }>({});
 
   useEffect(() => {
     const tempCharCards: CardData[] = [];

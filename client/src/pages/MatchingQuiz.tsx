@@ -4,12 +4,8 @@ import { Draggable } from "../components/DragAndDrop/Draggable";
 import { Card } from "../components/MatchingQuiz/Card";
 import { useState, useEffect } from "react";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
+import { CardData } from "../components/MatchingQuiz/MatchingInterface";
 import useUserStore from "../stores/store";
-
-interface CardData {
-  id: number;
-  flashcardItem: string;
-}
 
 const QuizScreen = () => {
   const flashcards = useUserStore((state) => state.flashcards);
@@ -52,10 +48,9 @@ const QuizScreen = () => {
   };
 
   return (
-    <DndContext onDragEnd={handleDragEnd}>
-      <div className="flex flex-col flex-1 justify-center items-center overflow-hidden relative max-h-screen bg-beige">
-        <Timer />
-        <div className="flex flex-row gap-2">
+    <div className="flex flex-col flex-1 justify-center items-center overflow-hidden relative max-h-screen bg-beige">
+      <DndContext onDragEnd={handleDragEnd}>
+        <div className="flex flex-row gap-20 justify-center items-center">
           <div className="flex flex-col gap-4">
             {characterCards.map((card) => (
               <Droppable
@@ -89,8 +84,9 @@ const QuizScreen = () => {
             ))}
           </div>
         </div>
-      </div>
-    </DndContext>
+      </DndContext>
+      <Timer />
+    </div>
   );
 };
 
