@@ -115,6 +115,14 @@ Before starting, ensure you have the following installed on your machine:
 
 ![Home Page](/github-images/home_screen.png)
 
+![Sign Up](/github-images/signup.png)
+
+![Login](/github-images/login.png)
+
+![Forgot Password](/github-images/forgot-password.png)
+
+![Reset Password](/github-images/reset-password.png)
+
 ![Whiteboard Form](/github-images/whiteboard_form_screen.png)
 
 ![Whiteboard](/github-images/whiteboard_screen.png)
