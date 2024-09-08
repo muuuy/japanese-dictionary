@@ -5,9 +5,6 @@ import { Card } from "../components/MatchingQuiz/Card";
 import { useState, useEffect } from "react";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { CardData } from "../components/MatchingQuiz/MatchingInterface";
-import { useMutation } from "@tanstack/react-query";
-import { validateVocab } from "../util/validateVocab";
-import { ValidateBodyData } from "../interfaces";
 import useUserStore from "../stores/store";
 
 const QuizScreen = () => {
@@ -15,21 +12,6 @@ const QuizScreen = () => {
   const [characterCards, setCharacterCards] = useState<CardData[]>([]);
   const [definitionCards, setDefinitionCards] = useState<CardData[]>([]);
   const [matches, setMatches] = useState<{ [key: string]: string | null }>({});
-
-  const mutation = useMutation({
-    mutationKey: ["mutation-validate"],
-    mutationFn: async ({
-      flashcard_id,
-      character,
-      definition,
-    }: ValidateBodyData) => {
-      return await validateVocab(flashcard_id, character, definition);
-    },
-
-    onSuccess: () => {},
-
-    onError: () => {},
-  });
 
   //populate character cards and definition cards
   useEffect(() => {
