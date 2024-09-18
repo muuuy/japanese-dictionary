@@ -1,6 +1,11 @@
 import { FlashcardData } from "../interfaces";
 
-//Shuffle flashcards to randomize it  for quizzes
+/**
+ * Shuffles the cards for the quizzes / tests
+ * 
+ * @param {FlashcardData[]} flashcards - Array that represents the user's flashcards.
+ * @returns {FlashcardData[]} - Returns a shuffled flashcard based onthe input
+ */
 export function shuffleFlashcards(
   flashcards: FlashcardData[]
 ): FlashcardData[] {

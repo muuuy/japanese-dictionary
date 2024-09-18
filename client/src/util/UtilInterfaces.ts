@@ -1,3 +1,5 @@
+// Interfaces for the quizzes
+
 import { FlashcardData } from "../interfaces";
 import { LoginFormData, ForgotFormData, ResetFormData } from "../interfaces";
 

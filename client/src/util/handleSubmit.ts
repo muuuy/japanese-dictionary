@@ -1,5 +1,14 @@
+// Fetch requests for FORMS (Login, Signup, Forgot Password, Reset Password, etc.)
+// Typically used with React Query
+
 import { FetchData, FetchInfoResponse } from "./UtilInterfaces";
 
+/**
+ * Fetches the info from the server based on user input from the form
+ * 
+ * @param param0 - User input from form
+ * @returns {Promise<Response>} - Returns the results of the fetch
+ */
 export const fetchInfo = async ({
   urlPath,
   formData,
@@ -14,6 +23,15 @@ export const fetchInfo = async ({
   });
 };
 
+/**
+ * Fetches the actual information that the server returns after a fetch request to it
+ * Used for user forms
+ * Utilized fetchInfo()
+ * Can throw an error if something breaks during the fetch request
+ * 
+ * @param param0 
+ * @returns 
+ */
 export const fetchQueryInfo = async ({
   urlPath,
   formData,

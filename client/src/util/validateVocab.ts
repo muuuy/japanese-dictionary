@@ -1,5 +1,14 @@
 import { ValidateBodyData } from "../interfaces";
 
+/**
+ * Checks with the server to see if the user's input for a quiz is valid.
+ * 
+ * @param {int} flashcard_id
+ * @param {string} character 
+ * @param {string} definition 
+ * @param {string} input - The user's input 
+ * @returns {Promise<boolean>} - Returns result of whether it matches or not
+ */
 export const validateVocab = async (
   flashcard_id: number,
   character: string,
