@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node ./src/server.js",
-    "test": "jest --verbose",
+    "test": "vitest",
     "devstart": "nodemon ./src/server.js",
     "serverstart": "SET DEBUG=backend:* & npm run devstart"
   },
@@ -42,7 +42,7 @@
   "devDependencies": {
     "@types/jest": "^29.5.12",
     "@types/supertest": "^6.0.2",
-    "jest": "^29.7.0",
-    "supertest": "^7.0.0"
+    "supertest": "^7.0.0",
+    "vitest": "^2.1.1"
   }
 }
