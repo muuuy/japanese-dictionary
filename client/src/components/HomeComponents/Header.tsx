@@ -61,15 +61,14 @@ const Header: React.FC<SkeletonData> = ({ imageLoaded, imagesLoaded }) => {
             {auth ? (
               <div
                 className={clsx(
-                  "flex flex-row justify-center items-center gap-4",
-                  "sm:top-20 sm:absolute sm:flex-col"
+                  "flex flex-row justify-center items-center gap-2",
+                  "sm:top-16 sm:absolute sm:flex-col"
                 )}
               >
                 <h3
                   className={clsx(
                     "font-black text-base italic",
                     "sm:text-2xl sm:underline",
-                    "lg:text-4xl"
                   )}
                 >
                   WELCOME BACK!

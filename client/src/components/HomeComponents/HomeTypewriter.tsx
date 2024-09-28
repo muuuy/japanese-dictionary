@@ -10,7 +10,7 @@ const HomeTypewriter: React.FC<HomeTypewriterData> = ({ text, speed }) => {
   const displayText = useTypewriter(text, speed);
 
   return (
-    <p className={clsx("font-bold text-red-600 text-base", "sm:text-2xl")}>
+    <p className={clsx("font-bold text-red-600 text-base", "sm:text-xl")}>
       {displayText}
     </p>
   );

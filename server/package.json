@@ -7,7 +7,7 @@
     "start": "node ./src/server.js",
     "test": "vitest",
     "devstart": "nodemon ./src/server.js",
-    "serverstart": "SET DEBUG=backend:* & npm run devstart"
+    "serverstart": "DEBUG=backend:* & npm run devstart"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -32,6 +32,7 @@
     "mongoose": "^8.4.4",
     "morgan": "~1.9.1",
     "nodemailer": "^6.9.14",
+    "nodemon": "^3.1.7",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "pg": "^8.12.0",

@@ -21,7 +21,6 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server);
 
-require("./config/db")();
 const session = require("./config/session.js");
 app.use(session);
 
