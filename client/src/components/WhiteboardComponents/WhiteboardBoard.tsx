@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { io } from "socket.io-client";
-
 import { Button } from "@chakra-ui/react";
+import clsx from "clsx";
 
 const socket = io("http://localhost:3000", { transports: ["websocket"] });
 interface WhiteboardBoardProps {
@@ -25,11 +25,14 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
 }) => {
   const canvas = useRef<HTMLCanvasElement | null>(null);
   const isDrawingRef = useRef<boolean>(false);
-
   const [mouseLocation, setMouseLocation] = useState<Mouse>({
     mouseX: 0,
     mouseY: 0,
   });
+  const windowDimensions: number[] = [
+    window.innerHeight > 900 ? 1000 : 500,
+    window.innerWidth > 850 ? 1000 : 500,
+  ];
 
   useEffect(() => {
     socket.emit(connectionType, { roomCode: roomCode, name: name });
@@ -158,10 +161,10 @@ const WhiteboardBoard: React.FC<WhiteboardBoardProps> = ({
         CLEAR BOARD
       </Button>
       <canvas
-        className="border-2 border-black my-8 bg-white"
+        className={clsx("border-2 border-black my-8 bg-white", "s")}
         ref={canvas}
-        height={1000}
-        width={1000}
+        height={windowDimensions[0]}
+        width={windowDimensions[1]}
         onMouseMove={(event) =>
           handleMouseMove(
             event,
