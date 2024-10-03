@@ -9,8 +9,10 @@ vi.mock("../config/postgresDB");
 const bcrypt = require("bcryptjs");
 const pool = require("../config/postgresDB");
 const user_signup = require("../controllers/userController");
+const user_login = require("../controllers/userController");
 
-test("user signup", async () => {
+//user_signup
+test("User Signup REST API", async () => {
   let req, res, next;
 
   beforeAll(() => {
@@ -37,6 +39,7 @@ test("user signup", async () => {
       rows: [{ user_id: 1, email: "test@example.com" }],
     });
 
+    // user_signup is an array of middleware functions
     await user_signup[user_signup.length - 1](req, res, next);
 
     expect(bcrypt.hash).toHaveBeenCalledWith("password123", 13);
@@ -71,6 +74,31 @@ test("user signup", async () => {
 
     expect(next).toHaveBeenCalledWith(dbError);
   });
+});
 
-  // Add more tests for validateEmail, validatePassword, validateVerifyPassword, and handleErrors middleware
+//user_login
+test("User Login REST API", async () => {
+  let req, res, next;
+
+  beforeAll(() => {
+    req = {
+      body: {
+        email: "test@example.com",
+        password: "password123",
+      },
+    };
+
+    res = {
+      status: vi.fn().mockReturnThis(),
+      json: vi.fn(),
+    };
+
+    next = vi.fn();
+  });
+
+  expect("should login user succesfully", async () => {
+    pool.query.mockResolvedValue({
+      rows: [{ user_id: 1, email: "test@example.com" }],
+    });
+  });
 });
