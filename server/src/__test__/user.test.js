@@ -100,5 +100,7 @@ test("User Login REST API", async () => {
     pool.query.mockResolvedValue({
       rows: [{ user_id: 1, email: "test@example.com" }],
     });
+
+    await user_login[user_login.length - 1](req, res, next);
   });
 });
