@@ -5,6 +5,7 @@ import { RulesButton } from "./RulesButton";
 import { useNavigate } from "react-router-dom";
 import { StartScreenData } from "./StartInterface";
 import { Rules } from "./Rules";
+import clsx from "clsx";
 
 const QuizStartScreen: React.FC<StartScreenData> = ({
   linkTo,
@@ -52,9 +53,15 @@ const QuizStartScreen: React.FC<StartScreenData> = ({
       fadeDuration={1}
       isLoaded={imageLoaded}
     >
-      <div className="flex flex-col left-0 flex flex-col gap-4 w-full">
+      <div className="flex flex-col left-0 gap-4 w-full">
         <div className="matching-quiz--header-container">
-          <h1 className="matching-quiz--header font-bold tracking-wider animate-header--fade-in">
+          <h1
+            className={clsx(
+              "matching-quiz--header font-bold tracking-wider animate-header--fade-in",
+              "text-8xl ml-8",
+              "lg:text-8xl"
+            )}
+          >
             {englishTitle}
             <span className="matching-quiz--sub-header">
               Practice your Japanese skills.
