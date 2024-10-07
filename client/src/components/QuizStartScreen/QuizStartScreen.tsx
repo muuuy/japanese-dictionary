@@ -80,7 +80,10 @@ const QuizStartScreen: React.FC<StartScreenData> = ({
       <img
         src={image}
         alt="Beautiful Japanese Scenery"
-        className="h-3/5 w-full object-cover p-4"
+        className={clsx(
+          "h-1/3 w-full object-cover object-center p-4",
+          "lg:h-3/5"
+        )}
         onLoad={handleImageLoad}
       />
       <div className="h-28 relative">
